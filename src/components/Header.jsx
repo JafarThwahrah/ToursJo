@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 function Header() {
   return (
@@ -7,9 +8,9 @@ function Header() {
         className="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
         id="ftco-navbar">
         <div className="container">
-          <a className="navbar-brand" href="index.html">
+          <NavLink to="/" className="nav-link navbar-brand">
             Pacific<span>Travel Agency</span>
-          </a>
+          </NavLink>
           <button
             className="navbar-toggler"
             type="button"
@@ -23,35 +24,32 @@ function Header() {
 
           <div className="collapse navbar-collapse" id="ftco-nav">
             <ul className="navbar-nav ml-auto">
-              <li className="nav-item active">
-                <a href="index.html" className="nav-link">
+              <li className="nav-item">
+                <NavLink to="/" className="nav-link">
                   Home
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a href="about.html" className="nav-link">
+                <NavLink to="/about" className="nav-link">
                   About
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a href="destination.html" className="nav-link">
+                <NavLink to="/destination" className="nav-link">
                   Destination
-                </a>
+                </NavLink>
               </li>
+
               <li className="nav-item">
-                <a href="hotel.html" className="nav-link">
-                  Hotel
-                </a>
-              </li>
-              <li className="nav-item">
-                <a href="blog.html" className="nav-link">
-                  Blog
-                </a>
-              </li>
-              <li className="nav-item">
-                <a href="contact.html" className="nav-link">
+                <NavLink to="/contact" className="nav-link">
                   Contact
-                </a>
+                </NavLink>
+              </li>
+
+              <li className="nav-item">
+                <NavLink to="/Login" className="nav-link">
+                  Login
+                </NavLink>
               </li>
             </ul>
           </div>
