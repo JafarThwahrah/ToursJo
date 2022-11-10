@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/About.css";
 
 function About() {
   return (
@@ -58,70 +59,46 @@ function About() {
         </div>
       </div>
 
-      <div class="our-services place-padding">
-        <div class="container">
-          <div class="row d-flex justify-contnet-center">
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-              <div class="single-services text-center mb-30">
-                <div class="services-ion">
-                  <span class="flaticon-tour"></span>
-                </div>
-                <div class="services-cap">
-                  <h5>
-                    8000+ Our Local
-                    <br />
-                    Guides
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-              <div class="single-services text-center mb-30">
-                <div class="services-ion">
-                  <span class="flaticon-pay"></span>
-                </div>
-                <div class="services-cap">
-                  <h5>
-                    100% Trusted Tour
-                    <br />
-                    Agency
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-              <div class="single-services text-center mb-30">
-                <div class="services-ion">
-                  <span class="flaticon-experience"></span>
-                </div>
-                <div class="services-cap">
-                  <h5>
-                    28+ Years of Travel
-                    <br />
-                    Experience
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-              <div class="single-services text-center mb-30">
-                <div class="services-ion">
-                  <span class="flaticon-good"></span>
-                </div>
-                <div class="services-cap">
-                  <h5>
-                    98% Our Travelers
-                    <br />
-                    are Happy
-                  </h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="container111 m-5">
+    
+    <div class="row">
+
+	<div class="four col-md-3">
+		<div class="counter-box colored">
+			<i class="fa fa-thumbs-o-up"></i>
+			<span class="counter">2147</span>
+			<p>Happy Customers</p>
+		</div>
+	</div>
+	<div class="four col-md-3">
+		<div class="counter-box">
+			<i class="fa fa-group"></i>
+			<span class="counter">3275</span>
+			<p>Registered Members</p>
+		</div>
+	</div>
+	<div class="four col-md-3">
+		<div class="counter-box">
+			<i class="fa  fa-shopping-cart"></i>
+			<span class="counter">289</span>
+			<p>Available Products</p>
+		</div>
+	</div>
+	<div class="four col-md-3">
+		<div class="counter-box">
+			<i class="fa  fa-user"></i>
+			<span class="counter">1563</span>
+			<p>Saved Trees</p>
+		</div>
+	</div>
+  </div>	
+</div>
+
     </div>
   );
 }
 
 export default About;
+
+
+  

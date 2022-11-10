@@ -123,21 +123,27 @@ function Destination() {
         <div class="container">
           <div class="row">
             <div class="col-md-4">
-              <div class="project-wrap">
+              <div class="project-wrap hotel">
                 <a
                   href="#"
                   class="img"
-                  style={{ backgroundImage: "url(images/destination-1.jpg)" }}>
-                  <span class="price">$550/person</span>
+                  style={{ backgroundImage: "url(images/hotel-resto-1.jpg)" }}>
+                  <span class="price">$200/person</span>
                 </a>
                 <div class="text p-4">
+                  <p class="star mb-2">
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                  </p>
                   <span class="days">8 Days Tour</span>
                   <h3>
-                    <a href="#">Banaue Rice Terraces</a>
+                    <a href="#">Manila Hotel</a>
                   </h3>
                   <p class="location">
-                    <span class="fa fa-map-marker"></span> Banaue, Ifugao,
-                    Philippines
+                    <span class="fa fa-map-marker"></span> Manila, Philippines
                   </p>
                   <ul>
                     <li>

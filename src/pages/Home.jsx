@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -45,9 +45,9 @@ function Home() {
                   regelialia.
                 </p>
                 <p>
-                  <a href="google.com" class="btn btn-primary py-3 px-4">
+                  <Link to="/destination" class="btn btn-primary py-3 px-4">
                     Search Destination
-                  </a>
+                  </Link>
                 </p>
               </div>
             </div>
@@ -123,78 +123,37 @@ function Home() {
         </div>
       </section>
 
-      <div className="album w-75 h-75 heading-section">
-        <h2 class="mb-5">Best Rated Tours</h2>
-        <div class=" row">
-          <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
-              class="w-100 shadow-1-strong rounded mb-4"
-              alt="Boat on Calm Water"
-            />
-
-            <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain1.webp"
-              class="w-100 shadow-1-strong rounded mb-4"
-              alt="Wintry Mountain Landscape"
-            />
-          </div>
-
-          <div class="col-lg-4 mb-4 mb-lg-0">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain2.webp"
-              class="w-100 shadow-1-strong rounded mb-4"
-              alt="Mountains in the Clouds"
-            />
-
-            <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
-              class="w-100 shadow-1-strong rounded mb-4"
-              alt="Boat on Calm Water"
-            />
-          </div>
-
-          <div class="col-lg-4 mb-4 mb-lg-0">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(18).webp"
-              class="w-100 shadow-1-strong rounded mb-4"
-              alt="Waves at Sea"
-            />
-
-            <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain3.webp"
-              class="w-100 shadow-1-strong rounded mb-4"
-              alt="Yosemite National Park"
-            />
-          </div>
-        </div>
-      </div>
-
       <section class="ftco-section">
         <div class="container">
           <div class="row justify-content-center pb-4">
             <div class="col-md-12 heading-section text-center">
               <span class="subheading">Destination</span>
-              <h2 class="mb-4">Tour Destination</h2>
+              <h2 class="mb-4">Best Rated Destinations</h2>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4">
-              <div class="project-wrap">
+            <div class="col-md-4 ">
+              <div class="project-wrap hotel">
                 <a
-                  href="google.com"
+                  href="#"
                   class="img"
-                  style={{ backgroundImage: "url(images/destination-1.jpg)" }}>
-                  <span class="price">$550/person</span>
+                  style={{ backgroundImage: "url(images/hotel-resto-1.jpg)" }}>
+                  <span class="price">$200/person</span>
                 </a>
                 <div class="text p-4">
+                  <p class="star mb-2">
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                  </p>
                   <span class="days">8 Days Tour</span>
                   <h3>
-                    <a href="google.com">Banaue Rice Terraces</a>
+                    <a href="#">Manila Hotel</a>
                   </h3>
                   <p class="location">
-                    <span class="fa fa-map-marker"></span> Banaue, Ifugao,
-                    Philippines
+                    <span class="fa fa-map-marker"></span> Manila, Philippines
                   </p>
                   <ul>
                     <li>
@@ -210,85 +169,41 @@ function Home() {
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="project-wrap">
-                <a
-                  href="google.com"
-                  class="img"
-                  style={{ backgroundImage: "url(images/destination-2.jpg)" }}>
-                  <span class="price">$550/person</span>
-                </a>
-                <div class="text p-4">
-                  <span class="days">10 Days Tour</span>
-                  <h3>
-                    <a href="google.com">Banaue Rice Terraces</a>
-                  </h3>
-                  <p class="location">
-                    <span class="fa fa-map-marker"></span> Banaue, Ifugao,
-                    Philippines
-                  </p>
-                  <ul>
-                    <li>
-                      <span class="flaticon-shower"></span>2
-                    </li>
-                    <li>
-                      <span class="flaticon-king-size"></span>3
-                    </li>
-                    <li>
-                      <span class="flaticon-sun-umbrella"></span>Near Beach
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="project-wrap">
-                <a
-                  href="google.com"
-                  class="img"
-                  style={{ backgroundImage: "url(images/destination-3.jpg)" }}>
-                  <span class="price">$550/person</span>
-                </a>
-                <div class="text p-4">
-                  <span class="days">7 Days Tour</span>
-                  <h3>
-                    <a href="google.com">Banaue Rice Terraces</a>
-                  </h3>
-                  <p class="location">
-                    <span class="fa fa-map-marker"></span> Banaue, Ifugao,
-                    Philippines
-                  </p>
-                  <ul>
-                    <li>
-                      <span class="flaticon-shower"></span>2
-                    </li>
-                    <li>
-                      <span class="flaticon-king-size"></span>3
-                    </li>
-                    <li>
-                      <span class="flaticon-sun-umbrella"></span>Near Beach
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+          </div>
+        </div>
+      </section>
 
-            <div class="col-md-4">
-              <div class="project-wrap">
+      <section class="ftco-section">
+        <div class="container">
+          <div class="row justify-content-center pb-4">
+            <div class="col-md-12 heading-section text-center">
+              <span class="subheading">Best Rated Advisros</span>
+              <h2 class="mb-4">Find Best Rated Tour Advisros</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 ">
+              <div class="project-wrap hotel">
                 <a
-                  href="google.com"
+                  href="#"
                   class="img"
-                  style={{ backgroundImage: "url(images/destination-4.jpg)" }}>
-                  <span class="price">$550/person</span>
+                  style={{ backgroundImage: "url(images/hotel-resto-1.jpg)" }}>
+                  <span class="price">$200/person</span>
                 </a>
                 <div class="text p-4">
+                  <p class="star mb-2">
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                  </p>
                   <span class="days">8 Days Tour</span>
                   <h3>
-                    <a href="google.com">Banaue Rice Terraces</a>
+                    <a href="#">Manila Hotel</a>
                   </h3>
                   <p class="location">
-                    <span class="fa fa-map-marker"></span> Banaue, Ifugao,
-                    Philippines
+                    <span class="fa fa-map-marker"></span> Manila, Philippines
                   </p>
                   <ul>
                     <li>
@@ -298,69 +213,7 @@ function Home() {
                       <span class="flaticon-king-size"></span>3
                     </li>
                     <li>
-                      <span class="flaticon-sun-umbrella"></span>Near Beach
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="project-wrap">
-                <a
-                  href="google.com"
-                  class="img"
-                  style={{ backgroundImage: "url(images/destination-5.jpg)" }}>
-                  <span class="price">$550/person</span>
-                </a>
-                <div class="text p-4">
-                  <span class="days">10 Days Tour</span>
-                  <h3>
-                    <a href="google.com">Banaue Rice Terraces</a>
-                  </h3>
-                  <p class="location">
-                    <span class="fa fa-map-marker"></span> Banaue, Ifugao,
-                    Philippines
-                  </p>
-                  <ul>
-                    <li>
-                      <span class="flaticon-shower"></span>2
-                    </li>
-                    <li>
-                      <span class="flaticon-king-size"></span>3
-                    </li>
-                    <li>
-                      <span class="flaticon-sun-umbrella"></span>Near Beach
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="project-wrap">
-                <a
-                  href="google.com"
-                  class="img"
-                  style={{ backgroundImage: "url(images/destination-6.jpg)" }}>
-                  <span class="price">$550/person</span>
-                </a>
-                <div class="text p-4">
-                  <span class="days">7 Days Tour</span>
-                  <h3>
-                    <a href="google.com">Banaue Rice Terraces</a>
-                  </h3>
-                  <p class="location">
-                    <span class="fa fa-map-marker"></span> Banaue, Ifugao,
-                    Philippines
-                  </p>
-                  <ul>
-                    <li>
-                      <span class="flaticon-shower"></span>2
-                    </li>
-                    <li>
-                      <span class="flaticon-king-size"></span>3
-                    </li>
-                    <li>
-                      <span class="flaticon-sun-umbrella"></span>Near Beach
+                      <span class="flaticon-mountains"></span>Near Mountain
                     </li>
                   </ul>
                 </div>
@@ -492,7 +345,6 @@ function Home() {
           </div>
         </div>
       </section>
-
     </>
   );
 }

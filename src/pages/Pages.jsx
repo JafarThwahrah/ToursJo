@@ -5,7 +5,8 @@ import Contact from "./Contact";
 import Destination from "./Destination";
 import Tourdetails from "./Tourdetails";
 import About from "./About";
-
+import Userprofile from "./Userprofile";
+import Checkout from "./Checkout";
 function Pages() {
   return (
     <div>
@@ -15,6 +16,8 @@ function Pages() {
         <Route path="/destination" element={<Destination />} />
         <Route path="/Tourdetails" element={<Tourdetails />} />
         <Route path="/about" element={<About />} />
+        <Route path="/userprofile" element={<Userprofile />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </div>
   );

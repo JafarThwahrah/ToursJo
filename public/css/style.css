@@ -9434,7 +9434,7 @@ textarea.form-control {
   .testimony-section .owl-carousel, .ftco-select-destination .owl-carousel {
     margin: 0; }
   .testimony-section .owl-carousel .owl-stage-outer, .ftco-select-destination .owl-carousel .owl-stage-outer {
-    padding: 1em 0 1em 0;
+    
     position: relative; }
   .testimony-section .owl-nav, .ftco-select-destination .owl-nav {
     position: absolute;
@@ -10091,6 +10091,7 @@ textarea.form-control {
   .owl-carousel .owl-item .card {
       padding: 30px;
       position: relative;
+      height: fit-content;
   }
   
   .owl-carousel .owl-stage-outer {
