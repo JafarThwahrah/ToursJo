@@ -1,19 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import BasicPopover from "../components/BasicPopover";
 
 function Home() {
   return (
     <>
       <div
-        className="hero-wrap js-fullheight"
-        style={{ backgroundImage: `url(images/bg_5.jpg)` }}>
-        <div className="overlay"></div>
-        <div className="container">
+        className="hero-wrap js-fullheight d-flex align-items-center"
+        style={{ backgroundImage: `url(https://cdn.theculturetrip.com/wp-content/uploads/2021/06/petra.jpg)`}}>
+       <div className="container">
           <div
-            className="row no-gutters slider-text js-fullheight align-items-center"
-            data-scrollax-parent="true">
+            className="row no-gutters slider-text js-fullheight"
+            data-scrollax-parent="">
             <div className="col-md-7">
-              <span className="subheading">Welcome to Pacific</span>
               <h1 className="mb-4">Discover Your Favorite Place with Us</h1>
               <p className="caps">
                 Travel to the any corner of the world, without going around in
@@ -22,14 +21,15 @@ function Home() {
             </div>
           </div>
         </div>
+        
       </div>
 
       <section class="ftco-section services-section">
         <div class="container">
           <div class="row d-flex">
             <div class="col-md-6 order-md-last heading-section pl-md-5 d-flex align-items-center">
-              <div class="w-100">
-                <span class="subheading">Welcome to Pacific</span>
+              <div class="w-100 text-start">
+                <span class="subheading">Welcome to TourJo</span>
                 <h2 class="mb-4">It's time to start your adventure</h2>
                 <p>
                   A small river named Duden flows by their place and supplies it
@@ -122,7 +122,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <section class="row justify-content-center">
+      <section class="row justify-content-center m-2">
         <div className="album w-75 h-75 heading-section">
           <h2 class="mb-5">Best Rated Destinations</h2>
           <div class=" row">
@@ -197,6 +197,7 @@ function Home() {
           </div>
         </div>
       </section>
+
       <section class="ftco-section">
         <div class="container">
           <div class="row justify-content-center pb-4">
@@ -211,8 +212,7 @@ function Home() {
                 <a
                   href="#"
                   class="img"
-                  style={{ backgroundImage: "url(images/hotel-resto-1.jpg)" }}>
-                  <span class="price">$200/person</span>
+                  style={{ backgroundImage: "url(https://d2studios.net/wp-content/uploads/blog/2015/04/6-Uses-for-a-Professional-Personal-Portrait-Photograph.jpg)" }}>
                 </a>
                 <div class="text p-4">
                   <p class="star mb-2">
@@ -222,24 +222,14 @@ function Home() {
                     <span class="fa fa-star"></span>
                     <span class="fa fa-star"></span>
                   </p>
-                  <span class="days">8 Days Tour</span>
+                  {/* <span class="days">8 Days Tour</span> */}
                   <h3>
-                    <a href="#">Manila Hotel</a>
+                  <BasicPopover />
                   </h3>
                   <p class="location">
-                    <span class="fa fa-map-marker"></span> Manila, Philippines
+                    <span class=""></span> Sammary, Im Jafar From Jordan Zarqa blah blah blah
                   </p>
-                  <ul>
-                    <li>
-                      <span class="flaticon-shower"></span>2
-                    </li>
-                    <li>
-                      <span class="flaticon-king-size"></span>3
-                    </li>
-                    <li>
-                      <span class="flaticon-mountains"></span>Near Mountain
-                    </li>
-                  </ul>
+                  
                 </div>
               </div>
             </div>
@@ -248,8 +238,8 @@ function Home() {
       </section>
 
       <section
-        class="ftco-section testimony-section bg-bottom"
-        style={{ backgroundImage: "url(images/bg_1.jpg)" }}>
+        class="ftco-section testimony-section bg-bottom mb-5"
+        style={{ backgroundImage: "url(https://img.freepik.com/free-photo/wide-angle-shot-ancient-building-with-towers-jerash-jordan_181624-17117.jpg?w=2000)" }}>
         <div class="overlay"></div>
         <div class="container">
           <div class="row justify-content-center pb-4">
@@ -258,6 +248,7 @@ function Home() {
               <h2 class="mb-4">Tourist Feedback</h2>
             </div>
           </div>
+
           <div class="row">
             <div class="col-md-12">
               <div class="owl-carousel owl-theme mt-5">

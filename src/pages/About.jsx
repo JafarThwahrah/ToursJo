@@ -17,14 +17,14 @@ function About() {
             </div>
             <div class="col-xl-6 col-lg-6">
               <div class="right-caption">
-                <div class="section-tittle section-tittle2">
+                <div class="section-tittle section-tittle2 text-start">
                   <span>About Our Company</span>
                   <h2>
                     We are Go Trip <br />
                     Ravels Support Company
                   </h2>
                 </div>
-                <div class="support-caption">
+                <div class="support-caption text-start">
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit,
                     sed do eiusmod tempor incididunt ut labore et dolore magna

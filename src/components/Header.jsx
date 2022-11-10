@@ -8,8 +8,8 @@ function Header() {
         className="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
         id="ftco-navbar">
         <div className="container">
-          <NavLink to="/" className="nav-link navbar-brand">
-            Pacific<span>Travel Agency</span>
+          <NavLink to="/" className="nav-link navbar-brand ">
+            <img className="w-25 h-25 rounded-circle" src="/images/LOGO.png" alt="" /><span>TourJo</span>
           </NavLink>
           <button
             className="navbar-toggler"

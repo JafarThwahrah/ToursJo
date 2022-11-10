@@ -3616,6 +3616,7 @@ input[type="button"].btn-block {
   flex-wrap: wrap;
   -webkit-box-align: center;
   -ms-flex-align: center;
+  /* position: absolute; */
   align-items: center;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
@@ -10193,3 +10194,6 @@ textarea.form-control {
 
 
 
+  /* nav {
+    position: absolute !important;
+  } */

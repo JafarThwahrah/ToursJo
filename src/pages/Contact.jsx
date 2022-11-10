@@ -1,20 +1,19 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 function Contact() {
   return (
     <div>
       <section
-        class="hero-wrap hero-wrap-2 js-fullheight"
-        style={{ backgroundImage: "url(images/bg_1.jpg)" }}>
-        <div class="overlay"></div>
+        class="hero-wrap hero-wrap-2 js-fullheight d-flex align-items-center"
+        style={{ backgroundImage: "url(https://upload.wikimedia.org/wikipedia/commons/0/0f/Roman_theater_of_Amman_01.jpg)" }}>
         <div class="container">
           <div class="row slider-text js-fullheight align-items-end justify-content-center">
             <div class="col-md-9 pb-5 text-center">
               <p class="breadcrumbs">
                 <span class="mr-2">
-                  <a href="index.html">
+                  <Link to="/">
                     Home <i class="fa fa-chevron-right"></i>
-                  </a>
+                  </Link>
                 </span>{" "}
                 <span>
                   Contact us <i class="fa fa-chevron-right"></i>

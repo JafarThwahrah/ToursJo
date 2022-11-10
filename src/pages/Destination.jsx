@@ -1,20 +1,77 @@
-import React from "react";
-
+import { Link } from "react-router-dom";
+import "../styles/Destination.css";
+import ReactPaginate from "react-paginate";
+import React, { useState } from "react";
+import JsonData from "../MOCK_DATA.json";
 function Destination() {
+  const [users, setUsers] = useState(JsonData.slice(0, 50));
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const usersPerPage = 9;
+  const pagesVisited = pageNumber * usersPerPage;
+  const displayUsers = users
+    .slice(pagesVisited, pagesVisited + usersPerPage)
+    .map((user) => {
+      return (
+        <div class="col-md-4">
+          <div class="project-wrap hotel">
+            <a
+              href="#"
+              class="img"
+              style={{ backgroundImage: "url(images/hotel-resto-1.jpg)" }}>
+              <span class="price">$200/person</span>
+            </a>
+            <div class="text p-4">
+              <p class="star mb-2">
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              </p>
+              <span class="days">8 Days Tour</span>
+              <h3>
+                <a href="#">Manila Hotel</a>
+              </h3>
+              <p class="location">
+                <span class="fa fa-map-marker"></span> Manila, Philippines
+              </p>
+              <ul>
+                <li>
+                  <span class="flaticon-shower"></span>2
+                </li>
+                <li>
+                  <span class="flaticon-king-size"></span>3
+                </li>
+                <li>
+                  <span class="flaticon-mountains"></span>Near Mountain
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      );
+    });
+
+  const pageCount = Math.ceil(users.length / usersPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
+
   return (
     <div>
       <section
-        class="hero-wrap hero-wrap-2 js-fullheight"
-        style={{ backgroundImage: "url(images/bg_1.jpg)" }}>
-        <div class="overlay"></div>
+        class="hero-wrap hero-wrap-2 js-fullheight d-flex align-items-center"
+        style={{ backgroundImage: "url(https://upload.wikimedia.org/wikipedia/commons/0/05/Arch_of_Hadrian%2C_Jerash%2C_Jordan2.jpg)" }}>
         <div class="container">
           <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
             <div class="col-md-9 pb-5 text-center">
               <p class="breadcrumbs">
                 <span class="mr-2">
-                  <a href="index.html">
+                  <Link to="/">
                     Home <i class="fa fa-chevron-right"></i>
-                  </a>
+                  </Link>
                 </span>{" "}
                 <span>
                   Tour List <i class="fa fa-chevron-right"></i>
@@ -122,199 +179,18 @@ function Destination() {
       <section class="ftco-section">
         <div class="container">
           <div class="row">
-            <div class="col-md-4">
-              <div class="project-wrap hotel">
-                <a
-                  href="#"
-                  class="img"
-                  style={{ backgroundImage: "url(images/hotel-resto-1.jpg)" }}>
-                  <span class="price">$200/person</span>
-                </a>
-                <div class="text p-4">
-                  <p class="star mb-2">
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                  </p>
-                  <span class="days">8 Days Tour</span>
-                  <h3>
-                    <a href="#">Manila Hotel</a>
-                  </h3>
-                  <p class="location">
-                    <span class="fa fa-map-marker"></span> Manila, Philippines
-                  </p>
-                  <ul>
-                    <li>
-                      <span class="flaticon-shower"></span>2
-                    </li>
-                    <li>
-                      <span class="flaticon-king-size"></span>3
-                    </li>
-                    <li>
-                      <span class="flaticon-mountains"></span>Near Mountain
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="project-wrap">
-                <a
-                  href="#"
-                  class="img"
-                  style={{ backgroundImage: "url(images/destination-2.jpg)" }}>
-                  <span class="price">$550/person</span>
-                </a>
-                <div class="text p-4">
-                  <span class="days">10 Days Tour</span>
-                  <h3>
-                    <a href="#">Banaue Rice Terraces</a>
-                  </h3>
-                  <p class="location">
-                    <span class="fa fa-map-marker"></span> Banaue, Ifugao,
-                    Philippines
-                  </p>
-                  <ul>
-                    <li>
-                      <span class="flaticon-shower"></span>2
-                    </li>
-                    <li>
-                      <span class="flaticon-king-size"></span>3
-                    </li>
-                    <li>
-                      <span class="flaticon-sun-umbrella"></span>Near Beach
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="project-wrap">
-                <a
-                  href="#"
-                  class="img"
-                  style={{ backgroundImage: "url(images/destination-3.jpg)" }}>
-                  <span class="price">$550/person</span>
-                </a>
-                <div class="text p-4">
-                  <span class="days">7 Days Tour</span>
-                  <h3>
-                    <a href="#">Banaue Rice Terraces</a>
-                  </h3>
-                  <p class="location">
-                    <span class="fa fa-map-marker"></span> Banaue, Ifugao,
-                    Philippines
-                  </p>
-                  <ul>
-                    <li>
-                      <span class="flaticon-shower"></span>2
-                    </li>
-                    <li>
-                      <span class="flaticon-king-size"></span>3
-                    </li>
-                    <li>
-                      <span class="flaticon-sun-umbrella"></span>Near Beach
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="project-wrap">
-                <a
-                  href="#"
-                  class="img"
-                  style={{ backgroundImage: "url(images/destination-4.jpg)" }}>
-                  <span class="price">$550/person</span>
-                </a>
-                <div class="text p-4">
-                  <span class="days">8 Days Tour</span>
-                  <h3>
-                    <a href="#">Banaue Rice Terraces</a>
-                  </h3>
-                  <p class="location">
-                    <span class="fa fa-map-marker"></span> Banaue, Ifugao,
-                    Philippines
-                  </p>
-                  <ul>
-                    <li>
-                      <span class="flaticon-shower"></span>2
-                    </li>
-                    <li>
-                      <span class="flaticon-king-size"></span>3
-                    </li>
-                    <li>
-                      <span class="flaticon-sun-umbrella"></span>Near Beach
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="project-wrap">
-                <a
-                  href="#"
-                  class="img"
-                  style={{ backgroundImage: "url(images/destination-5.jpg)" }}>
-                  <span class="price">$550/person</span>
-                </a>
-                <div class="text p-4">
-                  <span class="days">10 Days Tour</span>
-                  <h3>
-                    <a href="#">Banaue Rice Terraces</a>
-                  </h3>
-                  <p class="location">
-                    <span class="fa fa-map-marker"></span> Banaue, Ifugao,
-                    Philippines
-                  </p>
-                  <ul>
-                    <li>
-                      <span class="flaticon-shower"></span>2
-                    </li>
-                    <li>
-                      <span class="flaticon-king-size"></span>3
-                    </li>
-                    <li>
-                      <span class="flaticon-sun-umbrella"></span>Near Beach
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="project-wrap">
-                <a
-                  href="#"
-                  class="img"
-                  style={{ backgroundImage: "url(images/destination-6.jpg)" }}>
-                  <span class="price">$550/person</span>
-                </a>
-                <div class="text p-4">
-                  <span class="days">7 Days Tour</span>
-                  <h3>
-                    <a href="#">Banaue Rice Terraces</a>
-                  </h3>
-                  <p class="location">
-                    <span class="fa fa-map-marker"></span> Banaue, Ifugao,
-                    Philippines
-                  </p>
-                  <ul>
-                    <li>
-                      <span class="flaticon-shower"></span>2
-                    </li>
-                    <li>
-                      <span class="flaticon-king-size"></span>3
-                    </li>
-                    <li>
-                      <span class="flaticon-sun-umbrella"></span>Near Beach
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+            {displayUsers}
+            <ReactPaginate
+              previousLabel={"Previous"}
+              nextLabel={"Next"}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName={"paginationBttns"}
+              previousLinkClassName={"previousBttn"}
+              nextLinkClassName={"nextBttn"}
+              disabledClassName={"paginationDisabled"}
+              activeClassName={"paginationActive"}
+            />
           </div>
         </div>
       </section>

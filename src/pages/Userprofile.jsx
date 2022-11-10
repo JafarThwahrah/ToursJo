@@ -163,7 +163,7 @@ function Userprofile() {
                   <div class="serial">Tour ID</div>
                   <div class="tourdate">Tour Date</div>
                   <div class="Destination">Destination</div>
-                  <div class="touristname">Tourist Name</div>
+                  <div class="touristname">Tour Route</div>
                   <div class="price">Price</div>
                   <div class="review">Edit/unpublish</div>
                 </div>
