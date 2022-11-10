@@ -16,7 +16,8 @@
         "ignore": [
           "-moz-backface-visibility",
           "-webkit-text-size-adjust",
-          "background-clip"
+          "background-clip",
+          "-webkit-filter"
         ]
       }
     ]

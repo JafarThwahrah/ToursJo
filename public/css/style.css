@@ -10166,3 +10166,32 @@ textarea.form-control {
   .album{
     margin-left: 13rem;
   }
+
+
+
+  .column#caption1, .column#caption2, .column#caption3, .column#caption4, .column#caption5 , .column#caption6{
+    position: relative;
+  }
+  .column#caption1 .text, .column#caption2 .text, .column#caption3 .text, .column#caption4 .text, .column#caption5 .text, .column#caption6 .text{
+      position: absolute;		
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      opacity: 0;
+      transition: all 0.8s ease;			
+  }
+  .column#caption1 .text h1, .column#caption2 .text h1 ,.column#caption3 .text h1, .column#caption4 .text h1, .column#caption5 .text h1, .column#caption6 .text h1 {		
+      margin: 0;		
+      color: white;
+  }
+  .column#caption1:hover .text, .column#caption2:hover .text ,.column#caption3:hover .text ,.column#caption4:hover .text ,.column#caption5:hover .text ,.column#caption6:hover .text {
+    opacity: 1;
+    
+  }
+  .column#caption1:hover img, .column#caption2:hover img ,.column#caption3:hover img ,.column#caption4:hover img ,.column#caption5:hover img ,.column#caption6:hover img {
+    filter: brightness(70%);
+  }
+
+
+

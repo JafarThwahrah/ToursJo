@@ -123,62 +123,92 @@ function Home() {
         </div>
       </section>
 
-      <section class="ftco-section">
-        <div class="container">
-          <div class="row justify-content-center pb-4">
-            <div class="col-md-12 heading-section text-center">
-              <span class="subheading">Destination</span>
-              <h2 class="mb-4">Best Rated Destinations</h2>
-            </div>
+      <div className="album w-75 h-75 heading-section">
+        <h2 class="mb-5">Best Rated Destinations</h2>
+        <div class=" row">
+          <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+            <Link class="column" id="caption5" href="">
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                class="w-100 shadow-1-strong rounded mb-4"
+                alt="Boat on Calm Water"
+              />
+              <span class="text">
+                <h1>caption5</h1>
+              </span>
+            </Link>
+            <Link class="column" id="caption6" href="">
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain1.webp"
+                class="w-100 shadow-1-strong rounded mb-4"
+                alt="Wintry Mountain Landscape"
+              />
+              <span class="text">
+                <h1>caption5</h1>
+              </span>
+            </Link>
           </div>
-          <div class="row">
-            <div class="col-md-4 ">
-              <div class="project-wrap hotel">
-                <a
-                  href="#"
-                  class="img"
-                  style={{ backgroundImage: "url(images/hotel-resto-1.jpg)" }}>
-                  <span class="price">$200/person</span>
-                </a>
-                <div class="text p-4">
-                  <p class="star mb-2">
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                  </p>
-                  <span class="days">8 Days Tour</span>
-                  <h3>
-                    <a href="#">Manila Hotel</a>
-                  </h3>
-                  <p class="location">
-                    <span class="fa fa-map-marker"></span> Manila, Philippines
-                  </p>
-                  <ul>
-                    <li>
-                      <span class="flaticon-shower"></span>2
-                    </li>
-                    <li>
-                      <span class="flaticon-king-size"></span>3
-                    </li>
-                    <li>
-                      <span class="flaticon-mountains"></span>Near Mountain
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+
+          {/* <a href="#" class="column col-xs-6" id="caption">
+            <span class="text">
+              <h1>Thunder</h1>
+            </span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Thunderstorm_in_sydney_2000x1500.png" />
+          </a> */}
+          <div class="col-lg-4 mb-4 mb-lg-0">
+            <Link class="column" id="caption1" href="">
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain2.webp"
+                class="w-100 shadow-1-strong rounded mb-4"
+                alt="Mountains in the Clouds"
+              />
+              <span class="text">
+                <h1>Thunder</h1>
+              </span>
+            </Link>
+            <Link class="column" id="caption2" href="">
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                class="w-100 shadow-1-strong rounded mb-4"
+                alt="Boat on Calm Water"
+              />
+              <span class="text">
+                <h1>caption2</h1>
+              </span>
+            </Link>
+          </div>
+
+          <div class="col-lg-4 mb-4 mb-lg-0">
+            <Link class="column" id="caption3" href="">
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(18).webp"
+                class="w-100 shadow-1-strong rounded mb-4"
+                alt="Waves at Sea"
+              />
+              <span class="text">
+                <h1>caption3</h1>
+              </span>
+            </Link>
+            <Link class="column" id="caption4" href="">
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain3.webp"
+                class="w-100 shadow-1-strong rounded mb-4"
+                alt="Yosemite National Park"
+              />
+              <span class="text">
+                <h1>caption3</h1>
+              </span>
+            </Link>
           </div>
         </div>
-      </section>
+      </div>
 
       <section class="ftco-section">
         <div class="container">
           <div class="row justify-content-center pb-4">
             <div class="col-md-12 heading-section text-center">
               <span class="subheading">Best Rated Advisros</span>
-              <h2 class="mb-4">Find Best Rated Tour Advisros</h2>
+              <h2 class="mb-4">Find our Best Advisros</h2>
             </div>
           </div>
           <div class="row">
