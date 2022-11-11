@@ -4,6 +4,7 @@ import ReactPaginate from "react-paginate";
 import React, { useState } from "react";
 import JsonData from "../MOCK_DATA.json";
 import { useEffect } from "react";
+import TourCard from "../components/TourCard";
 function Destination() {
   const [pageNumber, setPageNumber] = useState(0);
   const [searched, setSearched] = useState();
@@ -28,13 +29,13 @@ function Destination() {
       searched && selected
         ? users.filter((user) => {
             return (
-              user.first_name.toLowerCase().trim().includes(searched) &&
+              user.first_name.toLowerCase().trim().includes(searched.toLowerCase()) &&
               user.id == selected
             );
           })
         : searched
         ? users.filter((user) => {
-            return user.first_name.trim().toLowerCase().includes(searched);
+            return user.first_name.trim().toLowerCase().includes(searched.toLowerCase());
           })
         : selected
         ? users.filter((user) => {
@@ -45,6 +46,10 @@ function Destination() {
     setFiltered(filteredData);
   }
 
+  const freshFilter = () => {
+    window.location.reload(false);
+  };
+
   const usersPerPage = 9;
   const pagesVisited = pageNumber * usersPerPage;
   const displayUsers = filtered
@@ -52,41 +57,9 @@ function Destination() {
     .map((user) => {
       return (
         <div class="col-md-4">
-          <div class="project-wrap hotel">
-            <a
-              href="#"
-              class="img"
-              style={{ backgroundImage: "url(images/hotel-resto-1.jpg)" }}>
-              <span class="price">$200/person</span>
-            </a>
-            <div class="text p-4">
-              <p class="star mb-2">
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-              </p>
-              <span class="days">8 Days Tour</span>
-              <h3>
-                <a href="#">{user.first_name}</a>
-              </h3>
-              <p class="location">
-                <span class="fa fa-map-marker"></span> Manila, Philippines
-              </p>
-              <ul>
-                <li>
-                  <span class="flaticon-shower"></span>2
-                </li>
-                <li>
-                  <span class="flaticon-king-size"></span>3
-                </li>
-                <li>
-                  <span class="flaticon-mountains"></span>Near Mountain
-                </li>
-              </ul>
-            </div>
-          </div>
+          <div class="m-2">
+         <TourCard firstname={user.first_name} lastname={user.last_name} />
+         </div>
         </div>
       );
     });
@@ -181,7 +154,7 @@ function Destination() {
                     </div>
                     <div class="col-lg d-flex">
                       <div class="form-group p-4">
-                        <label for="#">Select City</label>
+                        <label for="#">Select Destination</label>
                         <div class="form-field">
                           <div class="select-wrap">
                             <div class="icon">
@@ -193,8 +166,8 @@ function Destination() {
                               class="form-control"
                               onChange={(e) => setSelected(e.target.value)}>
                               <option value="">Select Destination</option>
-                              <option value="1">Amman</option>
-                              <option value="2">Ajloun</option>
+                              <option value="Amman">Amman</option>
+                              <option value="Ajloun">Ajloun</option>
                               <option value="Aqaba">Aqaba</option>
                               <option value="Dead Sea">Dead Sea</option>
                               <option value="Petra">Petra</option>
@@ -209,9 +182,10 @@ function Destination() {
                       <div class="form-group d-flex w-100 border-0">
                         <div class="form-field w-100 align-items-center d-flex">
                           <input
-                            type="submit"
-                            value="Search"
+                            type="button"
+                            value="Reset Filter"
                             class="align-self-stretch form-control btn btn-primary"
+                            onClick={freshFilter}
                           />
                         </div>
                       </div>
@@ -228,6 +202,7 @@ function Destination() {
         <div class="container">
           <div class="row">
             {displayUsers}
+            <i class="mt-5" />
             <ReactPaginate
               previousLabel={"Previous"}
               nextLabel={"Next"}

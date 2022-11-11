@@ -178,7 +178,7 @@ function Userprofile() {
                     {" "}
                     <a href="{{route('Book.edit'  , $Book->id)}}">
                       <button class="btn btn-info btn-s">
-                      <i class="bi bi-pencil"></i>
+                        <i class="bi bi-pencil"></i>
                       </button>
                     </a>
                     <form

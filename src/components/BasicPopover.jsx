@@ -20,7 +20,11 @@ export default function BasicPopover() {
 
   return (
     <div class="">
-      <Button class="PopoverBtn" aria-describedby={id} variant="contained" onClick={handleClick}>
+      <Button
+        class="PopoverBtn"
+        aria-describedby={id}
+        variant="contained"
+        onClick={handleClick}>
         Jafar Thwahrah
       </Button>
       <Popover
@@ -45,14 +49,12 @@ export default function BasicPopover() {
               </div>
               <div class="flex-grow-1 ms-3">
                 <h5 class="mb-1">Danny McLoan</h5>
-                <p class="mb-2 pb-1" style={{ color: "#2b2a2a" }}>
-                  Senior Journalist
-                </p>
+
                 <div
                   class="d-flex justify-content-start rounded-3 p-2 mb-2"
                   style={{ backgroundColor: "#efefef" }}>
                   <div>
-                    <p class="small text-muted mb-1">Articles</p>
+                    <p class="small text-muted mb-1">Tours</p>
                     <p class="mb-0">41</p>
                   </div>
                   <div class="px-3">
@@ -65,7 +67,6 @@ export default function BasicPopover() {
                   </div>
                 </div>
                 <div class="d-flex pt-1">
-                 
                   <button type="button" class="btn btn-primary flex-grow-1">
                     Follow
                   </button>
