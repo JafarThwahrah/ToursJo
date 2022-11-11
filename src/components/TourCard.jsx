@@ -47,7 +47,7 @@ export default function TourCard(props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={props.username}
+        title={props.firstname}
         subheader="September 14, 2016"
       />
       <CardMedia
