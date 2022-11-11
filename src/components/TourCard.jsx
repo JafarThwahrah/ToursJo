@@ -56,7 +56,7 @@ export default function TourCard(props) {
         image="images/destination-6.jpg"
         alt="Paella dish"
       />
-      <Link className="link" to={"destination/1"}>
+      <Link className="link" to={"/destination/1"}>
         <CardHeader title={props.lastname} subheader="September 14, 2016" />
       </Link>
       <CardContent>
