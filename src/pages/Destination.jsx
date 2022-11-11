@@ -3,14 +3,52 @@ import "../styles/Destination.css";
 import ReactPaginate from "react-paginate";
 import React, { useState } from "react";
 import JsonData from "../MOCK_DATA.json";
+import { useEffect } from "react";
 function Destination() {
-  const [users, setUsers] = useState(JsonData.slice(0, 50));
   const [pageNumber, setPageNumber] = useState(0);
+  const [searched, setSearched] = useState();
+  const [selected, setSelected] = useState();
+  const [filtered, setFiltered] = useState();
+  const [users, setUsers] = useState(JsonData.slice(0, 50));
+
+  useEffect(() => {
+    setFiltered(users);
+  }, []);
+
+  useEffect(() => {
+    filterData();
+  }, [searched]);
+
+  useEffect(() => {
+    filterData();
+  }, [selected]);
+
+  function filterData() {
+    let filteredData =
+      searched && selected
+        ? users.filter((user) => {
+            return (
+              user.first_name.toLowerCase().trim().includes(searched) &&
+              user.id == selected
+            );
+          })
+        : searched
+        ? users.filter((user) => {
+            return user.first_name.trim().toLowerCase().includes(searched);
+          })
+        : selected
+        ? users.filter((user) => {
+            return user.id == selected;
+          })
+        : users;
+
+    setFiltered(filteredData);
+  }
 
   const usersPerPage = 9;
   const pagesVisited = pageNumber * usersPerPage;
-  const displayUsers = users
-    .slice(pagesVisited, pagesVisited + usersPerPage)
+  const displayUsers = filtered
+    ?.slice(pagesVisited, pagesVisited + usersPerPage)
     .map((user) => {
       return (
         <div class="col-md-4">
@@ -31,7 +69,7 @@ function Destination() {
               </p>
               <span class="days">8 Days Tour</span>
               <h3>
-                <a href="#">Manila Hotel</a>
+                <a href="#">{user.first_name}</a>
               </h3>
               <p class="location">
                 <span class="fa fa-map-marker"></span> Manila, Philippines
@@ -58,12 +96,17 @@ function Destination() {
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
-
+  console.log(searched);
+  console.log(selected);
+  console.log(filtered);
   return (
     <div>
       <section
         class="hero-wrap hero-wrap-2 js-fullheight d-flex align-items-center"
-        style={{ backgroundImage: "url(https://upload.wikimedia.org/wikipedia/commons/0/05/Arch_of_Hadrian%2C_Jerash%2C_Jordan2.jpg)" }}>
+        style={{
+          backgroundImage:
+            "url(https://upload.wikimedia.org/wikipedia/commons/0/05/Arch_of_Hadrian%2C_Jerash%2C_Jordan2.jpg)",
+        }}>
         <div class="container">
           <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
             <div class="col-md-9 pb-5 text-center">
@@ -101,6 +144,7 @@ function Destination() {
                             type="text"
                             class="form-control"
                             placeholder="Search place"
+                            onChange={(e) => setSearched(e.target.value)}
                           />
                         </div>
                       </div>
@@ -143,15 +187,19 @@ function Destination() {
                             <div class="icon">
                               <span class="fa fa-chevron-down"></span>
                             </div>
-                            <select name="" id="" class="form-control">
-                              <option value="">select destination...</option>
-                              <option value="">Amman</option>
-                              <option value="">Ajloun</option>
-                              <option value="">Aqaba</option>
-                              <option value="">Dead Sea</option>
-                              <option value="">Petra</option>
-                              <option value="">Jerash</option>
-                              <option value="">Irbid</option>
+                            <select
+                              name=""
+                              id=""
+                              class="form-control"
+                              onChange={(e) => setSelected(e.target.value)}>
+                              <option value="">Select Destination</option>
+                              <option value="1">Amman</option>
+                              <option value="2">Ajloun</option>
+                              <option value="Aqaba">Aqaba</option>
+                              <option value="Dead Sea">Dead Sea</option>
+                              <option value="Petra">Petra</option>
+                              <option value="Jerash">Jerash</option>
+                              <option value="Irbid">Irbid</option>
                             </select>
                           </div>
                         </div>
