@@ -98,7 +98,6 @@ function Destination() {
           </div>
         </div>
       </section>
-
       <section class="ftco-section ftco-no-pb">
         <div class="container">
           <div class="row">
