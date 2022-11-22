@@ -8,10 +8,13 @@ function Header() {
         className="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
         id="ftco-navbar">
         <div className="container">
-          <NavLink to="/" className="nav-link navbar-brand ">
+          <NavLink
+            to="/"
+            className="nav-link navbar-brand "
+            style={{ height: "75px", width: "75px" }}>
             <img
-              className="w-25 h-25 rounded-circle"
-              src="/images/LOGO.png"
+              style={{ width: "40px", height: "40px" }}
+              src="/images/logo2.png"
               alt=""
             />
             <span>TourJo</span>
