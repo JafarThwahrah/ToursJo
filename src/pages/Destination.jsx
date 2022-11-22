@@ -29,13 +29,18 @@ function Destination() {
       searched && selected
         ? users.filter((user) => {
             return (
-              user.first_name.toLowerCase().trim().includes(searched.toLowerCase()) &&
-              user.id == selected
+              user.first_name
+                .toLowerCase()
+                .trim()
+                .includes(searched.toLowerCase()) && user.id == selected
             );
           })
         : searched
         ? users.filter((user) => {
-            return user.first_name.trim().toLowerCase().includes(searched.toLowerCase());
+            return user.first_name
+              .trim()
+              .toLowerCase()
+              .includes(searched.toLowerCase());
           })
         : selected
         ? users.filter((user) => {
@@ -58,8 +63,8 @@ function Destination() {
       return (
         <div class="col-md-4">
           <div class="m-2">
-         <TourCard firstname={user.first_name} lastname={user.last_name} />
-         </div>
+            <TourCard firstname={user.first_name} lastname={user.last_name} />
+          </div>
         </div>
       );
     });
