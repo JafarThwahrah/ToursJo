@@ -228,29 +228,85 @@ function Userprofile() {
                     </div>
                     <div class="modal-body">
                       <form action="">
-                        <div class="mb-3">
-                          <label for="exampleInputEmail1" class="form-label">
-                            Email address
-                          </label>
-                          <input
-                            type="email"
-                            class="form-control"
-                            id="exampleInputEmail1"
-                            aria-describedby="emailHelp"
-                          />
-                          <div id="emailHelp" class="form-text">
-                            We'll never share your email with anyone else.
-                          </div>
-                        </div>
+                        <select
+                          class="form-select"
+                          aria-label="Default select example">
+                          <option selected>Open this select menu</option>
+                          <option value="1"></option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                        </select>
+
                         <div class="mb-3">
                           <label for="exampleInputPassword1" class="form-label">
-                            Password
+                            Date
                           </label>
                           <input
-                            type="password"
+                            type="date"
                             class="form-control"
                             id="exampleInputPassword1"
                           />
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="Price" class="form-label">
+                            Price(JOD)
+                          </label>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="Price"
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="route" class="form-label">
+                            Tour Route(Map Link)
+                          </label>
+                          <input type="text" class="form-control" id="route" />
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="heroimg" class="form-label">
+                            Hero image
+                          </label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="heroimg"
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="img1" class="form-label">
+                            Image 1
+                          </label>
+                          <input type="text" class="form-control" id="img1" />
+                        </div>
+                        <div class="mb-3">
+                          <label for="img2" class="form-label">
+                            Image 2
+                          </label>
+                          <input type="text" class="form-control" id="img2" />
+                        </div>
+                        <div class="mb-3">
+                          <label for="img3" class="form-label">
+                            Image 3
+                          </label>
+                          <input type="text" class="form-control" id="img3" />
+                        </div>
+                        <div class="mb-3">
+                          <label for="img4" class="form-label">
+                            Image 4
+                          </label>
+                          <input type="text" class="form-control" id="img4" />
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="description" class="form-label">
+                            Description
+                          </label>
+                          <textarea
+                            class="form-control"
+                            aria-label="description"></textarea>
                         </div>
                       </form>
                     </div>
