@@ -7,7 +7,9 @@ import Tourdetails from "./Tourdetails";
 import About from "./About";
 import Userprofile from "./Userprofile";
 import Checkout from "./Checkout";
-function Pages() {
+import Login from "./Login";
+import Register from "./Register";
+export default function Pages() {
   return (
     <div>
       <Routes>
@@ -18,9 +20,9 @@ function Pages() {
         <Route path="/about" element={<About />} />
         <Route path="/userprofile" element={<Userprofile />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
   );
 }
-
-export default Pages;
