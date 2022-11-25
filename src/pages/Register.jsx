@@ -14,6 +14,11 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { googleLogout } from "@react-oauth/google";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -30,18 +35,34 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
+  const [selectedFile, setSelectedFile] = useState(null);
   const [loginData, setLoginData] = useState(
     localStorage.getItem("loginData")
       ? JSON.parse(localStorage.getItem("loginData"))
       : null
   );
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    let email = data.get("email");
-    let password = data.get("password");
-    let formData = email + password;
-    localStorage.setItem("loginData", JSON.stringify(formData));
+    // let email = data.get("email");
+    // let pass = data.get("password");
+    // let role = data.get("role");
+    // let firstName = data.get("firstName");
+    // let lastName = data.get("lastName");
+    // let photo = selectedFile;
+    data.append("user_image", selectedFile);
+
+    console.log(selectedFile);
+
+    axios
+      .post("http://localhost:8000/api/register/store", data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleLogout = () => {
@@ -124,15 +145,19 @@ export default function SignUp() {
                   </Grid>
 
                   <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      name="description"
-                      label="description"
-                      type="textArea"
-                      id="description"
-                      autoComplete="description"
-                    />
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">
+                        Register As
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        name="role"
+                        label="Register As">
+                        <MenuItem value={"Tourist"}>Tourist</MenuItem>
+                        <MenuItem value={"Advisor"}>Tour Advisor</MenuItem>
+                      </Select>
+                    </FormControl>
                   </Grid>
                   <Grid item xs={12}>
                     <label htmlFor="Photo">Personal Photo</label>
@@ -142,7 +167,7 @@ export default function SignUp() {
                       name="Photo"
                       type="file"
                       id="Photo"
-                      autoComplete="Photo"
+                      onChange={(e) => setSelectedFile(e.target.files[0])}
                     />
                   </Grid>
                   <Grid item xs={12}>
