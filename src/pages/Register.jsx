@@ -19,6 +19,32 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import axios from "axios";
+import Cookies from "js-cookie";
+
+const axiosInstance = axios.create({
+  baseURL: "http://localhost:8000/api/register",
+  withCredentials: true,
+});
+
+const onRequest = (config) => {
+  // If http method is `post | put | delete` and XSRF-TOKEN cookie is
+  // not present, call '/sanctum/csrf-cookie' to set CSRF token, then
+  // proceed with the initial response
+  if (
+    /* other methods you want to add here */
+
+    !Cookies.get("XSRF-TOKEN")
+  ) {
+    return setCSRFToken().then((response) => config);
+  }
+  return config;
+};
+
+const setCSRFToken = () => {
+  return axiosInstance.get("/sanctum/csrf-cookie"); // resolves to '/api/csrf-cookie'.
+};
+
+axiosInstance.interceptors.request.use(onRequest, null);
 
 function Copyright(props) {
   return (
@@ -54,15 +80,17 @@ export default function SignUp() {
     data.append("user_image", selectedFile);
 
     console.log(selectedFile);
-
-    axios
-      .post("http://localhost:8000/api/register/store", data)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    axios.get("http://localhost:8000/sanctum/csrf-cookie").then((response) => {
+      console.log(response);
+      axios
+        .post("http://localhost:8000/api/register", data)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
   };
 
   const handleLogout = () => {
@@ -101,35 +129,26 @@ export default function SignUp() {
                 onSubmit={handleSubmit}
                 sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={12}>
                     <TextField
                       autoComplete="given-name"
-                      name="firstName"
+                      name="user_name"
                       required
                       fullWidth
-                      id="firstName"
-                      label="First Name"
+                      id="user_name"
+                      label="User Name"
                       autoFocus
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="lastName"
-                      label="Last Name"
-                      name="lastName"
-                      autoComplete="family-name"
-                    />
-                  </Grid>
+
                   <Grid item xs={12}>
                     <TextField
                       required
                       fullWidth
-                      id="email"
+                      id="user_email"
                       label="Email Address"
-                      name="email"
-                      autoComplete="email"
+                      name="user_email"
+                      autoComplete="user_email"
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -143,6 +162,17 @@ export default function SignUp() {
                       autoComplete="new-password"
                     />
                   </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      name="password_confirmation"
+                      label="Confirm Password"
+                      type="password"
+                      id="password_confirmation"
+                      autoComplete="new-password"
+                    />
+                  </Grid>
 
                   <Grid item xs={12}>
                     <FormControl fullWidth>
@@ -152,7 +182,7 @@ export default function SignUp() {
                       <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        name="role"
+                        name="user_role"
                         label="Register As">
                         <MenuItem value={"Tourist"}>Tourist</MenuItem>
                         <MenuItem value={"Advisor"}>Tour Advisor</MenuItem>
@@ -160,13 +190,13 @@ export default function SignUp() {
                     </FormControl>
                   </Grid>
                   <Grid item xs={12}>
-                    <label htmlFor="Photo">Personal Photo</label>
+                    <label htmlFor="user_image">Personal Photo</label>
                     <TextField
                       required
                       fullWidth
-                      name="Photo"
+                      name="user_image"
                       type="file"
-                      id="Photo"
+                      id="user_image"
                       onChange={(e) => setSelectedFile(e.target.files[0])}
                     />
                   </Grid>

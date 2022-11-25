@@ -134,7 +134,7 @@ export default function SignIn() {
                 sx={{ mt: 3, mb: 2 }}>
                 Sign In
               </Button>
-              <div className="googlebtncontainer">
+              {/* <div className="googlebtncontainer">
                 <GoogleOAuthProvider
                   style={{ margin: "1rem", width: "30rem" }}
                   clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
@@ -147,7 +147,7 @@ export default function SignIn() {
                     useOneTap
                   />
                 </GoogleOAuthProvider>
-              </div>
+              </div> */}
 
               <Grid container>
                 <Grid item>
