@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/Userprofile.css";
+import { useParams } from "react-router-dom";
+import "../css/style.css";
+// import "../assets/css/style.css";
 function Userprofile() {
+  const { id } = useParams();
+
   return (
     <div>
       <div class="layout-content m-5">
@@ -347,146 +352,6 @@ function Userprofile() {
 
                   <div class="price">50usd</div>
                   <div class="review">5/5</div>
-                </div>
-                <div class="table-row">
-                  <div class="serial">02</div>
-                  <div class="country">
-                    {" "}
-                    <img src="assets/img/elements/f2.jpg" alt="flag" />
-                    Canada
-                  </div>
-                  <div class="visit">645032</div>
-                  <div class="percentage">
-                    <div class="progress">
-                      <div
-                        class="progress-bar color-2"
-                        role="progressbar"
-                        style={{ width: "30%" }}
-                        aria-valuenow="30"
-                        aria-valuemin="0"
-                        aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="table-row">
-                  <div class="serial">03</div>
-                  <div class="country">
-                    {" "}
-                    <img src="assets/img/elements/f3.jpg" alt="flag" />
-                    Canada
-                  </div>
-                  <div class="visit">645032</div>
-                  <div class="percentage">
-                    <div class="progress">
-                      <div
-                        class="progress-bar color-3"
-                        role="progressbar"
-                        style={{ width: "55%" }}
-                        aria-valuenow="55"
-                        aria-valuemin="0"
-                        aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="table-row">
-                  <div class="serial">04</div>
-                  <div class="country">
-                    {" "}
-                    <img src="assets/img/elements/f4.jpg" alt="flag" />
-                    Canada
-                  </div>
-                  <div class="visit">645032</div>
-                  <div class="percentage">
-                    <div class="progress">
-                      <div
-                        class="progress-bar color-4"
-                        role="progressbar"
-                        style={{ width: "60%" }}
-                        aria-valuenow="60"
-                        aria-valuemin="0"
-                        aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="table-row">
-                  <div class="serial">05</div>
-                  <div class="country">
-                    {" "}
-                    <img src="assets/img/elements/f5.jpg" alt="flag" />
-                    Canada
-                  </div>
-                  <div class="visit">645032</div>
-                  <div class="percentage">
-                    <div class="progress">
-                      <div
-                        class="progress-bar color-5"
-                        role="progressbar"
-                        style={{ width: "40%" }}
-                        aria-valuenow="40"
-                        aria-valuemin="0"
-                        aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="table-row">
-                  <div class="serial">06</div>
-                  <div class="country">
-                    {" "}
-                    <img src="assets/img/elements/f6.jpg" alt="flag" />
-                    Canada
-                  </div>
-                  <div class="visit">645032</div>
-                  <div class="percentage">
-                    <div class="progress">
-                      <div
-                        class="progress-bar color-6"
-                        role="progressbar"
-                        style={{ width: "70%" }}
-                        aria-valuenow="70"
-                        aria-valuemin="0"
-                        aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="table-row">
-                  <div class="serial">07</div>
-                  <div class="country">
-                    {" "}
-                    <img src="assets/img/elements/f7.jpg" alt="flag" />
-                    Canada
-                  </div>
-                  <div class="visit">645032</div>
-                  <div class="percentage">
-                    <div class="progress">
-                      <div
-                        class="progress-bar color-7"
-                        role="progressbar"
-                        style={{ width: "30%" }}
-                        aria-valuenow="30"
-                        aria-valuemin="0"
-                        aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="table-row">
-                  <div class="serial">08</div>
-                  <div class="country">
-                    {" "}
-                    <img src="assets/img/elements/f8.jpg" alt="flag" />
-                    Canada
-                  </div>
-                  <div class="visit">645032</div>
-                  <div class="percentage">
-                    <div class="progress">
-                      <div
-                        class="progress-bar color-8"
-                        role="progressbar"
-                        style={{ width: "60%" }}
-                        aria-valuenow="60"
-                        aria-valuemin="0"
-                        aria-valuemax="100"></div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>

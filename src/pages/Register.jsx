@@ -20,6 +20,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:8000/api/register",
@@ -68,23 +70,20 @@ export default function SignUp() {
       : null
   );
 
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // let email = data.get("email");
-    // let pass = data.get("password");
-    // let role = data.get("role");
-    // let firstName = data.get("firstName");
-    // let lastName = data.get("lastName");
-    // let photo = selectedFile;
     data.append("user_image", selectedFile);
 
-    console.log(selectedFile);
     axios.get("http://localhost:8000/sanctum/csrf-cookie").then((response) => {
       console.log(response);
       axios
         .post("http://localhost:8000/api/register", data)
         .then((res) => {
+          localStorage.setItem("loginData", JSON.stringify(res));
+          setLoginData(res);
           console.log(res);
         })
         .catch((err) => {
@@ -98,6 +97,13 @@ export default function SignUp() {
     setLoginData(null);
     googleLogout();
   };
+
+  useEffect(() => {
+    if (loginData) {
+      navigate(`/userprofile/${loginData.data.user.id}`);
+    }
+  }, [loginData]);
+  console.log(loginData);
 
   return (
     <ThemeProvider theme={theme}>

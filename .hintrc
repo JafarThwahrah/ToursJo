@@ -17,9 +17,22 @@
           "-moz-backface-visibility",
           "-webkit-text-size-adjust",
           "background-clip",
-          "-webkit-filter"
+          "-webkit-filter",
+          "@-ms-viewport",
+          "-moz-user-select",
+          "-moz-animation-timing-function",
+          "backface-visibility"
         ]
       }
-    ]
+    ],
+    "compat-api/html": [
+      "default",
+      {
+        "ignore": [
+          "meta[name=theme-color]"
+        ]
+      }
+    ],
+    "manifest-exists": "off"
   }
 }

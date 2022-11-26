@@ -71,7 +71,7 @@ export default function SignIn() {
 
   useEffect(() => {
     if (loginData) {
-      navigate("/profile");
+      navigate(`/userprofile/${loginData.data.user.id}`);
     }
   }, [loginData]);
 

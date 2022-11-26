@@ -18,7 +18,7 @@ export default function Pages() {
         <Route path="/destination" element={<Destination />} />
         <Route path="/Tourdetails" element={<Tourdetails />} />
         <Route path="/about" element={<About />} />
-        <Route path="/userprofile" element={<Userprofile />} />
+        <Route path="/userprofile/:id" element={<Userprofile />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
