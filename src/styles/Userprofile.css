@@ -49,3 +49,9 @@
     .userProfileIMG{
         height: 65vh !important;
     }
+
+    .publishTourBtn{
+
+        padding: 15px !important;
+        margin : 8px !important;
+    }

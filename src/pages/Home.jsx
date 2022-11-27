@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import BasicPopover from "../components/BasicPopover";
+import { useEffect } from "react";
+import { useState } from "react";
 import "../styles/Home.css";
 
 function Home() {

@@ -10137,7 +10137,7 @@ textarea.form-control {
   }
   
   .owl-theme .owl-dots .owl-dot span {
-      height: 20px;
+      /* height: 20px; */
       background: #2a6ba3 !important;
       border-radius: 2px !important;
       opacity: 0.8;

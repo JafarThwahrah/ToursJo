@@ -459,11 +459,13 @@ function Userprofile() {
                       <div class="modal-footer">
                         <button
                           type="button"
-                          class="btn btn-secondary"
+                          class="btn btn-secondary publishTourBtn"
                           data-bs-dismiss="modal">
                           Close
                         </button>
-                        <button type="submit" class="btn btn-primary">
+                        <button
+                          type="submit"
+                          class="btn btn-primary publishTourBtn">
                           Publish Tour
                         </button>
                       </div>
