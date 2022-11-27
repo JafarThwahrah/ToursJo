@@ -33,7 +33,7 @@ class AuthController extends Controller
 
         $image = $request->file('user_image');
         $name = $request->user_email . "." . $image->getClientOriginalExtension();
-        $image->move('C:\Apache24\htdocs\Masterpiece\backup\public\images', $name);
+        $image->move('C:\Apache24\htdocs\Masterpiece\backup\src\images', $name);
 
         $user = User::create([
             'user_name' => $request->user_name,

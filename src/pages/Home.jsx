@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import BasicPopover from "../components/BasicPopover";
+import "../styles/Home.css";
 
 function Home() {
   return (
     <>
       <div
-        className="hero-wrap js-fullheight d-flex align-items-center"
+        className="hero-wrap js-fullheight d-flex align-items-center heroImgHome"
         style={{
           backgroundImage: `url(https://cdn.theculturetrip.com/wp-content/uploads/2021/06/petra.jpg)`,
         }}>

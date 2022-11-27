@@ -4,8 +4,11 @@ function Contact() {
   return (
     <div>
       <section
-        class="hero-wrap hero-wrap-2 js-fullheight d-flex align-items-center"
-        style={{ backgroundImage: "url(https://upload.wikimedia.org/wikipedia/commons/0/0f/Roman_theater_of_Amman_01.jpg)" }}>
+        class="hero-wrap hero-wrap-2 js-fullheight d-flex align-items-center heroImgHome"
+        style={{
+          backgroundImage:
+            "url(https://upload.wikimedia.org/wikipedia/commons/0/0f/Roman_theater_of_Amman_01.jpg)",
+        }}>
         <div class="container">
           <div class="row slider-text js-fullheight align-items-end justify-content-center">
             <div class="col-md-9 pb-5 text-center">
@@ -55,7 +58,9 @@ function Contact() {
                 </div>
                 <h3 class="mb-2">Email Address</h3>
                 <p>
-                  <a href="mailto:info@yoursite.com">jaffardawahreh2@gmail.com</a>
+                  <a href="mailto:info@yoursite.com">
+                    jaffardawahreh2@gmail.com
+                  </a>
                 </p>
               </div>
             </div>
@@ -66,7 +71,9 @@ function Contact() {
                 </div>
                 <h3 class="mb-2">Website</h3>
                 <p>
-                  <a href="https://jafarthwahrah.github.io/Portfolio/">Portfolio</a>
+                  <a href="https://jafarthwahrah.github.io/Portfolio/">
+                    Portfolio
+                  </a>
                 </p>
               </div>
             </div>
