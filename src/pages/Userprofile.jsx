@@ -17,7 +17,7 @@ function Userprofile() {
       ? JSON.parse(localStorage.getItem("loginData"))
       : null
   );
-
+  const [tours, setTours] = useState(null);
   const [userData, setUserData] = useState(null);
   const [tokens, setTokens] = useState(null);
 
@@ -33,6 +33,7 @@ function Userprofile() {
   const [img2, setImg2] = useState(null);
   const [img3, setImg3] = useState(null);
   const [img4, setImg4] = useState(null);
+  const [tourJoin, setTourJoin] = useState(null);
 
   const navigate = useNavigate();
 
@@ -52,7 +53,6 @@ function Userprofile() {
     data.append("img_3", img3);
     data.append("img_4", img4);
 
-    console.log(data.getAll("tour_description"));
     const axiosAuth = "Bearer " + tokens;
     // const options = {
     //   method: "POST",
@@ -60,7 +60,8 @@ function Userprofile() {
     //   headers: {
     //     Authorization: axiosAuth,
     //     "content-type": "application/json",
-    //   },
+    //   },data: '{"title":"Spaghetti Carbonara","servings":2,"ingredients":["1 lb spaghetti","3.5 oz pancetta","2 Tbsps olive oil","1  egg","0.5 cup parmesan cheese"],"instructions":"Bring a large pot of water to a boil and season generously with salt. Add the pasta to the water once boiling and cook until al dente. Reserve 2 cups of cooking water and drain the pasta. "}'
+
     // };
     // console.log(tokens);
 
@@ -103,11 +104,30 @@ function Userprofile() {
   }, []);
 
   useEffect(() => {
+    if (userData) {
+      axios
+        .get(`http://localhost:8000/api/gettours/${userData[0].id}`)
+        .then((res) => {
+          setTours(res.data.toursPerUser);
+          setTourJoin(res.data.ToursJoinDes);
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [userData]);
+
+  useEffect(() => {
     if (!loginData) {
       navigate(`/login`);
     }
   }, [loginData]);
-  // console.log(selectedDestination);
+
+  for (let i = 0; i < tours.length; i++) {
+    tourJoin[i].id = tours[i].id;
+  }
+  console.log(tourJoin);
   // console.log(userData[0].id);
   // console.log(price);
   // console.log(number);
@@ -142,6 +162,7 @@ function Userprofile() {
                       alt="img"
                       class="d-block ui-w-100 rounded-circle"
                     />
+
                     <div class="media-body ml-5 d-flex flex-column">
                       <div>
                         <h4 class="font-weight-bold mb-4 text-left">
@@ -233,33 +254,40 @@ function Userprofile() {
                   <div class="price">Price</div>
                   <div class="review">Edit/unpublish</div>
                 </div>
-                <div class="table-row">
-                  <div class="serial">01</div>
-                  <div class="tourdate">01</div>
-                  <div class="Destination">Destination</div>
-                  <div class="touristname">645032</div>
-
-                  <div class="price">50usd</div>
-                  <div class="review d-flex justify-content-center">
-                    {" "}
-                    <a href="{{route('Book.edit'  , $Book->id)}}">
-                      <button class="btn btn-info btn-s">
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                    </a>
-                    <form
-                      action="{{route('Book.destroy' , $Book->id)}}"
-                      method="POST">
-                      {" "}
-                      <button
-                        class="btn btn-danger btn-s ms-2"
-                        type="submit"
-                        onClick="return confirm('Do you really want to delete');">
-                        <i class="bi bi-trash3"></i>
-                      </button>
-                    </form>
-                  </div>
-                </div>
+                {tourJoin?.map((tour) => {
+                  if (tour.is_published == 1) {
+                    return (
+                      <div class="table-row">
+                        <div class="serial">{tour.id}</div>
+                        <div class="tourdate">{tour.tour_date}</div>
+                        <div class="Destination">{tour.destination_name}</div>
+                        <div class="touristname">
+                          <a style={{ color: "gray" }} href={tour.tour_route}>
+                            Tour Route
+                          </a>{" "}
+                        </div>
+                        <div class="price">{tour.tour_price} JOD</div>
+                        <div class="review d-flex justify-content-center">
+                          <a href="{{route('Book.edit'  , $Book->id)}}">
+                            <button class="btn btn-info btn-s">
+                              <i class="bi bi-pencil"></i>
+                            </button>
+                          </a>
+                          <form
+                            action="{{route('Book.destroy' , $Book->id)}}"
+                            method="POST">
+                            <button
+                              class="btn btn-danger btn-s ms-2"
+                              type="submit"
+                              onClick="return confirm('Do you really want to delete');">
+                              <i class="bi bi-trash3"></i>
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    );
+                  }
+                })}
               </div>
             </div>
             <div class="d-flex flex-row-reverse mt-3">
