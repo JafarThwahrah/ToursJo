@@ -124,7 +124,7 @@ function Userprofile() {
     }
   }, [loginData]);
 
-  for (let i = 0; i < tours.length; i++) {
+  for (let i = 0; i < tours?.length; i++) {
     tourJoin[i].id = tours[i].id;
   }
   console.log(tourJoin);
@@ -227,7 +227,11 @@ function Userprofile() {
                             <div class="text-muted small">Booked Tours</div>
                           </span>
                           <span class="d-flex col flex-column text-body py-3">
-                            <div class="font-weight-bold">4.5/5</div>
+                            {data.rating ? (
+                              <div class="font-weight-bold">{data.rating}</div>
+                            ) : (
+                              <div class="font-weight-bold">uncalibrated</div>
+                            )}
                             <div class="text-muted small">Your Rate</div>
                           </span>
                           <span class="d-flex col flex-column text-body py-3">
@@ -242,267 +246,282 @@ function Userprofile() {
               </>
             );
           })}
-          <div class="section-top-border">
-            <h3 class="mb-30">Published Tours</h3>
-            <div class="progress-table-wrap">
-              <div class="progress-table">
-                <div class="table-head">
-                  <div class="serial">Tour ID</div>
-                  <div class="tourdate">Tour Date</div>
-                  <div class="Destination">Destination</div>
-                  <div class="touristname">Tour Route</div>
-                  <div class="price">Price</div>
-                  <div class="review">Edit/unpublish</div>
-                </div>
-                {tourJoin?.map((tour) => {
-                  if (tour.is_published == 1) {
-                    return (
-                      <div class="table-row">
-                        <div class="serial">{tour.id}</div>
-                        <div class="tourdate">{tour.tour_date}</div>
-                        <div class="Destination">{tour.destination_name}</div>
-                        <div class="touristname">
-                          <a style={{ color: "gray" }} href={tour.tour_route}>
-                            Tour Route
-                          </a>{" "}
-                        </div>
-                        <div class="price">{tour.tour_price} JOD</div>
-                        <div class="review d-flex justify-content-center">
-                          <a href="{{route('Book.edit'  , $Book->id)}}">
-                            <button class="btn btn-info btn-s">
-                              <i class="bi bi-pencil"></i>
-                            </button>
-                          </a>
-                          <form
-                            action="{{route('Book.destroy' , $Book->id)}}"
-                            method="POST">
-                            <button
-                              class="btn btn-danger btn-s ms-2"
-                              type="submit"
-                              onClick="return confirm('Do you really want to delete');">
-                              <i class="bi bi-trash3"></i>
-                            </button>
-                          </form>
-                        </div>
-                      </div>
-                    );
-                  }
-                })}
-              </div>
-            </div>
-            <div class="d-flex flex-row-reverse mt-3">
-              <p class="">
-                <Link
-                  type="button"
-                  class="btn btn-primary px-4 py-3 text-decoration-nsone"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal">
-                  Publish New Trip
-                </Link>
-              </p>
-
-              <div
-                class="modal fade"
-                id="exampleModal"
-                tabindex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <Box
-                  component="form"
-                  noValidate
-                  onSubmit={handleSubmit}
-                  sx={{ mt: 3 }}>
-                  <div class="modal-dialog">
-                    <div class="modal-content p-5">
-                      <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">
-                          Publish new Tour
-                        </h1>
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <form onSubmit={handleSubmit}>
-                          <label for="select" class="form-label">
-                            Select Desitination
-                          </label>
-                          <select
-                            class="form-select"
-                            name="destination_id"
-                            id="destination_id"
-                            onChange={(e) => {
-                              setSelectedDestination(e.target.value);
-                            }}
-                            aria-label="Default select example">
-                            <option selected value={null}>
-                              Select Destination
-                            </option>
-                            {destinations?.map((des) => {
-                              return (
-                                <option value={des.id}>
-                                  {des.destination_name}
-                                </option>
-                              );
-                            })}
-                          </select>
-
-                          <div class="mb-3">
-                            <label
-                              for="exampleInputPassword1"
-                              class="form-label">
-                              Date
-                            </label>
-                            <input
-                              type="date"
-                              name="tour_date"
-                              class="form-control"
-                              id="exampleInputPassword1"
-                              onChange={(e) => {
-                                setDate(e.target.value);
-                              }}
-                            />
-                          </div>
-
-                          <div class="mb-3">
-                            <label for="Price" class="form-label">
-                              Price(JOD)
-                            </label>
-                            <input
-                              onChange={(e) => {
-                                setPrice(e.target.value);
-                              }}
-                              type="number"
-                              name="tour_price"
-                              class="form-control"
-                              id="Price"
-                            />
-                          </div>
-                          <div class="mb-3">
-                            <label for="route" class="form-label">
-                              Tour Route(Map Link)
-                            </label>
-                            <input
-                              onChange={(e) => {
-                                setRoute(e.target.value);
-                              }}
-                              type="text"
-                              name="tour_route"
-                              class="form-control"
-                              id="route"
-                            />
-                          </div>
-
-                          <div class="mb-3">
-                            <label for="heroimg" class="form-label">
-                              Contact Number
-                            </label>
-                            <input
-                              onChange={(e) => {
-                                setNumber(e.target.value);
-                              }}
-                              name="advisor_contact_number"
-                              type="number"
-                              class="form-control"
-                              id="heroimg"
-                            />
-                          </div>
-
-                          <div class="mb-3">
-                            <label for="heroimg" class="form-label">
-                              Hero image
-                            </label>
-                            <input
-                              onChange={(e) => setHeroImg(e.target.files[0])}
-                              name="hero_img"
-                              type="file"
-                              class="form-control"
-                              id="heroimg"
-                            />
-                          </div>
-
-                          <div class="mb-3">
-                            <label for="img1" class="form-label">
-                              Image 1
-                            </label>
-                            <input
-                              onChange={(e) => setImg1(e.target.files[0])}
-                              type="file"
-                              name="img_1"
-                              class="form-control"
-                              id="img1"
-                            />
-                          </div>
-                          <div class="mb-3">
-                            <label for="img2" class="form-label">
-                              Image 2
-                            </label>
-                            <input
-                              onChange={(e) => setImg2(e.target.files[0])}
-                              type="file"
-                              name="img_2"
-                              class="form-control"
-                              id="img2"
-                            />
-                          </div>
-                          <div class="mb-3">
-                            <label for="img3" class="form-label">
-                              Image 3
-                            </label>
-                            <input
-                              onChange={(e) => setImg3(e.target.files[0])}
-                              type="file"
-                              name="img_3"
-                              class="form-control"
-                              id="img3"
-                            />
-                          </div>
-                          <div class="mb-3">
-                            <label for="img4" class="form-label">
-                              Image 4
-                            </label>
-                            <input
-                              onChange={(e) => setImg4(e.target.files[0])}
-                              type="file"
-                              name="img_4"
-                              class="form-control"
-                              id="img4"
-                            />
-                          </div>
-
-                          <div class="mb-3">
-                            <label for="description" class="form-label">
-                              Description
-                            </label>
-                            <textarea
-                              onChange={(e) => setDescription(e.target.value)}
-                              name="tour_description"
-                              class="form-control"
-                              aria-label="description"></textarea>
-                          </div>
-                        </form>
-                      </div>
-                      <div class="modal-footer">
-                        <button
-                          type="button"
-                          class="btn btn-secondary publishTourBtn"
-                          data-bs-dismiss="modal">
-                          Close
-                        </button>
-                        <button
-                          type="submit"
-                          class="btn btn-primary publishTourBtn">
-                          Publish Tour
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </Box>
-              </div>
-            </div>
+          <div class="d-flex">
+            <button className="btn btn-danger p-3 m-2 ">Logout</button>
           </div>
+          {userData?.map((userinfo) => {
+            return userinfo.user_role !== "Advisor" ? null : (
+              <div class="section-top-border">
+                <h3 class="mb-30">Published Tours</h3>
+                <div class="progress-table-wrap">
+                  <div class="progress-table">
+                    <div class="table-head">
+                      <div class="serial">Tour ID</div>
+                      <div class="tourdate">Tour Date</div>
+                      <div class="Destination">Destination</div>
+                      <div class="touristname">Tour Route</div>
+                      <div class="price">Price</div>
+                      <div class="review">Edit/unpublish</div>
+                    </div>
+                    {tourJoin?.map((tour) => {
+                      if (tour.is_published == 1) {
+                        return (
+                          <div class="table-row">
+                            <div class="serial">{tour.id}</div>
+                            <div class="tourdate">{tour.tour_date}</div>
+                            <div class="Destination">
+                              {tour.destination_name}
+                            </div>
+                            <div class="touristname">
+                              <a
+                                style={{ color: "gray" }}
+                                href={tour.tour_route}>
+                                Tour Route
+                              </a>{" "}
+                            </div>
+                            <div class="price">{tour.tour_price} JOD</div>
+                            <div class="review d-flex justify-content-center">
+                              <a href="{{route('Book.edit'  , $Book->id)}}">
+                                <button class="btn btn-info btn-s">
+                                  <i class="bi bi-pencil"></i>
+                                </button>
+                              </a>
+                              <form
+                                action="{{route('Book.destroy' , $Book->id)}}"
+                                method="POST">
+                                <button
+                                  class="btn btn-danger btn-s ms-2"
+                                  type="submit"
+                                  onClick="return confirm('Do you really want to delete');">
+                                  <i class="bi bi-trash3"></i>
+                                </button>
+                              </form>
+                            </div>
+                          </div>
+                        );
+                      }
+                    })}
+                  </div>
+                </div>
+                <div class="d-flex flex-row-reverse mt-3">
+                  <p class="">
+                    <Link
+                      type="button"
+                      class="btn btn-primary px-4 py-3 text-decoration-nsone"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal">
+                      Publish New Tour
+                    </Link>
+                  </p>
+
+                  <div
+                    class="modal fade"
+                    id="exampleModal"
+                    tabindex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <Box
+                      component="form"
+                      noValidate
+                      onSubmit={handleSubmit}
+                      sx={{ mt: 3 }}>
+                      <div class="modal-dialog">
+                        <div class="modal-content p-5">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                              Publish new Tour
+                            </h1>
+                            <button
+                              type="button"
+                              class="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <form onSubmit={handleSubmit}>
+                              <label for="select" class="form-label">
+                                Select Desitination
+                              </label>
+                              <select
+                                class="form-select"
+                                name="destination_id"
+                                id="destination_id"
+                                onChange={(e) => {
+                                  setSelectedDestination(e.target.value);
+                                }}
+                                aria-label="Default select example">
+                                <option selected value={null}>
+                                  Select Destination
+                                </option>
+                                {destinations?.map((des) => {
+                                  return (
+                                    <option value={des.id}>
+                                      {des.destination_name}
+                                    </option>
+                                  );
+                                })}
+                              </select>
+
+                              <div class="mb-3">
+                                <label
+                                  for="exampleInputPassword1"
+                                  class="form-label">
+                                  Date
+                                </label>
+                                <input
+                                  type="date"
+                                  name="tour_date"
+                                  class="form-control"
+                                  id="exampleInputPassword1"
+                                  onChange={(e) => {
+                                    setDate(e.target.value);
+                                  }}
+                                />
+                              </div>
+
+                              <div class="mb-3">
+                                <label for="Price" class="form-label">
+                                  Price(JOD)
+                                </label>
+                                <input
+                                  onChange={(e) => {
+                                    setPrice(e.target.value);
+                                  }}
+                                  type="number"
+                                  name="tour_price"
+                                  class="form-control"
+                                  id="Price"
+                                />
+                              </div>
+                              <div class="mb-3">
+                                <label for="route" class="form-label">
+                                  Tour Route(Map Link)
+                                </label>
+                                <input
+                                  onChange={(e) => {
+                                    setRoute(e.target.value);
+                                  }}
+                                  type="text"
+                                  name="tour_route"
+                                  class="form-control"
+                                  id="route"
+                                />
+                              </div>
+
+                              <div class="mb-3">
+                                <label for="heroimg" class="form-label">
+                                  Contact Number
+                                </label>
+                                <input
+                                  onChange={(e) => {
+                                    setNumber(e.target.value);
+                                  }}
+                                  name="advisor_contact_number"
+                                  type="number"
+                                  class="form-control"
+                                  id="heroimg"
+                                />
+                              </div>
+
+                              <div class="mb-3">
+                                <label for="heroimg" class="form-label">
+                                  Hero image
+                                </label>
+                                <input
+                                  onChange={(e) =>
+                                    setHeroImg(e.target.files[0])
+                                  }
+                                  name="hero_img"
+                                  type="file"
+                                  class="form-control"
+                                  id="heroimg"
+                                />
+                              </div>
+
+                              <div class="mb-3">
+                                <label for="img1" class="form-label">
+                                  Image 1
+                                </label>
+                                <input
+                                  onChange={(e) => setImg1(e.target.files[0])}
+                                  type="file"
+                                  name="img_1"
+                                  class="form-control"
+                                  id="img1"
+                                />
+                              </div>
+                              <div class="mb-3">
+                                <label for="img2" class="form-label">
+                                  Image 2
+                                </label>
+                                <input
+                                  onChange={(e) => setImg2(e.target.files[0])}
+                                  type="file"
+                                  name="img_2"
+                                  class="form-control"
+                                  id="img2"
+                                />
+                              </div>
+                              <div class="mb-3">
+                                <label for="img3" class="form-label">
+                                  Image 3
+                                </label>
+                                <input
+                                  onChange={(e) => setImg3(e.target.files[0])}
+                                  type="file"
+                                  name="img_3"
+                                  class="form-control"
+                                  id="img3"
+                                />
+                              </div>
+                              <div class="mb-3">
+                                <label for="img4" class="form-label">
+                                  Image 4
+                                </label>
+                                <input
+                                  onChange={(e) => setImg4(e.target.files[0])}
+                                  type="file"
+                                  name="img_4"
+                                  class="form-control"
+                                  id="img4"
+                                />
+                              </div>
+
+                              <div class="mb-3">
+                                <label for="description" class="form-label">
+                                  Description
+                                </label>
+                                <textarea
+                                  onChange={(e) =>
+                                    setDescription(e.target.value)
+                                  }
+                                  name="tour_description"
+                                  class="form-control"
+                                  aria-label="description"></textarea>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button
+                              type="button"
+                              class="btn btn-secondary publishTourBtn"
+                              data-bs-dismiss="modal">
+                              Close
+                            </button>
+                            <button
+                              type="submit"
+                              class="btn btn-primary publishTourBtn">
+                              Publish Tour
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </Box>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
 
           <div class="section-top-border">
             <h3 class="mb-30">Tours History</h3>

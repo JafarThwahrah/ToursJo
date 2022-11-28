@@ -5,15 +5,29 @@ import React, { useState } from "react";
 import JsonData from "../MOCK_DATA.json";
 import { useEffect } from "react";
 import TourCard from "../components/TourCard";
+import axios from "axios";
+
 function Destination() {
   const [pageNumber, setPageNumber] = useState(0);
   const [searched, setSearched] = useState();
   const [selected, setSelected] = useState();
   const [filtered, setFiltered] = useState();
-  const [users, setUsers] = useState(JsonData.slice(0, 50));
-
+  const [tours, setTours] = useState([]);
+  const [destinations, setDestinations] = useState(null);
   useEffect(() => {
-    setFiltered(users);
+    setFiltered(tours);
+  }, [tours]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/gettours")
+      .then((res) => {
+        console.log(res);
+
+        setTours(res.data.tours);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   useEffect(() => {
@@ -24,29 +38,53 @@ function Destination() {
     filterData();
   }, [selected]);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/destinations")
+      .then((res) => {
+        setDestinations(res.data.destinations);
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   function filterData() {
     let filteredData =
       searched && selected
-        ? users.filter((user) => {
+        ? tours.filter((tour) => {
             return (
-              user.first_name
+              (tour.user_name
                 .toLowerCase()
                 .trim()
-                .includes(searched.toLowerCase()) && user.id == selected
+                .includes(searched.toLowerCase()) &&
+                tour.destination_id == selected) ||
+              (tour.destination_name
+                .toLowerCase()
+                .trim()
+                .includes(searched.toLowerCase()) &&
+                tour.destination_id == selected)
             );
           })
         : searched
-        ? users.filter((user) => {
-            return user.first_name
-              .trim()
-              .toLowerCase()
-              .includes(searched.toLowerCase());
+        ? tours.filter((tour) => {
+            return (
+              tour.user_name
+                .toLowerCase()
+                .trim()
+                .includes(searched.toLowerCase()) ||
+              tour.destination_name
+                .toLowerCase()
+                .trim()
+                .includes(searched.toLowerCase())
+            );
           })
         : selected
-        ? users.filter((user) => {
-            return user.id == selected;
+        ? tours.filter((tour) => {
+            return tour.destination_id == selected;
           })
-        : users;
+        : tours;
 
     setFiltered(filteredData);
   }
@@ -59,24 +97,37 @@ function Destination() {
   const pagesVisited = pageNumber * usersPerPage;
   const displayUsers = filtered
     ?.slice(pagesVisited, pagesVisited + usersPerPage)
-    .map((user) => {
+    .map((tour) => {
       return (
         <div class="col-md-4">
           <div class="m-2">
-            <TourCard firstname={user.first_name} lastname={user.last_name} />
+            <TourCard
+              key={Math.random()}
+              userName={tour.user_name}
+              destinationName={tour.destination_name}
+              userImage={tour.user_image}
+              userRating={tour.rating}
+              tourDescription={tour.tour_description}
+              tourDate={tour.tour_date}
+              tourCreationDate={tour.created_at}
+              heroImg={tour.hero_img}
+            />
           </div>
         </div>
       );
     });
 
-  const pageCount = Math.ceil(users.length / usersPerPage);
+  const pageCount = Math.ceil(filtered?.length / usersPerPage);
 
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
-  console.log(searched);
-  console.log(selected);
+  console.log(destinations);
   console.log(filtered);
+  console.log(tours);
+  console.log(selected);
+  console.log(searched);
+
   return (
     <div>
       <section
@@ -170,13 +221,13 @@ function Destination() {
                               class="form-control"
                               onChange={(e) => setSelected(e.target.value)}>
                               <option value="">Select Destination</option>
-                              <option value="Amman">Amman</option>
-                              <option value="Ajloun">Ajloun</option>
-                              <option value="Aqaba">Aqaba</option>
-                              <option value="Dead Sea">Dead Sea</option>
-                              <option value="Petra">Petra</option>
-                              <option value="Jerash">Jerash</option>
-                              <option value="Irbid">Irbid</option>
+                              {destinations?.map((des) => {
+                                return (
+                                  <option value={des.id}>
+                                    {des.destination_name}
+                                  </option>
+                                );
+                              })}
                             </select>
                           </div>
                         </div>

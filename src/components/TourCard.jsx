@@ -14,6 +14,8 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Link } from "react-router-dom";
+import Rating from "@mui/material/Rating";
+
 import "../styles/TourCard.css";
 
 const ExpandMore = styled((props) => {
@@ -29,17 +31,17 @@ const ExpandMore = styled((props) => {
 
 export default function TourCard(props) {
   const [expanded, setExpanded] = React.useState(false);
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   return (
     <Card sx={{ maxWidth: 345 }}>
+      <></>
       <CardHeader
         avatar={
           <Avatar
-            src="https://d2studios.net/wp-content/uploads/blog/2015/04/6-Uses-for-a-Professional-Personal-Portrait-Photograph.jpg"
+            src={require(`../images/${props.userImage}`)}
             aria-label="recipe"></Avatar>
         }
         action={
@@ -47,40 +49,48 @@ export default function TourCard(props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={props.firstname}
-        subheader="September 14, 2016"
+        title={props.userName}
+        subheader={props.tourCreationDate}
+      />
+      <Rating
+        name="half-rating-read"
+        defaultValue={props.userRating}
+        precision={0.5}
+        readOnly
       />
       <CardMedia
         component="img"
         height="194"
-        image="images/destination-6.jpg"
+        image={require(`../images/${props.userImage}`)}
         alt="Paella dish"
       />
       <Link className="link" to={"/destination/1"}>
-        <CardHeader title={props.lastname} subheader="September 14, 2016" />
+        <CardHeader
+          className="cardHeaderrr"
+          title={props.destinationName}
+          subheader={"Tour Date: " + props.tourDate}
+        />
       </Link>
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {props.tourDescription}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+          <FavoriteIcon className="wishListIcon" />
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        <ExpandMore
+      </CardActions>
+      {/* <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more">
           <ExpandMoreIcon />
         </ExpandMore>
-      </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Method:</Typography>
@@ -111,7 +121,7 @@ export default function TourCard(props) {
             serve.
           </Typography>
         </CardContent>
-      </Collapse>
+      </Collapse> */}
     </Card>
   );
 }

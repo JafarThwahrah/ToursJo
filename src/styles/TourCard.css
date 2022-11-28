@@ -2,3 +2,11 @@
     text-decoration: none;
     color: black;
 }
+
+.cardHeaderrr{
+    color:#f15d30;
+}
+
+.wishListIcon:hover{
+    color:#f15d30
+}
