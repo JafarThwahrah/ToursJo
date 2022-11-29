@@ -61,7 +61,7 @@ export default function TourCard(props) {
       <CardMedia
         component="img"
         height="194"
-        image={require(`../images/${props.userImage}`)}
+        image={require(`../images/${props.heroImg}`)}
         alt="Paella dish"
       />
       <Link className="link" to={`/tourdetails/${props.id}`}>

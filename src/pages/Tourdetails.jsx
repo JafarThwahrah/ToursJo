@@ -18,6 +18,8 @@ function Tourdetails() {
         console.log(err);
       });
   }, []);
+
+  function handleCheckoutClick() {}
   const extraFees = 3;
   console.log(tourDetails);
   return (
@@ -125,6 +127,7 @@ function Tourdetails() {
                       </ul>
 
                       <button
+                        onClick={handleCheckoutClick}
                         type="button"
                         className="btn btn-primary btn-lg btn-block">
                         Go to checkout
