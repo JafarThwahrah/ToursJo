@@ -1,132 +1,150 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import "../styles/style2.css";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 function Tourdetails() {
+  const [tourDetails, setTourDetails] = useState([]);
+  const params = useParams();
+  console.log(params);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/api/getsingletour/${params.id}`)
+      .then((res) => {
+        setTourDetails(res.data.singleTour);
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  const extraFees = 3;
+  console.log(tourDetails);
   return (
     <div>
-      <div class="section-top-border p-5">
-        <h3 class="mb-30">Tour Details</h3>
+      {tourDetails?.map((info) => {
+        return (
+          <div key={Math.random()}>
+            <div className="section-top-border p-5">
+              <h3 className="mb-30">Tour Details</h3>
 
-        <div class="d-flex">
-          <div class="row gallery-item">
-            <div class="col-md-6 me-4">
-              <a href="assets/img/elements/g5.jpg" class="img-pop-up">
-                <div
-                  class="single-gallery-image"
-                  style={{
-                    background: "url(assets/img/elements/g5.jpg)",
-                    width: "45rem",
-                    height: "27rem",
-                  }}></div>
-              </a>
-            </div>
-          </div>
-          <div class="row gallery-item">
-            <div class="col-md-6">
-              <a href="assets/img/elements/g1.jpg" class="img-pop-up">
-                <div
-                  class="single-gallery-image"
-                  style={{
-                    background: "url(assets/img/elements/g1.jpg)",
-                  }}></div>
-              </a>
-            </div>
-            <div class="col-md-6">
-              <a href="assets/img/elements/g2.jpg" class="img-pop-up">
-                <div
-                  class="single-gallery-image"
-                  style={{
-                    background: "url(assets/img/elements/g2.jpg)",
-                  }}></div>
-              </a>
-            </div>
-            <div class="col-md-6">
-              <a href="assets/img/elements/g3.jpg" class="img-pop-up">
-                <div
-                  class="single-gallery-image"
-                  style={{
-                    background: "url(assets/img/elements/g3.jpg)",
-                  }}></div>
-              </a>
-            </div>
-            <div class="col-md-6">
-              <a href="assets/img/elements/g4.jpg" class="img-pop-up">
-                <div
-                  class="single-gallery-image"
-                  style={{
-                    background: "url(assets/img/elements/g4.jpg)",
-                  }}></div>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="section-top-border col-md-8">
-            <div class="row">
-              <div class="col-lg-12">
-                <blockquote class="generic-blockquote text-start">
-                  <h5 class="text-start">Overview</h5>
-                  “Recently, the US Federal government banned online casinos
-                  from operating in America by making it illegal to transfer
-                  money to them through any US bank or payment system. As a
-                  result of this law, most of the popular online casino networks
-                  such as Party Gaming and PlayTech left the United States.
-                  Overnight, online casino
-                  <h5 class="text-start mt-4">Activities</h5>
-                  <ul>
-                    <li>-1</li>
-                    <li>-2</li>
-                    <li>-3</li>
-                  </ul>
-                </blockquote>
-              </div>
-            </div>
-          </div>
+              <div className="d-flex">
+                <div className="row gallery-item">
+                  <div className="col-md-6 me-4">
+                    {/* <div
+                      className="single-gallery-image"
+                      style={{
+                        background: `url(../images/${info.hero_img})`,
+                        width: "45rem",
+                        height: "27rem",
+                      }}></div> */}
 
-          <div class="col-md-4 mt-5">
-            <div class="card mb-4">
-              <div class="card-header py-3">
-                <h5 class="mb-0">Summary</h5>
+                    <img
+                      className="single-gallery-image"
+                      style={{
+                        width: "45rem",
+                        height: "27rem",
+                      }}
+                      src={require(`../images/${info.hero_img}`)}
+                      alt=""
+                    />
+                  </div>
+                </div>
+                <div className="row gallery-item">
+                  <div className="col-md-6">
+                    <img
+                      className="single-gallery-image"
+                      src={require(`../images/${info.img_1}`)}
+                      alt=""
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <img
+                      className="single-gallery-image"
+                      src={require(`../images/${info.img_2}`)}
+                      alt=""
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <img
+                      className="single-gallery-image"
+                      src={require(`../images/${info.img_4}`)}
+                      alt=""
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <img
+                      className="single-gallery-image"
+                      src={require(`../images/${info.img_4}`)}
+                      alt=""
+                    />
+                  </div>
+                </div>
               </div>
-              <div class="card-body">
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                    Products
-                    <span>$53.98</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                    Shipping
-                    <span>Gratis</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                    <div>
-                      <strong>Total amount</strong>
-                      <strong>
-                        <p class="mb-0">(including VAT)</p>
-                      </strong>
+              <div className="row">
+                <div className="section-top-border col-md-8">
+                  <div className="row">
+                    <div className="col-lg-12">
+                      <blockquote className="generic-blockquote text-start">
+                        <h5 className="text-start">Overview</h5>
+                        {info.tour_description}
+                        <h5 className="text-start mt-4">Activities</h5>
+                        <ul>
+                          <li>-1</li>
+                          <li>-2</li>
+                          <li>-3</li>
+                        </ul>
+                      </blockquote>
                     </div>
-                    <span>
-                      <strong>$53.98</strong>
-                    </span>
-                  </li>
-                </ul>
+                  </div>
+                </div>
 
-                <button type="button" class="btn btn-primary btn-lg btn-block">
-                  Go to checkout
-                </button>
+                <div className="col-md-4 mt-5">
+                  <div className="card mb-4">
+                    <div className="card-header py-3">
+                      <h5 className="mb-0">Summary</h5>
+                    </div>
+                    <div className="card-body">
+                      <ul className="list-group list-group-flush">
+                        <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                          Tour Price
+                          <span>{info.tour_price} JOD</span>
+                        </li>
+                        <li className="list-group-item d-flex justify-content-between align-items-center px-0">
+                          Service fees
+                          <span>{extraFees}</span>
+                        </li>
+                        <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                          <div>
+                            <strong>Total amount</strong>
+                          </div>
+                          <span>
+                            <strong>{info.tour_price + extraFees} JOD</strong>
+                          </span>
+                        </li>
+                      </ul>
+
+                      <button
+                        type="button"
+                        className="btn btn-primary btn-lg btn-block">
+                        Go to checkout
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+            <div className="row justify-content-center">
+              <h3 className="mb-5">Check the Tour Route</h3>
+              <iframe
+                src={`${info.tour_route}`}
+                width="640"
+                height="480"
+                className="col-md-10 m-5"></iframe>
+            </div>
           </div>
-        </div>
-      </div>
-
-      <div class="row justify-content-center">
-        <h3 class="mb-5">Check the Tour Route</h3>
-        <iframe
-          src="https://www.google.com/maps/d/embed?mid=1zVjn5ARZ8aDlfWm3aaTsxNRD8EJFxpk&ehbc=2E312F"
-          width="640"
-          height="480"
-          class="col-md-10 m-5"></iframe>
-      </div>
+        );
+      })}
     </div>
   );
 }

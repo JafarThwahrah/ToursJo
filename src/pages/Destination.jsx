@@ -13,8 +13,12 @@ function Destination() {
   const [selected, setSelected] = useState();
   const [filtered, setFiltered] = useState();
   const [tours, setTours] = useState([]);
+  const [tours1, setTours1] = useState([]);
   const [destinations, setDestinations] = useState(null);
   useEffect(() => {
+    for (let i = 0; i < tours1?.length; i++) {
+      tours[i].id = tours1[i].id;
+    }
     setFiltered(tours);
   }, [tours]);
   useEffect(() => {
@@ -23,7 +27,12 @@ function Destination() {
       .then((res) => {
         console.log(res);
 
+        setTours1(res.data.tours1);
+
         setTours(res.data.tours);
+        for (let i = 0; i < tours1?.length; i++) {
+          tours[i].id = tours1[i].id;
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -103,6 +112,7 @@ function Destination() {
           <div class="m-2">
             <TourCard
               key={Math.random()}
+              id={tour.id}
               userName={tour.user_name}
               destinationName={tour.destination_name}
               userImage={tour.user_image}

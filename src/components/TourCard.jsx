@@ -64,7 +64,7 @@ export default function TourCard(props) {
         image={require(`../images/${props.userImage}`)}
         alt="Paella dish"
       />
-      <Link className="link" to={"/destination/1"}>
+      <Link className="link" to={`/tourdetails/${props.id}`}>
         <CardHeader
           className="cardHeaderrr"
           title={props.destinationName}
