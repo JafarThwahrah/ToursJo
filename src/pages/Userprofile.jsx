@@ -80,6 +80,10 @@ function Userprofile() {
       .post("http://localhost:8000/api/tours", data)
       .then((res) => {
         console.log(res);
+
+        setTimeout(() => {
+          window.location.reload(false);
+        }, 2000);
       })
       .catch((err) => {
         console.log(err);
