@@ -98,7 +98,7 @@ function Checkout() {
               );
             })}
           </div>
-          <div className="d-flex" style={{ marginLeft: "6.5rem" }}>
+          <div className="d-flex" style={{ marginLeft: "5rem" }}>
             <button
               onClick={{ handlePayment }}
               className="btn btn-primary btn-lg btn-block w-25"

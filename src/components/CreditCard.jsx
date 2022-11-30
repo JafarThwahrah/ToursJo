@@ -34,7 +34,7 @@ export default class PaymentForm extends React.Component {
         <form>
           <div className="checkOutForm">
             <input
-              className="inputField inputFieldNumber m-4"
+              className="inputField inputFieldNumber m-4 p-2"
               type="tel"
               name="number"
               placeholder="Card Number"
@@ -43,7 +43,7 @@ export default class PaymentForm extends React.Component {
             />
 
             <input
-              className="inputField m-4"
+              className="inputField m-4 p-2"
               type="tel"
               name="name"
               placeholder="Cardholder name"
@@ -52,7 +52,7 @@ export default class PaymentForm extends React.Component {
             />
 
             <input
-              className="inputField m-4"
+              className="inputField m-4 p-2"
               type="tel"
               name="expiry"
               placeholder="Expiry date"
@@ -60,7 +60,7 @@ export default class PaymentForm extends React.Component {
               onFocus={this.handleInputFocus}
             />
             <input
-              className="inputField m-4"
+              className="inputField m-4 p-2"
               type="tel"
               name="cvc"
               placeholder="cvc"
