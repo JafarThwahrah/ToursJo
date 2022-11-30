@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import "../styles/style2.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Tourdetails() {
   const [tourDetails, setTourDetails] = useState([]);
+  const navigate = useNavigate();
   const params = useParams();
   console.log(params);
   useEffect(() => {
@@ -19,17 +21,33 @@ function Tourdetails() {
       });
   }, []);
 
-  function handleCheckoutClick() {}
+  function handleCheckoutClick() {
+    navigate(`/checkout/${tourDetails[0].id}`);
+  }
   const extraFees = 3;
+
   console.log(tourDetails);
   return (
     <div>
+      <section
+        class="hero-wrap hero-wrap-2 js-fullheight d-flex align-items-center heroImgHome userProfileIMG"
+        style={{
+          backgroundImage:
+            "url(https://static.vecteezy.com/system/resources/previews/002/010/782/large_2x/desert-landscape-with-camels-in-the-wadi-rum-jordan-free-photo.JPG)",
+          backgroundPositionY: "bottom",
+        }}>
+        <div class="container">
+          <div class="row slider-text js-fullheight align-items-end justify-content-center">
+            <div class="col-md-9 pb-5 text-center">
+              <h1 class="mb-0 bread">Tour Details</h1>
+            </div>
+          </div>
+        </div>
+      </section>
       {tourDetails?.map((info) => {
         return (
           <div key={Math.random()}>
             <div className="section-top-border p-5">
-              <h3 className="mb-30">Tour Details</h3>
-
               <div className="d-flex">
                 <div className="row gallery-item">
                   <div className="col-md-6 me-4">
@@ -92,9 +110,9 @@ function Tourdetails() {
                         {info.tour_description}
                         <h5 className="text-start mt-4">Activities</h5>
                         <ul>
-                          <li>-1</li>
-                          <li>-2</li>
-                          <li>-3</li>
+                          <li>1-</li>
+                          <li>2-</li>
+                          <li>3-</li>
                         </ul>
                       </blockquote>
                     </div>

@@ -67,13 +67,6 @@ export default class PaymentForm extends React.Component {
               onChange={this.handleInputChange}
               onFocus={this.handleInputFocus}
             />
-            <div className="d-flex justify-content-center">
-              <button
-                className="btn btn-primary btn-lg btn-block w-25 m-4"
-                type="submit">
-                Continue to checkout
-              </button>
-            </div>
             {/* <div>
             <Button
               style={{ margin: "1rem" }}
