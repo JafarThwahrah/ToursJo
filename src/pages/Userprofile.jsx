@@ -20,7 +20,7 @@ function Userprofile() {
   const [tours, setTours] = useState(null);
   const [userData, setUserData] = useState(null);
   const [tokens, setTokens] = useState(null);
-
+  const [bookedtours, setBookedtours] = useState(null);
   const [selectedDestination, setSelectedDestination] = useState({});
   const [date, setDate] = useState(null);
   const [price, setPrice] = useState(null);
@@ -124,23 +124,24 @@ function Userprofile() {
           console.log(err);
         });
 
-      // axios
-      // .get(`http://localhost:8000/api/gettours/${userData[0].id}`)
-      // .then((res) => {
-      //   setTours(res.data.toursPerUser);
-      //   setTourJoin(res.data.ToursJoinDes);
-      //   console.log(res);
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      // });
+      axios
+        .get(
+          `http://localhost:8000/api/getbookedtour/${userData[0].user_role}/${userData[0].id}`
+        )
+        .then((res) => {
+          setBookedtours(res.data.bookedtours);
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }, [userData]);
 
   for (let i = 0; i < tours?.length; i++) {
     tourJoin[i].id = tours[i].id;
   }
-  console.log(tourJoin);
+  console.log(loginData.data.user.user_role);
   // console.log(userData[0].id);
   // console.log(price);
   // console.log(number);
@@ -544,19 +545,31 @@ function Userprofile() {
                   <div class="serial">Tour ID</div>
                   <div class="tourdate">Tour Date</div>
                   <div class="Destination">Destination</div>
-                  <div class="touristname">Tourist Name</div>
+                  {loginData.data.user.user_role == "Advisor" ? (
+                    <div class="touristname">Tourist Name</div>
+                  ) : (
+                    <div class="touristname">Advisor Name</div>
+                  )}
                   <div class="price">Price</div>
-                  <div class="review">review</div>
+                  <div class="review">Rate</div>
                 </div>
-                <div class="table-row">
-                  <div class="serial">01</div>
-                  <div class="tourdate">01</div>
-                  <div class="Destination">Destination</div>
-                  <div class="touristname">645032</div>
+                {bookedtours?.map((booked) => {
+                  return (
+                    <div class="table-row">
+                      <div class="serial">{booked.id}</div>
+                      <div class="tourdate">{booked.tour_date}</div>
+                      <div class="Destination">{booked.destination_name}</div>
+                      <div class="touristname">{booked.user_name}</div>
 
-                  <div class="price">50usd</div>
-                  <div class="review">5/5</div>
-                </div>
+                      <div class="price">{booked.tour_price}</div>
+                      {booked.tour_rating == null ? (
+                        <div class="review">uncalibrated</div>
+                      ) : (
+                        <div class="review">{booked.tour_rating}</div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
