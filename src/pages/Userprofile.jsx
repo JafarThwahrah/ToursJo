@@ -36,7 +36,11 @@ function Userprofile() {
   const [tourJoin, setTourJoin] = useState(null);
 
   const navigate = useNavigate();
-
+  useEffect(() => {
+    if (!loginData) {
+      navigate(`/login`);
+    }
+  }, [loginData]);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -83,7 +87,7 @@ function Userprofile() {
 
         setTimeout(() => {
           window.location.reload(false);
-        }, 2000);
+        }, 1000);
       })
       .catch((err) => {
         console.log(err);
@@ -119,14 +123,19 @@ function Userprofile() {
         .catch((err) => {
           console.log(err);
         });
+
+      // axios
+      // .get(`http://localhost:8000/api/gettours/${userData[0].id}`)
+      // .then((res) => {
+      //   setTours(res.data.toursPerUser);
+      //   setTourJoin(res.data.ToursJoinDes);
+      //   console.log(res);
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // });
     }
   }, [userData]);
-
-  useEffect(() => {
-    if (!loginData) {
-      navigate(`/login`);
-    }
-  }, [loginData]);
 
   for (let i = 0; i < tours?.length; i++) {
     tourJoin[i].id = tours[i].id;

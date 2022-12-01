@@ -9,17 +9,48 @@ import { useEffect } from "react";
 
 function Checkout() {
   const params = useParams();
+  const [tokens, setTokens] = useState(null);
+  const [userData, setUserData] = useState(null);
+
   const [tourDetails, setTourDetails] = useState([]);
   const [loginData, setLoginData] = useState(
     localStorage.getItem("loginData")
       ? JSON.parse(localStorage.getItem("loginData"))
       : null
   );
-  function handlePayment() {
-    //post request booked tour
+
+  useEffect(() => {
+    if (!loginData) {
+      navigate(`/login`);
+    }
+  }, [loginData]);
+
+  function handlePayment(event) {
+    event.preventDefault();
+    const data = new FormData();
+    data.append("user_id2", tourDetails[0].user_id);
+    data.append("tour_id", tourDetails[0].id);
+    data.append("tour_price", tourDetails[0].tour_price + 3);
+    data.append("user_id", userData[0].id);
+    const axiosAuth = "Bearer " + tokens;
+
+    axios.defaults.headers.common["Authorization"] = axiosAuth;
+    axios
+      .post("http://localhost:8000/api/checkouttour", data)
+      .then((res) => {
+        console.log(res);
+
+        navigate("/destination");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   const navigate = useNavigate();
   useEffect(() => {
+    setTokens(loginData?.data.token);
+    setUserData([loginData?.data.user]);
+
     axios
       .get(`http://localhost:8000/api/getsingletour/${params.id}`)
       .then((res) => {
@@ -31,12 +62,9 @@ function Checkout() {
       });
   }, []);
 
-  if (!loginData) {
-    navigate("/login");
-  }
-
-  console.log(loginData);
+  // console.log(loginData);
   console.log(tourDetails);
+  console.log(tokens);
 
   return (
     <>
@@ -100,7 +128,7 @@ function Checkout() {
           </div>
           <div className="d-flex" style={{ marginLeft: "5rem" }}>
             <button
-              onClick={{ handlePayment }}
+              onClick={(e) => handlePayment(e)}
               className="btn btn-primary btn-lg btn-block w-25"
               type="submit">
               Continue to checkout
