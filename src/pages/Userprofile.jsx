@@ -11,6 +11,8 @@ import "../css/style.css";
 import "../styles/style2.css";
 import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
+import Rating from "@mui/material/Rating";
+import RateReviewOutlinedIcon from "@mui/icons-material/RateReviewOutlined";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -176,7 +178,7 @@ function Userprofile() {
   // console.log(price);
   // console.log(number);
   // console.log(route);
-  // console.log(description);
+  console.log(description);
 
   return (
     <div>
@@ -599,10 +601,22 @@ function Userprofile() {
                       <div class="touristname">{booked.user_name}</div>
 
                       <div class="price">{booked.tour_price}</div>
-                      {booked.tour_rating == null ? (
-                        <div class="review">uncalibrated</div>
+                      {booked.booked_rating == null ? (
+                        <div class="review">
+                          uncalibrated
+                          <RateReviewOutlinedIcon
+                            style={{
+                              color: "#f15d30",
+                              marginLeft: "8px",
+                            }}></RateReviewOutlinedIcon>{" "}
+                        </div>
                       ) : (
-                        <div class="review">{booked.tour_rating}</div>
+                        <div class="review">
+                          <Rating
+                            name="size-medium"
+                            defaultValue={booked.booked_rating}
+                          />
+                        </div>
                       )}
                     </div>
                   );
