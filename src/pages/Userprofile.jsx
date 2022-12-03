@@ -9,6 +9,13 @@ import axios from "axios";
 import Box from "@mui/material/Box";
 import "../css/style.css";
 import "../styles/style2.css";
+import MuiAlert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 function Userprofile() {
   // const { id } = useParams();
 
@@ -17,6 +24,7 @@ function Userprofile() {
       ? JSON.parse(localStorage.getItem("loginData"))
       : null
   );
+  const [open, setOpen] = React.useState(false);
   const [tours, setTours] = useState(null);
   const [userData, setUserData] = useState(null);
   const [tokens, setTokens] = useState(null);
@@ -87,7 +95,8 @@ function Userprofile() {
 
         setTimeout(() => {
           window.location.reload(false);
-        }, 1000);
+        }, 2000);
+        setOpen(true);
       })
       .catch((err) => {
         console.log(err);
@@ -96,7 +105,9 @@ function Userprofile() {
     // window.location.reload(false);
     // navigate(`/`);
   };
-
+  const handleClose = (event) => {
+    setOpen(false);
+  };
   useEffect(() => {
     setUserData([loginData?.data.user]);
     setTokens(loginData?.data.token);
@@ -139,6 +150,20 @@ function Userprofile() {
   }, [userData]);
 
   function handleLogout() {
+    const axiosAuth = "Bearer " + tokens;
+    axios.defaults.headers.common["Authorization"] = axiosAuth;
+    axios
+      .post("http://localhost:8000/api/logout")
+      .then((res) => {
+        console.log(res);
+
+        setTimeout(() => {
+          window.location.reload(false);
+        }, 1000);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     localStorage.clear();
     setLoginData(null);
   }
@@ -169,6 +194,11 @@ function Userprofile() {
           </div>
         </div>
       </section>
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          Tour Published Successfully!
+        </Alert>
+      </Snackbar>
       <div class="layout-content m-5">
         <div class="container flex-grow-1 container-p-y">
           {userData?.map((data) => {

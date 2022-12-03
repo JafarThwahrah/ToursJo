@@ -2,7 +2,12 @@ import React from "react";
 import "../styles/About.css";
 import { Link } from "react-router-dom";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { useEffect } from "react";
+
 function About() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <div

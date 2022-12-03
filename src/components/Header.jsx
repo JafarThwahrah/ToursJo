@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 
 function Header() {
+  const [loginData, setLoginData] = useState(
+    localStorage.getItem("loginData")
+      ? JSON.parse(localStorage.getItem("loginData"))
+      : null
+  );
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    setUserData([loginData?.data.user]);
+  }, [loginData]);
+  console.log(loginData);
+  console.log(userData);
+
   return (
     <div>
       <nav
@@ -55,9 +68,17 @@ function Header() {
               </li>
 
               <li className="nav-item">
-                <NavLink to="/Login" className="nav-link">
-                  Login
-                </NavLink>
+                {!loginData ? (
+                  <NavLink to="/Login" className="nav-link">
+                    Login
+                  </NavLink>
+                ) : (
+                  <NavLink
+                    to={`/userprofile/${loginData?.data.user.id}`}
+                    className="nav-link">
+                    Profile
+                  </NavLink>
+                )}
               </li>
             </ul>
           </div>

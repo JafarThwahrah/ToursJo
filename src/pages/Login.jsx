@@ -17,7 +17,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-
+import axios from "axios";
 import { googleLogout } from "@react-oauth/google";
 // import "../styles/Login.css";
 
@@ -42,21 +42,38 @@ export default function SignIn() {
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
+    // const data = new FormData(event.currentTarget);
+    // let email = data.get("email");
+    // let password = data.get("password");
+
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    let email = data.get("email");
-    let password = data.get("password");
 
-    let formData = email + password;
+    console.log(data.get("email"));
+    axios.get("http://localhost:8000/sanctum/csrf-cookie").then((response) => {
+      console.log(response);
+      axios
+        .post("http://localhost:8000/api/login", data)
+        .then((res) => {
+          localStorage.setItem("loginData", JSON.stringify(res));
+          setLoginData(res);
+          console.log(res);
+          setTimeout(() => {
+            window.location.reload(false);
+          }, 500);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
 
-    localStorage.setItem("loginData", JSON.stringify(formData));
-
-    navigate("/profile");
+    navigate(`/userprofile/${loginData.data.user.id}`);
   };
 
-  const handleLogin = (googleData) => {
-    localStorage.setItem("loginData", JSON.stringify(googleData));
-    setLoginData(googleData);
+  const handleLogin = (res) => {
+    console.log(res);
+    // localStorage.setItem("loginData", JSON.stringify(googleData));
+    // setLoginData(googleData);
   };
 
   const handleFailure = (result) => {
@@ -71,7 +88,7 @@ export default function SignIn() {
 
   useEffect(() => {
     if (loginData) {
-      navigate(`/userprofile/${loginData.data.user.id}`);
+      navigate(`/userprofile/${loginData?.data.user.id}`);
     }
   }, [loginData]);
 
@@ -109,7 +126,7 @@ export default function SignIn() {
                 fullWidth
                 id="email"
                 label="Email Address"
-                name="email"
+                name="user_email"
                 autoComplete="email"
                 autoFocus
               />
@@ -142,9 +159,10 @@ export default function SignIn() {
                   }
                   buttonText="Login with Google"
                   Referrer-Policy={"no-referrer-when-downgrade"}
-                  cookiePolicy={"strict-origin-when-cross-origin"}>
+                  cookiePolicy={"single_host_origin"}>
                   <GoogleLogin
-                    className="googleBtn"
+                    style={{ margin: "15rem" }}
+                    buttonText="Sign in with Google"
                     onSuccess={handleLogin}
                     onError={handleFailure}
                     useOneTap

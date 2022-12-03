@@ -10,6 +10,9 @@ function Tourdetails() {
   const params = useParams();
   console.log(params);
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     axios
       .get(`http://localhost:8000/api/getsingletour/${params.id}`)
       .then((res) => {
