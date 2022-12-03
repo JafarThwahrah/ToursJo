@@ -98,8 +98,8 @@ function Userprofile() {
   };
 
   useEffect(() => {
-    setUserData([loginData.data.user]);
-    setTokens(loginData.data.token);
+    setUserData([loginData?.data.user]);
+    setTokens(loginData?.data.token);
     axios
       .get("http://localhost:8000/api/destinations")
       .then((res) => {
@@ -138,10 +138,15 @@ function Userprofile() {
     }
   }, [userData]);
 
+  function handleLogout() {
+    localStorage.clear();
+    setLoginData(null);
+  }
+
   for (let i = 0; i < tours?.length; i++) {
     tourJoin[i].id = tours[i].id;
   }
-  console.log(loginData.data.user.user_role);
+  // console.log(loginData.data.user.user_role);
   // console.log(userData[0].id);
   // console.log(price);
   // console.log(number);
@@ -180,7 +185,7 @@ function Userprofile() {
                     <div class="media-body ml-5 d-flex flex-column">
                       <div>
                         <h4 class="font-weight-bold mb-4 text-left">
-                          Nellie Maxwell
+                          {data.user_name}
                         </h4>
 
                         <div class="text-muted mb-4 text-left">
@@ -261,7 +266,9 @@ function Userprofile() {
             );
           })}
           <div class="d-flex">
-            <button className="btn btn-danger p-3 m-2 ">Logout</button>
+            <button onClick={handleLogout} className="btn btn-danger p-3 m-2 ">
+              Logout
+            </button>
           </div>
           {userData?.map((userinfo) => {
             return userinfo.user_role !== "Advisor" ? null : (
@@ -545,7 +552,7 @@ function Userprofile() {
                   <div class="serial">Tour ID</div>
                   <div class="tourdate">Tour Date</div>
                   <div class="Destination">Destination</div>
-                  {loginData.data.user.user_role == "Advisor" ? (
+                  {loginData?.data.user.user_role == "Advisor" ? (
                     <div class="touristname">Tourist Name</div>
                   ) : (
                     <div class="touristname">Advisor Name</div>
@@ -556,7 +563,7 @@ function Userprofile() {
                 {bookedtours?.map((booked) => {
                   return (
                     <div class="table-row">
-                      <div class="serial">{booked.id}</div>
+                      <div class="serial">{booked.tour_id}</div>
                       <div class="tourdate">{booked.tour_date}</div>
                       <div class="Destination">{booked.destination_name}</div>
                       <div class="touristname">{booked.user_name}</div>

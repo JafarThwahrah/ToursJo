@@ -134,11 +134,14 @@ export default function SignIn() {
                 sx={{ mt: 3, mb: 2 }}>
                 Sign In
               </Button>
-              {/* <div className="googlebtncontainer">
+              <div className="googlebtncontainer">
                 <GoogleOAuthProvider
                   style={{ margin: "1rem", width: "30rem" }}
-                  clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                  clientId={
+                    "557643652967-0toe8dndlbkfvqkd7gkugv397oail9hc.apps.googleusercontent.com"
+                  }
                   buttonText="Login with Google"
+                  Referrer-Policy={"no-referrer-when-downgrade"}
                   cookiePolicy={"strict-origin-when-cross-origin"}>
                   <GoogleLogin
                     className="googleBtn"
@@ -147,7 +150,7 @@ export default function SignIn() {
                     useOneTap
                   />
                 </GoogleOAuthProvider>
-              </div> */}
+              </div>
 
               <Grid container>
                 <Grid item>

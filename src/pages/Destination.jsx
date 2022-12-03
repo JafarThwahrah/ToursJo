@@ -17,7 +17,9 @@ function Destination() {
   const [destinations, setDestinations] = useState(null);
   useEffect(() => {
     for (let i = 0; i < tours1?.length; i++) {
-      tours[i].id = tours1[i].id;
+      if (tours[i].created_at === tours1[i].created_at) {
+        tours[i].id = tours1[i].id;
+      }
     }
     setFiltered(tours);
   }, [tours]);
@@ -28,10 +30,13 @@ function Destination() {
         console.log(res);
 
         setTours1(res.data.tours1);
-
         setTours(res.data.tours);
+        console.log(tours);
+        console.log(tours1);
         for (let i = 0; i < tours1?.length; i++) {
-          tours[i].id = tours1[i].id;
+          if (tours[i].created_at === tours1[i].created_at) {
+            tours[i].id = tours1[i].id;
+          }
         }
       })
       .catch((err) => {
@@ -102,29 +107,35 @@ function Destination() {
     window.location.reload(false);
   };
 
+  // for (let i = 0; i < tours1?.length; i++) {
+  //   tours[i].id = tours1[i].id;
+  // }
+
   const usersPerPage = 9;
   const pagesVisited = pageNumber * usersPerPage;
   const displayUsers = filtered
     ?.slice(pagesVisited, pagesVisited + usersPerPage)
     .map((tour) => {
-      return (
-        <div class="col-md-4">
-          <div class="m-2">
-            <TourCard
-              key={Math.random()}
-              id={tour.id}
-              userName={tour.user_name}
-              destinationName={tour.destination_name}
-              userImage={tour.user_image}
-              userRating={tour.rating}
-              tourDescription={tour.tour_description}
-              tourDate={tour.tour_date}
-              tourCreationDate={tour.created_at}
-              heroImg={tour.hero_img}
-            />
+      {
+        return tour.deleted_at === null ? (
+          <div class="col-md-4">
+            <div class="m-2">
+              <TourCard
+                key={Math.random()}
+                id={tour.id}
+                userName={tour.user_name}
+                destinationName={tour.destination_name}
+                userImage={tour.user_image}
+                userRating={tour.rating}
+                tourDescription={tour.tour_description}
+                tourDate={tour.tour_date}
+                tourCreationDate={tour.created_at}
+                heroImg={tour.hero_img}
+              />
+            </div>
           </div>
-        </div>
-      );
+        ) : null;
+      }
     });
 
   const pageCount = Math.ceil(filtered?.length / usersPerPage);
@@ -132,11 +143,11 @@ function Destination() {
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
-  console.log(destinations);
+  // console.log(destinations);
   console.log(filtered);
   console.log(tours);
-  console.log(selected);
-  console.log(searched);
+  console.log(tours);
+  console.log(tours1.data);
 
   return (
     <div>
