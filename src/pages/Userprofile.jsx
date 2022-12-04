@@ -13,10 +13,26 @@ import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import Rating from "@mui/material/Rating";
 import RateReviewOutlinedIcon from "@mui/icons-material/RateReviewOutlined";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import TextField from "@mui/material/TextField";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 function Userprofile() {
   // const { id } = useParams();
@@ -26,6 +42,10 @@ function Userprofile() {
       ? JSON.parse(localStorage.getItem("loginData"))
       : null
   );
+  const [openModal, setOpenModal] = React.useState(false);
+  const [value, setValue] = React.useState(2);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
   const [open, setOpen] = React.useState(false);
   const [tours, setTours] = useState(null);
   const [userData, setUserData] = useState(null);
@@ -604,16 +624,59 @@ function Userprofile() {
                       {booked.booked_rating == null ? (
                         <div class="review">
                           uncalibrated
-                          <RateReviewOutlinedIcon
-                            style={{
-                              color: "#f15d30",
-                              marginLeft: "8px",
-                            }}></RateReviewOutlinedIcon>{" "}
+                          <Button key={booked.id} onClick={handleOpenModal}>
+                            <Modal
+                              key={booked.id}
+                              open={openModal}
+                              onClose={handleCloseModal}
+                              aria-labelledby="modal-modal-title"
+                              aria-describedby="modal-modal-description">
+                              <Box sx={style}>
+                                <Typography
+                                  id="modal-modal-title"
+                                  variant="h6"
+                                  component="h2">
+                                  <Typography component="legend">
+                                    Tour ID {booked.id}
+                                  </Typography>
+                                  <Rating
+                                    name="simple-controlled"
+                                    value={value}
+                                    onChange={(event, newValue) => {
+                                      setValue(newValue);
+                                    }}
+                                  />
+                                  <Typography component="legend">
+                                    Share Your experiance with us
+                                  </Typography>
+                                  <TextField
+                                    id="outlined-multiline-static"
+                                    label="Multiline"
+                                    multiline
+                                    rows={4}
+                                    defaultValue="Default Value"
+                                  />
+                                </Typography>
+                                <Typography
+                                  id="modal-modal-description"
+                                  sx={{ mt: 2 }}>
+                                  Duis mollis, est non commodo luctus, nisi erat
+                                  porttitor ligula.
+                                </Typography>
+                              </Box>
+                            </Modal>
+                            <RateReviewOutlinedIcon
+                              style={{
+                                color: "#f15d30",
+                                marginLeft: "8px",
+                              }}></RateReviewOutlinedIcon>
+                          </Button>
                         </div>
                       ) : (
                         <div class="review">
                           <Rating
                             name="size-medium"
+                            readOnly
                             defaultValue={booked.booked_rating}
                           />
                         </div>
