@@ -624,53 +624,11 @@ function Userprofile() {
                       {booked.booked_rating == null ? (
                         <div class="review">
                           uncalibrated
-                          <Button key={booked.id} onClick={handleOpenModal}>
-                            <Modal
-                              key={booked.id}
-                              open={openModal}
-                              onClose={handleCloseModal}
-                              aria-labelledby="modal-modal-title"
-                              aria-describedby="modal-modal-description">
-                              <Box sx={style}>
-                                <Typography
-                                  id="modal-modal-title"
-                                  variant="h6"
-                                  component="h2">
-                                  <Typography component="legend">
-                                    Tour ID {booked.id}
-                                  </Typography>
-                                  <Rating
-                                    name="simple-controlled"
-                                    value={value}
-                                    onChange={(event, newValue) => {
-                                      setValue(newValue);
-                                    }}
-                                  />
-                                  <Typography component="legend">
-                                    Share Your experiance with us
-                                  </Typography>
-                                  <TextField
-                                    id="outlined-multiline-static"
-                                    label="Multiline"
-                                    multiline
-                                    rows={4}
-                                    defaultValue="Default Value"
-                                  />
-                                </Typography>
-                                <Typography
-                                  id="modal-modal-description"
-                                  sx={{ mt: 2 }}>
-                                  Duis mollis, est non commodo luctus, nisi erat
-                                  porttitor ligula.
-                                </Typography>
-                              </Box>
-                            </Modal>
-                            <RateReviewOutlinedIcon
-                              style={{
-                                color: "#f15d30",
-                                marginLeft: "8px",
-                              }}></RateReviewOutlinedIcon>
-                          </Button>
+                          <RateReviewOutlinedIcon
+                            style={{
+                              color: "#f15d30",
+                              marginLeft: "8px",
+                            }}></RateReviewOutlinedIcon>
                         </div>
                       ) : (
                         <div class="review">

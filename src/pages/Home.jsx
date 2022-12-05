@@ -3,12 +3,33 @@ import { Link } from "react-router-dom";
 import BasicPopover from "../components/BasicPopover";
 import { useEffect } from "react";
 import { useState } from "react";
+import axios from "axios";
 import "../styles/Home.css";
+import Rating from "@mui/material/Rating";
+import Typography from "@mui/material/Typography";
 
 function Home() {
+  const [advisors, setAdvisors] = useState();
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/getalladvisors")
+      .then((res) => {
+        console.log(res);
+        setAdvisors(res.data.Advisors);
+
+        // setTimeout(() => {
+        //   setIsLoading(false);
+        // }, 500);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  console.log(advisors);
+
   return (
     <>
       <div
@@ -216,34 +237,38 @@ function Home() {
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4 ">
-              <div class="project-wrap hotel">
-                <a
-                  href="#"
-                  class="img"
-                  style={{
-                    backgroundImage:
-                      "url(https://d2studios.net/wp-content/uploads/blog/2015/04/6-Uses-for-a-Professional-Personal-Portrait-Photograph.jpg)",
-                  }}></a>
-                <div class="text p-4">
-                  <p class="star mb-2">
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                  </p>
-                  {/* <span class="days">8 Days Tour</span> */}
-                  <h3>
-                    <BasicPopover />
-                  </h3>
-                  <p class="location">
-                    <span class=""></span> Sammary, Im Jafar From Jordan Zarqa
-                    blah blah blah
-                  </p>
+            {advisors?.map((advisor) => {
+              return (
+                <div class="col-md-4 ">
+                  <div class="project-wrap hotel">
+                    <img
+                      className="img"
+                      src={require(`../images/${advisor.user_image}`)}
+                      alt=""
+                    />
+                    <div class="text p-4">
+                      <p class="star mb-2">
+                        <Rating
+                          name="read-only"
+                          value={advisor.rating}
+                          readOnly
+                        />
+                      </p>
+                      {/* <span class="days">8 Days Tour</span> */}
+                      <h3>
+                        <BasicPopover
+                          rating={advisor.rating}
+                          userName={advisor.user_name}
+                        />
+                      </h3>
+                      <Typography style={{ wordWrap: "break-word" }}>
+                        {advisor.user_sammary}
+                      </Typography>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>
