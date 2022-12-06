@@ -32,14 +32,13 @@ function Destination() {
     axios
       .get("http://localhost:8000/api/gettours")
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setTimeout(() => {
           setIsLoading(false);
         }, 500);
         setTours1(res.data.tours1);
         setTours(res.data.tours);
-        console.log(tours);
-        console.log(tours1);
+
         for (let i = 0; i < tours1?.length; i++) {
           if (tours[i].created_at === tours1[i].created_at) {
             tours[i].id = tours1[i].id;
@@ -47,7 +46,7 @@ function Destination() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, []);
 
@@ -64,10 +63,10 @@ function Destination() {
       .get("http://localhost:8000/api/destinations")
       .then((res) => {
         setDestinations(res.data.destinations);
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, []);
 
@@ -150,11 +149,6 @@ function Destination() {
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
-  // console.log(destinations);
-  console.log(filtered);
-  console.log(tours);
-  console.log(tours);
-  console.log(tours1.data);
 
   return (
     <div>

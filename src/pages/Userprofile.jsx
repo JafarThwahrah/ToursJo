@@ -64,7 +64,9 @@ function Userprofile() {
   const [img3, setImg3] = useState(null);
   const [img4, setImg4] = useState(null);
   const [tourJoin, setTourJoin] = useState(null);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const navigate = useNavigate();
   useEffect(() => {
     if (!loginData) {

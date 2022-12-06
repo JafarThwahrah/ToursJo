@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import "../styles/PopoverButton.css";
 
-export default function BasicPopover() {
+export default function BasicPopover(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -22,13 +22,13 @@ export default function BasicPopover() {
     <div class="">
       <Button
         class="PopoverBtn"
-        aria-describedby={id}
+        aria-describedby={props.userID}
         variant="contained"
         onClick={handleClick}>
-        Jafar Thwahrah
+        {props.userName}
       </Button>
       <Popover
-        id={id}
+        id={props.userID}
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
@@ -41,14 +41,14 @@ export default function BasicPopover() {
             <div class="d-flex text-black">
               <div class="flex-shrink-0">
                 <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                  src={require(`../images/${props.userImage}`)}
                   alt="Generic placeholder image"
                   class="img-fluid"
                   style={{ width: "180px", borderRadius: "10px" }}
                 />
               </div>
               <div class="flex-grow-1 ms-3">
-                <h5 class="mb-1">Danny McLoan</h5>
+                <h5 class="mb-1">{props.userName}</h5>
 
                 <div
                   class="d-flex justify-content-start rounded-3 p-2 mb-2"

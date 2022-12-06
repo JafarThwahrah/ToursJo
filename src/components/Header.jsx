@@ -12,8 +12,6 @@ function Header() {
   useEffect(() => {
     setUserData([loginData?.data.user]);
   }, [loginData]);
-  console.log(loginData);
-  console.log(userData);
 
   return (
     <div>

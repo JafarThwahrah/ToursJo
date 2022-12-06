@@ -247,18 +247,20 @@ function Home() {
                       alt=""
                     />
                     <div class="text p-4">
-                      <p class="star mb-2">
-                        <Rating
-                          name="read-only"
-                          value={advisor.rating}
-                          readOnly
-                        />
-                      </p>
+                      <Rating
+                        size="large"
+                        name="size-large"
+                        value={advisor.rating}
+                        readOnly
+                      />
+
                       {/* <span class="days">8 Days Tour</span> */}
                       <h3>
                         <BasicPopover
                           rating={advisor.rating}
                           userName={advisor.user_name}
+                          userImage={advisor.user_image}
+                          userID={advisor.id}
                         />
                       </h3>
                       <Typography style={{ wordWrap: "break-word" }}>
