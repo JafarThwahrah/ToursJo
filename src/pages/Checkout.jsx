@@ -13,14 +13,16 @@ import Snackbar from "@mui/material/Snackbar";
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
-
+const Alert2 = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 function Checkout() {
   const params = useParams();
   const [open, setOpen] = React.useState(false);
   const [tokens, setTokens] = useState(null);
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [openErr, setOpenErr] = useState(false);
   const [tourDetails, setTourDetails] = useState([]);
   const [loginData, setLoginData] = useState(
     localStorage.getItem("loginData")
@@ -29,6 +31,10 @@ function Checkout() {
   );
   const handleClose = (event) => {
     setOpen(false);
+  };
+
+  const handleCloseErr = (event) => {
+    setOpenErr(false);
   };
   useEffect(() => {
     if (!loginData) {
@@ -46,7 +52,6 @@ function Checkout() {
     data.append("tour_price", tourDetails[0].tour_price + 3);
     data.append("user_id", userData[0].id);
     const axiosAuth = "Bearer " + tokens;
-    setOpen(true);
 
     axios.defaults.headers.common["Authorization"] = axiosAuth;
     axios
@@ -54,8 +59,18 @@ function Checkout() {
       .then((res) => {
         console.log(res);
 
-        setTimeout(() => {}, 4000);
-        navigate("/destination");
+        if (res.data.status == "Wrong action") {
+          setOpenErr(true);
+          setTimeout(() => {
+            Redirect();
+          }, 1000);
+        } else {
+          setOpen(true);
+          setTimeout(() => {
+            Redirect();
+          }, 1000);
+        }
+        // navigate("/destination");
       })
       .catch((err) => {
         console.log(err);
@@ -80,6 +95,9 @@ function Checkout() {
       });
   }, []);
 
+  function Redirect() {
+    navigate("/destination");
+  }
   // console.log(loginData);
   console.log(tourDetails);
   console.log(tokens);
@@ -125,6 +143,18 @@ function Checkout() {
               sx={{ width: "100%" }}>
               Tour Booked Successfully!
             </Alert>
+          </Snackbar>
+
+          <Snackbar
+            open={openErr}
+            autoHideDuration={3000}
+            onClose={handleCloseErr}>
+            <Alert2
+              onClose={handleCloseErr}
+              severity="error"
+              sx={{ width: "100%" }}>
+              Wrong action!
+            </Alert2>
           </Snackbar>
           <div class="p-5">
             <section class="">

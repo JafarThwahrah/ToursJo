@@ -9,14 +9,18 @@ import axios from "axios";
 import Box from "@mui/material/Box";
 import "../css/style.css";
 import "../styles/style2.css";
+import Button from "@mui/material/Button";
+
 import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import Rating from "@mui/material/Rating";
 import RateReviewOutlinedIcon from "@mui/icons-material/RateReviewOutlined";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -44,8 +48,6 @@ function Userprofile() {
   );
   const [openModal, setOpenModal] = React.useState(false);
   const [value, setValue] = React.useState(2);
-  const handleOpenModal = () => setOpenModal(true);
-  const handleCloseModal = () => setOpenModal(false);
   const [open, setOpen] = React.useState(false);
   const [tours, setTours] = useState(null);
   const [userData, setUserData] = useState(null);
@@ -73,6 +75,15 @@ function Userprofile() {
       navigate(`/login`);
     }
   }, [loginData]);
+
+  const handleClickOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -200,7 +211,7 @@ function Userprofile() {
   // console.log(price);
   // console.log(number);
   // console.log(route);
-  console.log(description);
+  console.log(tourJoin);
 
   return (
     <div>
@@ -626,11 +637,49 @@ function Userprofile() {
                       {booked.booked_rating == null ? (
                         <div class="review">
                           uncalibrated
-                          <RateReviewOutlinedIcon
-                            style={{
-                              color: "#f15d30",
-                              marginLeft: "8px",
-                            }}></RateReviewOutlinedIcon>
+                          <Dialog open={openModal} onClose={handleCloseModal}>
+                            <DialogTitle>Subscribe</DialogTitle>
+                            <DialogContent>
+                              <DialogContentText>
+                                To subscribe to this website, please enter your
+                                email address here. We will send updates
+                                occasionally.
+                              </DialogContentText>
+                              <TextField
+                                autoFocus
+                                margin="dense"
+                                id="name"
+                                label="Email Address"
+                                type="email"
+                                fullWidth
+                                variant="standard"
+                              />
+
+                              <Rating
+                                name="simple-controlled"
+                                value={value}
+                                onChange={(event, newValue) => {
+                                  setValue(newValue);
+                                }}
+                              />
+                            </DialogContent>
+                            <DialogActions>
+                              <Button onClick={handleCloseModal}>Cancel</Button>
+                              <Button onClick={handleCloseModal}>
+                                Subscribe
+                              </Button>
+                            </DialogActions>
+                          </Dialog>
+                          <Button
+                            variant="outlined"
+                            onClick={handleClickOpenModal}>
+                            Open form dialog
+                            <RateReviewOutlinedIcon
+                              style={{
+                                color: "#f15d30",
+                                marginLeft: "8px",
+                              }}></RateReviewOutlinedIcon>
+                          </Button>
                         </div>
                       ) : (
                         <div class="review">
