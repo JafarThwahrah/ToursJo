@@ -26,17 +26,17 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+// const style = {
+//   position: "absolute",
+//   top: "50%",
+//   left: "50%",
+//   transform: "translate(-50%, -50%)",
+//   width: 400,
+//   bgcolor: "background.paper",
+//   border: "2px solid #000",
+//   boxShadow: 24,
+//   p: 4,
+// };
 
 function Userprofile() {
   // const { id } = useParams();
@@ -66,6 +66,7 @@ function Userprofile() {
   const [img3, setImg3] = useState(null);
   const [img4, setImg4] = useState(null);
   const [tourJoin, setTourJoin] = useState(null);
+  const [review, setReview] = useState();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -83,6 +84,18 @@ function Userprofile() {
   const handleCloseModal = () => {
     setOpenModal(false);
   };
+
+  function handleRatingSubmit(event, id) {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    data.append("rating", value);
+    data.append("id", id);
+    data.append("review", review);
+    //Post Request into rating and review
+    console.log(data.get("rating"));
+    console.log(data.get("id"));
+    console.log(data.get("review"));
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -638,42 +651,52 @@ function Userprofile() {
                         <div class="review">
                           uncalibrated
                           <Dialog open={openModal} onClose={handleCloseModal}>
-                            <DialogTitle>Subscribe</DialogTitle>
-                            <DialogContent>
-                              <DialogContentText>
-                                To subscribe to this website, please enter your
-                                email address here. We will send updates
-                                occasionally.
-                              </DialogContentText>
-                              <TextField
-                                autoFocus
-                                margin="dense"
-                                id="name"
-                                label="Email Address"
-                                type="email"
-                                fullWidth
-                                variant="standard"
-                              />
-
-                              <Rating
-                                name="simple-controlled"
-                                value={value}
-                                onChange={(event, newValue) => {
-                                  setValue(newValue);
-                                }}
-                              />
-                            </DialogContent>
-                            <DialogActions>
-                              <Button onClick={handleCloseModal}>Cancel</Button>
-                              <Button onClick={handleCloseModal}>
-                                Subscribe
-                              </Button>
-                            </DialogActions>
+                            <Box
+                              component="form"
+                              onSubmit={(e) =>
+                                handleRatingSubmit(e, booked.tour_id)
+                              }>
+                              <DialogTitle style={{ padding: "4rem" }}>
+                                How was your Adventure
+                              </DialogTitle>
+                              <DialogContent
+                                className="text-center"
+                                style={{
+                                  paddingLeft: "4rem",
+                                  paddingRight: "4rem",
+                                }}>
+                                <DialogContentText>
+                                  Rate Your Journy
+                                </DialogContentText>
+                                <Rating
+                                  className="text-center"
+                                  style={{ display: "block" }}
+                                  name="simple-controlled"
+                                  value={value}
+                                  onChange={(event, newValue) => {
+                                    setValue(newValue);
+                                  }}
+                                />
+                                <TextField
+                                  id="outlined-multiline-static"
+                                  label="Review"
+                                  multiline
+                                  rows={4}
+                                  onChange={(e) => setReview(e.target.value)}
+                                />
+                              </DialogContent>
+                              <DialogActions>
+                                <Button onClick={handleCloseModal}>
+                                  Cancel
+                                </Button>
+                                <Button type="submit">Submit</Button>
+                              </DialogActions>
+                            </Box>
                           </Dialog>
                           <Button
+                            style={{ border: "none" }}
                             variant="outlined"
                             onClick={handleClickOpenModal}>
-                            Open form dialog
                             <RateReviewOutlinedIcon
                               style={{
                                 color: "#f15d30",
