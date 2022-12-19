@@ -70,7 +70,7 @@ function ReviewDialog(props) {
     axios
       .post("http://localhost:8000/api/rateandreview", data)
       .then((res) => {
-        setReviewAlertOpen(true);
+        setOpen(true);
         console.log(res);
       })
       .catch((err) => {
