@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/Userprofile.css";
-import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,18 +8,10 @@ import axios from "axios";
 import Box from "@mui/material/Box";
 import "../css/style.css";
 import "../styles/style2.css";
-import Button from "@mui/material/Button";
-
 import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import Rating from "@mui/material/Rating";
-import RateReviewOutlinedIcon from "@mui/icons-material/RateReviewOutlined";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import ReviewDialog from "../components/ReviewDialog";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -46,8 +37,7 @@ function Userprofile() {
       ? JSON.parse(localStorage.getItem("loginData"))
       : null
   );
-  const [openModal, setOpenModal] = React.useState(false);
-  const [value, setValue] = React.useState(2);
+
   const [open, setOpen] = React.useState(false);
   const [tours, setTours] = useState(null);
   const [userData, setUserData] = useState(null);
@@ -66,7 +56,6 @@ function Userprofile() {
   const [img3, setImg3] = useState(null);
   const [img4, setImg4] = useState(null);
   const [tourJoin, setTourJoin] = useState(null);
-  const [review, setReview] = useState();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -77,25 +66,43 @@ function Userprofile() {
     }
   }, [loginData]);
 
-  const handleClickOpenModal = () => {
-    setOpenModal(true);
-  };
+  // const handleClickOpenModal = () => {
+  //   setOpenModal(true);
+  // };
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
+  // const handleCloseModal = () => {
+  //   setOpenModal(false);
+  // };
 
-  function handleRatingSubmit(event, id) {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    data.append("rating", value);
-    data.append("id", id);
-    data.append("review", review);
-    //Post Request into rating and review
-    console.log(data.get("rating"));
-    console.log(data.get("id"));
-    console.log(data.get("review"));
-  }
+  // const handleCloseReview = () => {
+  //   setReviewAlertOpen(false);
+  // };
+
+  // function handleRatingSubmit(event, tour_id) {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   data.append("rating", value);
+  //   data.append("tour_id", tour_id);
+  //   data.append("review", review);
+  //   data.append("user_id", userData[0].id);
+
+  //   console.log(data.get("rating"));
+  //   console.log(data.get("tour_id"));
+  //   console.log(data.get("review"));
+  //   console.log(data.get("user_id"));
+
+  //   // const axiosAuth = "Bearer " + tokens;
+  //   // axios.defaults.headers.common["Authorization"] = axiosAuth;
+  //   // axios
+  //   //   .post("http://localhost:8000/api/rateandreview", data)
+  //   //   .then((res) => {
+  //   //     setReviewAlertOpen(true);
+  //   //     console.log(res);
+  //   //   })
+  //   //   .catch((err) => {
+  //   //     console.log(err);
+  //   //   });
+  // }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -224,7 +231,7 @@ function Userprofile() {
   // console.log(price);
   // console.log(number);
   // console.log(route);
-  console.log(tourJoin);
+  // console.log(tourJoin);
 
   return (
     <div>
@@ -247,6 +254,7 @@ function Userprofile() {
           Tour Published Successfully!
         </Alert>
       </Snackbar>
+
       <div class="layout-content m-5">
         <div class="container flex-grow-1 container-p-y">
           {userData?.map((data) => {
@@ -649,60 +657,7 @@ function Userprofile() {
                       <div class="price">{booked.tour_price}</div>
                       {booked.booked_rating == null ? (
                         <div class="review">
-                          uncalibrated
-                          <Dialog open={openModal} onClose={handleCloseModal}>
-                            <Box
-                              component="form"
-                              onSubmit={(e) =>
-                                handleRatingSubmit(e, booked.tour_id)
-                              }>
-                              <DialogTitle style={{ padding: "4rem" }}>
-                                How was your Adventure
-                              </DialogTitle>
-                              <DialogContent
-                                className="text-center"
-                                style={{
-                                  paddingLeft: "4rem",
-                                  paddingRight: "4rem",
-                                }}>
-                                <DialogContentText>
-                                  Rate Your Journy
-                                </DialogContentText>
-                                <Rating
-                                  className="text-center"
-                                  style={{ display: "block" }}
-                                  name="simple-controlled"
-                                  value={value}
-                                  onChange={(event, newValue) => {
-                                    setValue(newValue);
-                                  }}
-                                />
-                                <TextField
-                                  id="outlined-multiline-static"
-                                  label="Review"
-                                  multiline
-                                  rows={4}
-                                  onChange={(e) => setReview(e.target.value)}
-                                />
-                              </DialogContent>
-                              <DialogActions>
-                                <Button onClick={handleCloseModal}>
-                                  Cancel
-                                </Button>
-                                <Button type="submit">Submit</Button>
-                              </DialogActions>
-                            </Box>
-                          </Dialog>
-                          <Button
-                            style={{ border: "none" }}
-                            variant="outlined"
-                            onClick={handleClickOpenModal}>
-                            <RateReviewOutlinedIcon
-                              style={{
-                                color: "#f15d30",
-                                marginLeft: "8px",
-                              }}></RateReviewOutlinedIcon>
-                          </Button>
+                          <ReviewDialog booked={booked.tour_id} />
                         </div>
                       ) : (
                         <div class="review">
