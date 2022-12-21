@@ -12,6 +12,7 @@ import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import Rating from "@mui/material/Rating";
 import ReviewDialog from "../components/ReviewDialog";
+import Swal from "sweetalert2";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -66,43 +67,31 @@ function Userprofile() {
     }
   }, [loginData]);
 
-  // const handleClickOpenModal = () => {
-  //   setOpenModal(true);
-  // };
-
-  // const handleCloseModal = () => {
-  //   setOpenModal(false);
-  // };
-
-  // const handleCloseReview = () => {
-  //   setReviewAlertOpen(false);
-  // };
-
-  // function handleRatingSubmit(event, tour_id) {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   data.append("rating", value);
-  //   data.append("tour_id", tour_id);
-  //   data.append("review", review);
-  //   data.append("user_id", userData[0].id);
-
-  //   console.log(data.get("rating"));
-  //   console.log(data.get("tour_id"));
-  //   console.log(data.get("review"));
-  //   console.log(data.get("user_id"));
-
-  //   // const axiosAuth = "Bearer " + tokens;
-  //   // axios.defaults.headers.common["Authorization"] = axiosAuth;
-  //   // axios
-  //   //   .post("http://localhost:8000/api/rateandreview", data)
-  //   //   .then((res) => {
-  //   //     setReviewAlertOpen(true);
-  //   //     console.log(res);
-  //   //   })
-  //   //   .catch((err) => {
-  //   //     console.log(err);
-  //   //   });
-  // }
+  function handleDeleteTour(id) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        const axiosAuth = "Bearer " + tokens;
+        axios.defaults.headers.common["Authorization"] = axiosAuth;
+        axios
+          .delete(`http://localhost:8000/api/tours/${id}`)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -121,27 +110,6 @@ function Userprofile() {
     data.append("img_4", img4);
 
     const axiosAuth = "Bearer " + tokens;
-    // const options = {
-    //   method: "POST",
-    //   url: "http://localhost:8000/api/tours",
-    //   headers: {
-    //     Authorization: axiosAuth,
-    //     "content-type": "application/json",
-    //   },data: '{"title":"Spaghetti Carbonara","servings":2,"ingredients":["1 lb spaghetti","3.5 oz pancetta","2 Tbsps olive oil","1  egg","0.5 cup parmesan cheese"],"instructions":"Bring a large pot of water to a boil and season generously with salt. Add the pasta to the water once boiling and cook until al dente. Reserve 2 cups of cooking water and drain the pasta. "}'
-
-    // };
-    // console.log(tokens);
-
-    // axios
-    //   .request(options, data)
-    //   .then(function (response) {
-    //     console.log(response.data);
-    //   })
-    //   .catch(function (error) {
-    //     console.error(error);
-    //   });
-    // axios.get("http://localhost:8000/sanctum/csrf-cookie").then((response) => {
-    //   console.log(response);
     axios.defaults.headers.common["Authorization"] = axiosAuth;
     axios
       .post("http://localhost:8000/api/tours", data)
@@ -231,7 +199,7 @@ function Userprofile() {
   // console.log(price);
   // console.log(number);
   // console.log(route);
-  // console.log(tourJoin);
+  console.log(tourJoin);
 
   return (
     <div>
@@ -388,21 +356,16 @@ function Userprofile() {
                             </div>
                             <div class="price">{tour.tour_price} JOD</div>
                             <div class="review d-flex justify-content-center">
-                              <a href="{{route('Book.edit'  , $Book->id)}}">
-                                <button class="btn btn-info btn-s">
-                                  <i class="bi bi-pencil"></i>
-                                </button>
-                              </a>
-                              <form
-                                action="{{route('Book.destroy' , $Book->id)}}"
-                                method="POST">
-                                <button
-                                  class="btn btn-danger btn-s ms-2"
-                                  type="submit"
-                                  onClick="return confirm('Do you really want to delete');">
-                                  <i class="bi bi-trash3"></i>
-                                </button>
-                              </form>
+                              <button class="btn btn-info btn-s">
+                                <i class="bi bi-pencil"></i>
+                              </button>
+
+                              <button
+                                onClick={(e) => handleDeleteTour(tour.id)}
+                                class="btn btn-danger btn-s ms-2"
+                                type="submit">
+                                <i class="bi bi-trash3"></i>
+                              </button>
                             </div>
                           </div>
                         );
