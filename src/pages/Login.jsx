@@ -19,6 +19,8 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import { googleLogout } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
+
 // import "../styles/Login.css";
 
 function Copyright(props) {
@@ -72,6 +74,8 @@ export default function SignIn() {
 
   const handleLogin = (res) => {
     console.log(res);
+    let decoded = jwt_decode(res.credential);
+    console.log(decoded);
     // localStorage.setItem("loginData", JSON.stringify(googleData));
     // setLoginData(googleData);
   };
