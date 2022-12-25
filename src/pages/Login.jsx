@@ -76,6 +76,24 @@ export default function SignIn() {
     console.log(res);
     let decoded = jwt_decode(res.credential);
     console.log(decoded);
+
+    axios.get("http://localhost:8000/sanctum/csrf-cookie").then((response) => {
+      console.log(response);
+      axios
+        .post("http://localhost:8000/api/googlelogin", decoded)
+        .then((res) => {
+          localStorage.setItem("loginData", JSON.stringify(res));
+          console.log(res);
+          setTimeout(() => {
+            window.location.reload(false);
+          }, 500);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+    navigate(`/userprofile/${loginData.data.user.id}`);
+
     // localStorage.setItem("loginData", JSON.stringify(googleData));
     // setLoginData(googleData);
   };
@@ -97,95 +115,108 @@ export default function SignIn() {
   }, [loginData]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}>
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          {loginData ? (
-            <div>
-              <h3>You logged in as {loginData.email}</h3>
-              <button onClick={handleLogout}>Logout</button>
-            </div>
-          ) : (
-            <Box
-              component="form"
-              onSubmit={handleSubmit}
-              noValidate
-              sx={{ mt: 1 }}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="user_email"
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}>
-                Sign In
-              </Button>
-              <div className="googlebtncontainer">
-                <GoogleOAuthProvider
-                  style={{ margin: "1rem", width: "30rem" }}
-                  clientId={
-                    "557643652967-0toe8dndlbkfvqkd7gkugv397oail9hc.apps.googleusercontent.com"
-                  }
-                  buttonText="Login with Google"
-                  Referrer-Policy={"no-referrer-when-downgrade"}
-                  cookiePolicy={"single_host_origin"}>
-                  <GoogleLogin
-                    style={{ margin: "15rem" }}
-                    buttonText="Sign in with Google"
-                    onSuccess={handleLogin}
-                    onError={handleFailure}
-                    useOneTap
-                  />
-                </GoogleOAuthProvider>
+    <div
+      style={{
+        backgroundImage: "url(https://images2.alphacoders.com/503/503890.jpg)",
+        minHeight: "100vh",
+      }}>
+      <ThemeProvider theme={theme}>
+        <Container className="py-5" component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}>
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            {loginData ? (
+              <div>
+                <h3>You logged in as {loginData.email}</h3>
+                <button onClick={handleLogout}>Logout</button>
               </div>
+            ) : (
+              <Box
+                component="form"
+                onSubmit={handleSubmit}
+                noValidate
+                sx={{ mt: 1 }}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="user_email"
+                  autoComplete="email"
+                  autoFocus
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
 
-              <Grid container>
-                <Grid item>
-                  <Link href="/register" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}>
+                  Sign In
+                </Button>
+                <div className="googlebtncontainer">
+                  <GoogleOAuthProvider
+                    style={{ margin: "1rem", width: "30rem" }}
+                    clientId={
+                      "557643652967-0toe8dndlbkfvqkd7gkugv397oail9hc.apps.googleusercontent.com"
+                    }
+                    buttonText="Login with Google"
+                    Referrer-Policy={"no-referrer-when-downgrade"}
+                    cookiePolicy={"single_host_origin"}>
+                    <GoogleLogin
+                      style={{
+                        backgroundColor: "#4285f4",
+                        color: "white",
+                        width: "220px",
+                        height: "40px",
+                        borderRadius: "5px",
+                        fontSize: "16px",
+                      }}
+                      buttonText="Sign in with Google"
+                      onSuccess={handleLogin}
+                      onError={handleFailure}
+                      useOneTap
+                    />
+                  </GoogleOAuthProvider>
+                </div>
+
+                <Grid container>
+                  <Grid item>
+                    <Link
+                      className="text-light"
+                      href="/register"
+                      variant="body2">
+                      Don't have an account? Sign Up
+                    </Link>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Box>
-          )}
-        </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
-    </ThemeProvider>
+              </Box>
+            )}
+          </Box>
+          <Copyright sx={{ mt: 8, mb: 4 }} />
+        </Container>
+      </ThemeProvider>
+    </div>
   );
 }

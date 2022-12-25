@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 
 function Home() {
   const [advisors, setAdvisors] = useState();
+  const [testimonials, setTestimonials] = useState();
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/getalladvisors")
@@ -24,11 +25,21 @@ function Home() {
       .catch((err) => {
         console.log(err);
       });
+
+    (async () => {
+      try {
+        let response = await axios.get(
+          "http://localhost:8000/api/getTestimonials"
+        );
+        setTestimonials(response.data.Testimonials);
+      } catch (e) {
+        console.log(e);
+      }
+    })();
   }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  console.log(advisors);
 
   return (
     <>
@@ -61,12 +72,11 @@ function Home() {
                 <h2 class="mb-4">It's time to start your adventure</h2>
                 <p></p>
                 <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
-                  Separated they live in Bookmarksgrove right at the coast of
-                  the Semantics, a large language ocean. A small river named
-                  Duden flows by their place and supplies it with the necessary
-                  regelialia.
+                  ToursJo is a platform form which allows Tour advisors to
+                  provide their services to the tourists, by publishing trips
+                  for specific destination ,after the trips is booked the
+                  tourist can Rate the advisor services which will appear on the
+                  website.
                 </p>
                 <p>
                   <Link to="/destination" class="btn btn-primary py-3 px-4">
@@ -236,7 +246,7 @@ function Home() {
               <h2 class="mb-4">FIND OUR BEST ADVISORS</h2>
             </div>
           </div>
-          <div class="row">
+          <div class="d-flex flex-wrap">
             {advisors?.map((advisor) => {
               return (
                 <div class="col-md-4 ">
@@ -252,6 +262,7 @@ function Home() {
                         name="size-large"
                         value={advisor.rating}
                         readOnly
+                        precision={0.5}
                       />
 
                       {/* <span class="days">8 Days Tour</span> */}
@@ -263,7 +274,13 @@ function Home() {
                           userID={advisor.id}
                         />
                       </h3>
-                      <Typography style={{ wordWrap: "break-word" }}>
+                      <Typography
+                        style={{
+                          wordWrap: "break-word",
+                          height: "5rem",
+                          overflow: "scroll",
+                          overflow: "hidden",
+                        }}>
                         {advisor.user_sammary}
                       </Typography>
                     </div>

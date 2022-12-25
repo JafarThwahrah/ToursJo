@@ -250,20 +250,6 @@ function Userprofile() {
                           )}
                         </div>
                       </div>
-                      <div class="d-flex ">
-                        <a
-                          href="javascript:void(0)"
-                          class="d-inline-block text-body">
-                          <strong>234</strong>
-                          <span class="text-muted">followers</span>
-                        </a>
-                        <a
-                          href="javascript:void(0)"
-                          class="d-inline-block text-body ml-3">
-                          <strong>111</strong>
-                          <span class="text-muted">following</span>
-                        </a>
-                      </div>
                     </div>
                   </div>
                   <hr class="m-0" />
@@ -301,15 +287,23 @@ function Userprofile() {
                           </span>
                           <span class="d-flex col flex-column text-body py-3">
                             {data.rating ? (
-                              <div class="font-weight-bold">{data.rating}</div>
-                            ) : (
+                              <>
+                                <div class="font-weight-bold">
+                                  {data.rating.toFixed(2)}
+                                </div>
+                                <span>Your Rate</span>
+                              </>
+                            ) : !data.rating && data.user_role == "advisor" ? (
                               <div class="font-weight-bold">uncalibrated</div>
+                            ) : (
+                              ""
                             )}
-                            <div class="text-muted small">Your Rate</div>
-                          </span>
-                          <span class="d-flex col flex-column text-body py-3">
-                            <div class="font-weight-bold">215</div>
-                            <div class="text-muted small">photos</div>
+
+                            {data.user_role == "advisor" ? (
+                              <div class="text-muted small">Your Rate</div>
+                            ) : (
+                              ""
+                            )}
                           </span>
                         </div>
                       </div>

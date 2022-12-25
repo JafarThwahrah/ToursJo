@@ -53,6 +53,7 @@ function ReviewDialog(props) {
     setTokens(loginData?.data.token);
   }, []);
 
+  console.log(props);
   function handleRatingSubmit(event, tour_id) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
