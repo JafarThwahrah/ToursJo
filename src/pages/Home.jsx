@@ -7,6 +7,7 @@ import axios from "axios";
 import "../styles/Home.css";
 import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
+import Testimonials from "../components/Testimonials";
 
 function Home() {
   const [advisors, setAdvisors] = useState();
@@ -376,18 +377,14 @@ function Home() {
                         alt=""
                       />
                     </div>
-                    <div class="testimonial mt-4 mb-2">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Accusamus expedita dicta doloremque odit saepe quo natus
-                      aut accusantium alias blanditiis.
-                    </div>
-                    <p class="star">
+                    <div class="testimonial mt-4 mb-2">Review213</div>
+                    {/* <p class="star">
                       <span class="fa fa-star"></span>
                       <span class="fa fa-star"></span>
                       <span class="fa fa-star"></span>
                       <span class="fa fa-star"></span>
                       <span class="fa fa-star"></span>
-                    </p>
+                    </p> */}
                     <div class="name">Denis Richie</div>
                   </div>
                 </div>
@@ -399,12 +396,8 @@ function Home() {
                         alt=""
                       />
                     </div>
-                    <div class="testimonial mt-4 mb-2">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Accusamus expedita dicta doloremque odit saepe quo natus
-                      aut accusantium alias blanditiis.
-                    </div>
-                    <div class="name">Lisa Sthalekar</div>
+                    <div class="testimonial mt-4 mb-2">Review2</div>
+                    <div class="name">Lisa</div>
                   </div>
                 </div>
                 <div class="owl-item">
@@ -415,11 +408,7 @@ function Home() {
                         alt=""
                       />
                     </div>
-                    <div class="testimonial mt-4 mb-2">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Accusamus expedita dicta doloremque odit saepe quo natus
-                      aut accusantium alias blanditiis.
-                    </div>
+                    <div class="testimonial mt-4 mb-2">Review123124</div>
                     <div class="name">Elizabith Richie</div>
                   </div>
                 </div>
@@ -431,11 +420,7 @@ function Home() {
                         alt=""
                       />
                     </div>
-                    <div class="testimonial mt-4 mb-2">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Accusamus expedita dicta doloremque odit saepe quo natus
-                      aut accusantium alias blanditiis.
-                    </div>
+                    <div class="testimonial mt-4 mb-2">review123</div>
                     <div class="name">Daniel Xavier</div>
                   </div>
                 </div>
@@ -447,12 +432,8 @@ function Home() {
                         alt=""
                       />
                     </div>
-                    <div class="testimonial mt-4 mb-2">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Accusamus expedita dicta doloremque odit saepe quo natus
-                      aut accusantium alias blanditiis.
-                    </div>
-                    <div class="name">Emma Watson</div>
+                    <div class="testimonial mt-4 mb-2">Review23</div>
+                    <div class="name">Emma</div>
                   </div>
                 </div>
                 <div class="owl-item">
@@ -463,12 +444,8 @@ function Home() {
                         alt=""
                       />
                     </div>
-                    <div class="testimonial mt-4 mb-2">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Accusamus expedita dicta doloremque odit saepe quo natus
-                      aut accusantium alias blanditiis.
-                    </div>
-                    <div class="name">Mohammad Imran</div>
+                    <div class="testimonial mt-4 mb-2">skfjadkfm,v,,m,</div>
+                    <div class="name">Mohammad</div>
                   </div>
                 </div>
               </div>
@@ -476,6 +453,8 @@ function Home() {
           </div>
         </div>
       </section>
+
+      <section></section>
     </>
   );
 }

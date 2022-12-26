@@ -73,6 +73,9 @@ function ReviewDialog(props) {
       .then((res) => {
         setOpen(true);
         console.log(res);
+        setTimeout(() => {
+          window.location.reload(false);
+        }, 1000);
       })
       .catch((err) => {
         console.log(err);

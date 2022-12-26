@@ -111,12 +111,6 @@ function Tourdetails() {
                       <blockquote className="generic-blockquote text-start">
                         <h5 className="text-start">Overview</h5>
                         {info.tour_description}
-                        <h5 className="text-start mt-4">Activities</h5>
-                        <ul>
-                          <li>1-</li>
-                          <li>2-</li>
-                          <li>3-</li>
-                        </ul>
                       </blockquote>
                     </div>
                   </div>

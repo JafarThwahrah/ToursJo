@@ -13,6 +13,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Rating from "@mui/material/Rating";
 import ReviewDialog from "../components/ReviewDialog";
 import Swal from "sweetalert2";
+import EditIcon from "@mui/icons-material/Edit";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -85,6 +86,9 @@ function Userprofile() {
           .delete(`http://localhost:8000/api/tours/${id}`)
           .then((res) => {
             console.log(res);
+            setTimeout(() => {
+              window.location.reload(false);
+            }, 500);
           })
           .catch((err) => {
             console.log(err);
@@ -260,6 +264,11 @@ function Userprofile() {
                     <div class="card mb-4">
                       <div class="card-body">
                         <div class="row mb-2">
+                          <div className="d-flex flex-row-reverse">
+                            <button className="btn btn-info">
+                              <EditIcon />
+                            </button>
+                          </div>
                           <div class="col-md-3 text-muted">Birthday:</div>
                           <div class="col-md-9">May 3, 1995</div>
                         </div>
@@ -278,13 +287,14 @@ function Userprofile() {
                           <div class="col-md-3 text-muted">Phone:</div>
                           <div class="col-md-9">0785351933</div>
                         </div>
+                        <div class="row mb-2">
+                          <div class="col-md-3 text-muted">Birthday:</div>
+                          <div class="col-md-9">May 3, 1995</div>
+                        </div>
                       </div>
+
                       <div class="card-footer text-center p-0">
                         <div class="row no-gutters row-bordered row-border-light">
-                          <span class="d-flex col flex-column text-body py-3">
-                            <div class="font-weight-bold">24</div>
-                            <div class="text-muted small">Booked Tours</div>
-                          </span>
                           <span class="d-flex col flex-column text-body py-3">
                             {data.rating ? (
                               <>
@@ -310,14 +320,26 @@ function Userprofile() {
                     </div>
                   </div>
                 </div>
+
+                <div class="d-flex">
+                  <button
+                    onClick={handleLogout}
+                    className="btn btn-danger p-3 m-2 ">
+                    Logout
+                  </button>
+                  {data.user_role == "Admin" ? (
+                    <a href="http://localhost:3001/dashboard">
+                      <button className="btn btn-warning bg-gradient text-light p-3 m-2 ">
+                        Go To Admin Dashboard
+                      </button>
+                    </a>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </>
             );
           })}
-          <div class="d-flex">
-            <button onClick={handleLogout} className="btn btn-danger p-3 m-2 ">
-              Logout
-            </button>
-          </div>
           {userData?.map((userinfo) => {
             return userinfo.user_role !== "Advisor" ? null : (
               <div class="section-top-border">
