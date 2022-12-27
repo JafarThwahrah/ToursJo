@@ -89,7 +89,7 @@ function ReviewDialog(props) {
           Thanks for sharing your experiance!
         </Alert>
       </Snackbar>
-      uncalibrated
+      <span className="ms-4">uncalibrated</span>
       <Dialog open={openModal} onClose={handleCloseModal}>
         <Box
           component="form"
@@ -104,22 +104,23 @@ function ReviewDialog(props) {
               paddingRight: "4rem",
             }}>
             <DialogContentText>Rate Your Journy</DialogContentText>
-            <Rating
-              className="text-center"
-              style={{ display: "block" }}
-              name="simple-controlled"
-              value={value}
-              onChange={(event, newValue) => {
-                setValue(newValue);
-              }}
-            />
-            <TextField
-              id="outlined-multiline-static"
-              label="Review"
-              multiline
-              rows={4}
-              onChange={(e) => setReview(e.target.value)}
-            />
+            <div className="d-flex flex-column justify-content-center align-items-center">
+              <Rating
+                className="text-center"
+                name="simple-controlled"
+                value={value}
+                onChange={(event, newValue) => {
+                  setValue(newValue);
+                }}
+              />
+              <TextField
+                id="outlined-multiline-static"
+                label="Review"
+                multiline
+                rows={4}
+                onChange={(e) => setReview(e.target.value)}
+              />
+            </div>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseModal}>Cancel</Button>
@@ -131,11 +132,15 @@ function ReviewDialog(props) {
         style={{ border: "none" }}
         variant="outlined"
         onClick={handleClickOpenModal}>
-        <RateReviewOutlinedIcon
-          style={{
-            color: "#f15d30",
-            marginLeft: "8px",
-          }}></RateReviewOutlinedIcon>
+        {props.role == "Tourist" ? (
+          <RateReviewOutlinedIcon
+            style={{
+              color: "#f15d30",
+              marginLeft: "8px",
+            }}></RateReviewOutlinedIcon>
+        ) : (
+          ""
+        )}
       </Button>
     </div>
   );

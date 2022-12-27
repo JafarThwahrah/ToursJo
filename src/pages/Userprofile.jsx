@@ -13,7 +13,6 @@ import Snackbar from "@mui/material/Snackbar";
 import Rating from "@mui/material/Rating";
 import ReviewDialog from "../components/ReviewDialog";
 import Swal from "sweetalert2";
-import EditIcon from "@mui/icons-material/Edit";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -58,6 +57,11 @@ function Userprofile() {
   const [img3, setImg3] = useState(null);
   const [img4, setImg4] = useState(null);
   const [tourJoin, setTourJoin] = useState(null);
+  const [editPassword, setEditPassword] = useState(null);
+  const [userName, setUserName] = useState(null);
+  const [userSammary, setUserSammary] = useState(null);
+  const [userImage, setUserImage] = useState(null);
+  const [userId, setUserId] = useState(null);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -96,7 +100,27 @@ function Userprofile() {
       }
     });
   }
+  function handleEditForm(e, id) {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    data.append("user_name", userName);
+    data.append("user_sammary", userSammary);
+    data.append("user_image", userImage);
+    data.append("password", editPassword);
 
+    const axiosAuth = "Bearer " + tokens;
+    axios.defaults.headers.common["Authorization"] = axiosAuth;
+    axios
+      .post(`http://localhost:8000/api/user/${userData[0].id}`, data)
+      .then((response) => {
+        console.log(response);
+        Swal.fire("Updated!", "Your Profile Updated Successfully.", "success");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  console.log(userData);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -136,6 +160,17 @@ function Userprofile() {
     setOpen(false);
   };
   useEffect(() => {
+    setUserId([loginData?.data.user.id]);
+
+    axios
+      .get(`http://localhost:8000/api/getoneuser/${userId}`)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     setUserData([loginData?.data.user]);
     setTokens(loginData?.data.token);
     axios
@@ -148,6 +183,7 @@ function Userprofile() {
         console.log(err);
       });
   }, []);
+  console.log(userId);
 
   useEffect(() => {
     if (userData) {
@@ -234,11 +270,19 @@ function Userprofile() {
               <>
                 <div class="container-m-nx container-m-ny theme-bg-white mb-4">
                   <div class="media col-md-10 col-lg-8 col-xl-7 py-5 mx-auto">
-                    <img
-                      src={require(`../images/${data.user_image}`)}
-                      alt="img"
-                      class="d-block ui-w-100 rounded-circle"
-                    />
+                    {data.user_image != null ? (
+                      <img
+                        src={require(`../images/${data.user_image}`)}
+                        alt="img"
+                        class="d-block ui-w-100 rounded-circle"
+                      />
+                    ) : (
+                      <img
+                        src="https://media.istockphoto.com/id/476085198/photo/businessman-silhouette-as-avatar-or-default-profile-picture.jpg?b=1&s=170667a&w=0&k=20&c=cVOZ3OYMmZQt9_G4TXXiCM3a3oJQlJ-FLGdVO0rCPpY="
+                        alt="img"
+                        class="d-block ui-w-100 rounded-circle"
+                      />
+                    )}
 
                     <div class="media-body ml-5 d-flex flex-column">
                       <div>
@@ -265,9 +309,125 @@ function Userprofile() {
                       <div class="card-body">
                         <div class="row mb-2">
                           <div className="d-flex flex-row-reverse">
-                            <button className="btn btn-info">
-                              <EditIcon />
-                            </button>
+                            <Link
+                              type="button"
+                              class="btn btn-info"
+                              data-bs-toggle="modal"
+                              data-bs-target="#exampleModal1">
+                              <i class="bi bi-pencil"></i>
+                            </Link>
+
+                            <div
+                              class="modal fade"
+                              id="exampleModal1"
+                              tabindex="-1"
+                              aria-labelledby="exampleModalLabel"
+                              aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <form
+                                    onSubmit={(e) =>
+                                      handleEditForm(e, userData[0].id)
+                                    }
+                                    action="">
+                                    <div class="modal-header">
+                                      <h1
+                                        class="modal-title fs-5"
+                                        id="exampleModalLabel">
+                                        Edit Your information
+                                      </h1>
+                                      <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <div class="mb-3">
+                                        <label
+                                          for="exampleInputPassword1"
+                                          class="form-label">
+                                          Username
+                                        </label>
+                                        <input
+                                          type="text"
+                                          name="user_name"
+                                          class="form-control"
+                                          id="exampleInputPassword1"
+                                          onChange={(e) =>
+                                            setUserName(e.target.value)
+                                          }
+                                        />
+                                      </div>
+
+                                      <div class="mb-3">
+                                        <label
+                                          for="exampleInputPassword3"
+                                          class="form-label">
+                                          Password
+                                        </label>
+                                        <input
+                                          type="text"
+                                          name="password"
+                                          class="form-control"
+                                          id="exampleInputPassword3"
+                                          onChange={(e) =>
+                                            setEditPassword(e.target.value)
+                                          }
+                                        />
+                                      </div>
+                                      <div class="mb-3">
+                                        <label
+                                          for="exampleInputPassword2"
+                                          class="form-label">
+                                          Personal Photo
+                                        </label>
+                                        <input
+                                          type="file"
+                                          name="user_image"
+                                          class="form-control"
+                                          id="exampleInputPassword2"
+                                          onChange={(e) =>
+                                            setUserImage(e.target.value)
+                                          }
+                                        />
+                                      </div>
+
+                                      <div class="mb-3">
+                                        <label
+                                          for="exampleInputPassword4"
+                                          class="form-label">
+                                          Sammary
+                                        </label>
+
+                                        <textarea
+                                          onChange={(e) =>
+                                            setUserSammary(e.target.value)
+                                          }
+                                          type="text"
+                                          name="user_sammary"
+                                          id="exampleInputPassword4"
+                                          class="form-control"
+                                          placeholder=""></textarea>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal">
+                                        Close
+                                      </button>
+                                      <button
+                                        type="submit"
+                                        class="btn btn-primary">
+                                        Save changes
+                                      </button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                           <div class="col-md-3 text-muted">Birthday:</div>
                           <div class="col-md-9">May 3, 1995</div>
@@ -636,7 +796,10 @@ function Userprofile() {
                       <div class="price">{booked.tour_price}</div>
                       {booked.booked_rating == null ? (
                         <div class="review">
-                          <ReviewDialog booked={booked.tour_id} />
+                          <ReviewDialog
+                            role={userData[0].user_role}
+                            booked={booked.tour_id}
+                          />
                         </div>
                       ) : (
                         <div class="review">
