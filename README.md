@@ -22,3 +22,8 @@ In the project directory, you can run:
 Database is built using MySQL.
 
 Tables(users, tours, bookedtours, Destinations, reviews, languages, activities)
+
+### Links
+
+[a link](https://github.com/user/repo/blob/branch/other_file.md)
+
