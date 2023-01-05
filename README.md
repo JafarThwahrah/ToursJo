@@ -10,8 +10,6 @@ ToursJo is a platform form which allows Tour advisors to provide their services 
 -Bootstrap
 -React.js
 
-In the project directory, you can run:
-
 ### Technologies used for the Backend
 
 -Laravel
