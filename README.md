@@ -26,9 +26,8 @@ Tables(users, tours, bookedtours, Destinations, reviews, languages, activities)
 ### Links
 
 [Project Breif](https://docs.google.com/document/d/12Lr_xTYW56Eu9cBTcCE37YSz4eBFNHp2biDiRqdAARY/edit?usp=sharing) <br />
-[a link](https://github.com/user/repo/blob/branch/other_file.md)
-[a link](https://github.com/user/repo/blob/branch/other_file.md)
-[a link](https://github.com/user/repo/blob/branch/other_file.md)
-[a link](https://github.com/user/repo/blob/branch/other_file.md)
+[Presentation](https://docs.google.com/presentation/d/1JPym5V686m0gt3YHrIze4JOjLzztfBtySqFbtCCtaOk/edit?usp=sharing) <br />
+[Documintation](https://docs.google.com/document/d/1eDxUUSKyZJ_qtL35OC_eSo_E4o9Dt6PPGCcYMnpITc8/edit?usp=sharing) <br />
+[WireFrame/Mockup](https://www.figma.com/file/2gTWQyAtxwDig1AcJf7ReK/Masterpiece?node-id=0%3A1) <br />
 
 
