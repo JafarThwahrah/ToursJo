@@ -801,6 +801,10 @@ function Userprofile() {
                             booked={booked.tour_id}
                           />
                         </div>
+                      ) : booked.booked_rating == null ? (
+                        <div class="review">
+                          <p>Uncalibrated</p>
+                        </div>
                       ) : (
                         <div class="review">
                           <Rating

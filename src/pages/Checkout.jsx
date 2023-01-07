@@ -51,6 +51,8 @@ function Checkout() {
     data.append("tour_id", tourDetails[0].id);
     data.append("tour_price", tourDetails[0].tour_price + 3);
     data.append("user_id", userData[0].id);
+    data.append("user_role", userData[0].user_role);
+
     const axiosAuth = "Bearer " + tokens;
 
     axios.defaults.headers.common["Authorization"] = axiosAuth;
@@ -63,7 +65,7 @@ function Checkout() {
           setOpenErr(true);
           setTimeout(() => {
             Redirect();
-          }, 1000);
+          }, 2000);
         } else {
           setOpen(true);
           setTimeout(() => {
@@ -99,7 +101,7 @@ function Checkout() {
     navigate("/destination");
   }
   // console.log(loginData);
-  console.log(tourDetails);
+  console.log(userData);
   console.log(tokens);
 
   return (
@@ -153,7 +155,8 @@ function Checkout() {
               onClose={handleCloseErr}
               severity="error"
               sx={{ width: "100%" }}>
-              Wrong action!
+              Wrong action! <br />
+              Advisors cannot book tours.
             </Alert2>
           </Snackbar>
           <div class="p-5">

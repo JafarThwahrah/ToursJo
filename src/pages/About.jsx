@@ -2,12 +2,25 @@ import React from "react";
 import "../styles/About.css";
 import { Link } from "react-router-dom";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function About() {
+  const [data, setData] = useState();
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    axios
+      .get("http://localhost:8000/api/about")
+      .then((res) => {
+        // console.log(res);
+        setData(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }, []);
+
   return (
     <div>
       <div
@@ -71,28 +84,28 @@ function About() {
           <div class="four col-md-3">
             <div class="counter-box colored">
               <i class="fa fa-thumbs-o-up"></i>
-              <span class="counter">2147</span>
+              <span class="counter">{data?.happyCustomers}</span>
               <p>Happy Customers</p>
             </div>
           </div>
           <div class="four col-md-3">
             <div class="counter-box">
               <i class="fa fa-group"></i>
-              <span class="counter">3275</span>
+              <span class="counter">{data?.allUsers}</span>
               <p>Registered Users</p>
             </div>
           </div>
           <div class="four col-md-3">
             <div class="counter-box">
               <LocationOnIcon sx={{ fontSize: 75 }} color="disabled" />
-              <span class="counter">289</span>
+              <span class="counter">{data?.publishedTours}</span>
               <p>Published Tours</p>
             </div>
           </div>
           <div class="four col-md-3">
             <div class="counter-box">
               <i class="fa  fa-user"></i>
-              <span class="counter">1563</span>
+              <span class="counter">{data?.advisors}</span>
               <p>Number of Advisors</p>
             </div>
           </div>

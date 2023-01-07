@@ -7,10 +7,10 @@ import axios from "axios";
 import "../styles/Home.css";
 import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
-import Testimonials from "../components/Testimonials";
 
 function Home() {
   const [advisors, setAdvisors] = useState();
+  const [destinationNum, setDestinationNum] = useState();
   const [testimonials, setTestimonials] = useState();
   useEffect(() => {
     axios
@@ -27,16 +27,25 @@ function Home() {
         console.log(err);
       });
 
-    (async () => {
-      try {
-        let response = await axios.get(
-          "http://localhost:8000/api/getTestimonials"
-        );
-        setTestimonials(response.data.Testimonials);
-      } catch (e) {
-        console.log(e);
-      }
-    })();
+    axios
+      .get("http://localhost:8000/api/getTestimonials")
+      .then((res) => {
+        console.log(res);
+        setTestimonials(res.data.Testimonials);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    axios
+      .get("http://localhost:8000/api/toursnumbers")
+      .then((res) => {
+        console.log(res);
+        setDestinationNum(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -55,10 +64,10 @@ function Home() {
             data-scrollax-parent="">
             <div className="col-md-7">
               <h1 className="mb-4">Discover Your Favorite Place with Us</h1>
-              <p className="caps">
+              {/* <p className="caps">
                 Travel to the any corner of the world, without going around in
                 circles
-              </p>
+              </p> */}
             </div>
           </div>
         </div>
@@ -173,6 +182,9 @@ function Home() {
                 />
                 <span class="text">
                   <h1>Aqaba</h1>
+                  <p className="text-light">
+                    Booked Tours: {destinationNum?.Aqaba}
+                  </p>
                 </span>
               </Link>
               <Link class="column" id="caption6" href="">
@@ -184,6 +196,9 @@ function Home() {
                 />
                 <span class="text">
                   <h1>Dead Sea</h1>
+                  <p className="text-light">
+                    Booked Tours: {destinationNum?.DeadSea}
+                  </p>
                 </span>
               </Link>
             </div>
@@ -197,6 +212,9 @@ function Home() {
                 />
                 <span class="text">
                   <h1>Petra</h1>
+                  <p className="text-light">
+                    Booked Tours: {destinationNum?.Petra}
+                  </p>
                 </span>
               </Link>
               <Link class="column" id="caption2" href="">
@@ -208,6 +226,9 @@ function Home() {
                 />
                 <span class="text">
                   <h1>Jerash</h1>
+                  <p className="text-light">
+                    Booked Tours: {destinationNum?.Jerash}
+                  </p>
                 </span>
               </Link>
             </div>
@@ -221,6 +242,9 @@ function Home() {
                 />
                 <span class="text">
                   <h1>Nebo Mountain</h1>
+                  <p className="text-light">
+                    Booked Tours: {destinationNum?.Nebo}
+                  </p>
                 </span>
               </Link>
               <Link class="column" id="caption4" href="">
@@ -232,6 +256,9 @@ function Home() {
                 />
                 <span class="text">
                   <h1>Amman</h1>
+                  <p className="text-light">
+                    Booked Tours: {destinationNum?.Amman}
+                  </p>
                 </span>
               </Link>
             </div>
@@ -254,6 +281,7 @@ function Home() {
                   <div class="project-wrap hotel">
                     <img
                       className="img"
+                      style={{ objectFit: "cover" }}
                       src={require(`../images/${advisor.user_image}`)}
                       alt=""
                     />
@@ -377,15 +405,8 @@ function Home() {
                         alt=""
                       />
                     </div>
-                    <div class="testimonial mt-4 mb-2">Review213</div>
-                    {/* <p class="star">
-                      <span class="fa fa-star"></span>
-                      <span class="fa fa-star"></span>
-                      <span class="fa fa-star"></span>
-                      <span class="fa fa-star"></span>
-                      <span class="fa fa-star"></span>
-                    </p> */}
-                    <div class="name">Denis Richie</div>
+                    <div class="testimonial mt-4 mb-2"></div>
+                    <div class="name"></div>
                   </div>
                 </div>
                 <div class="owl-item">

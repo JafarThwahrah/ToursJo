@@ -89,7 +89,7 @@ function ReviewDialog(props) {
           Thanks for sharing your experiance!
         </Alert>
       </Snackbar>
-      <span className="ms-4">uncalibrated</span>
+      <span className="ms-2">Uncalibrated</span>
       <Dialog open={openModal} onClose={handleCloseModal}>
         <Box
           component="form"
@@ -128,20 +128,20 @@ function ReviewDialog(props) {
           </DialogActions>
         </Box>
       </Dialog>
-      <Button
-        style={{ border: "none" }}
-        variant="outlined"
-        onClick={handleClickOpenModal}>
-        {props.role == "Tourist" ? (
+      {props.role == "Tourist" ? (
+        <Button
+          style={{ border: "none" }}
+          variant="outlined"
+          onClick={handleClickOpenModal}>
           <RateReviewOutlinedIcon
             style={{
               color: "#f15d30",
               marginLeft: "8px",
             }}></RateReviewOutlinedIcon>
-        ) : (
-          ""
-        )}
-      </Button>
+        </Button>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

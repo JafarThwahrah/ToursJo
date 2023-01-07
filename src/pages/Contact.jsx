@@ -41,7 +41,12 @@ function Contact() {
                   <span class="fa fa-map-marker"></span>
                 </div>
                 <h3 class="mb-2">Address</h3>
-                <p>Jordan, Amman makkah street</p>
+                <p>
+                  <a href="https://goo.gl/maps/WrMBtGQ1dqtZkQAu9">
+                    {" "}
+                    Jordan, Amman makkah street
+                  </a>
+                </p>
               </div>
             </div>
             <div class="col-md-3 d-flex">
@@ -51,7 +56,7 @@ function Contact() {
                 </div>
                 <h3 class="mb-2">Contact Number</h3>
                 <p>
-                  <a href="tel://1234567920">+ 1235 2355 98</a>
+                  <a href="tel://0785351933">0785351933</a>
                 </p>
               </div>
             </div>
@@ -88,7 +93,7 @@ function Contact() {
       <section class="ftco-section contact-section ftco-no-pt">
         <div class="container">
           <div class="row block-9 justify-content-md-center">
-            <div class=" col-6 col-md-6 order-md-last d-flex ">
+            <div class=" col-12 col-md-6 order-md-last d-flex ">
               <form action="#" class="bg-light p-5 contact-form">
                 <div class="form-group">
                   <input

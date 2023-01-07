@@ -80,9 +80,7 @@ export default function TourCard(props) {
         <IconButton aria-label="add to favorites">
           <FavoriteIcon className="wishListIcon" />
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+        <IconButton aria-label="share"></IconButton>
       </CardActions>
     </Card>
   );

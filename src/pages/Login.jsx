@@ -42,7 +42,9 @@ export default function SignIn() {
       : null
   );
   const navigate = useNavigate();
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleSubmit = (event) => {
     // const data = new FormData(event.currentTarget);
     // let email = data.get("email");
