@@ -44,7 +44,11 @@ export default function BasicPopover(props) {
                   src={require(`../images/${props.userImage}`)}
                   alt="Generic placeholder image"
                   class="img-fluid"
-                  style={{ width: "180px", borderRadius: "10px" }}
+                  style={{
+                    width: "180px",
+                    borderRadius: "10px",
+                    objectFit: "cover",
+                  }}
                 />
               </div>
               <div class="flex-grow-1 ms-3">

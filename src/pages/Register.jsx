@@ -48,18 +48,6 @@ const setCSRFToken = () => {
 
 axiosInstance.interceptors.request.use(onRequest, null);
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}>
-      {"."}
-    </Typography>
-  );
-}
-
 const theme = createTheme();
 
 export default function SignUp() {
@@ -106,136 +94,133 @@ export default function SignUp() {
   console.log(loginData);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}>
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          {loginData ? (
-            <div>
-              <h3>You logged in as {loginData.email}</h3>
-              <button onClick={handleLogout}>Logout</button>
-            </div>
-          ) : (
-            <>
-              <Typography component="h1" variant="h5">
-                Sign up
-              </Typography>
-              <Box
-                component="form"
-                noValidate
-                onSubmit={handleSubmit}
-                sx={{ mt: 3 }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={12}>
-                    <TextField
-                      autoComplete="given-name"
-                      name="user_name"
-                      required
-                      fullWidth
-                      id="user_name"
-                      label="User Name"
-                      autoFocus
-                    />
-                  </Grid>
+    <div
+      style={{
+        backgroundImage: `url(https://www.wadirumnightluxury.com/sites/default/files/_MGL2732sss.jpg)`,
+        minHeight: "100vh",
+      }}>
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="sm">
+          <CssBaseline />
 
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="user_email"
-                      label="Email Address"
-                      name="user_email"
-                      autoComplete="user_email"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="new-password"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      name="password_confirmation"
-                      label="Confirm Password"
-                      type="password"
-                      id="password_confirmation"
-                      autoComplete="new-password"
-                    />
-                  </Grid>
+          <Box
+            sx={{
+              paddingTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}>
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            {loginData ? (
+              <div>
+                <h3>You logged in as {loginData.email}</h3>
+                <button onClick={handleLogout}>Logout</button>
+              </div>
+            ) : (
+              <>
+                <Typography component="h1" variant="h5">
+                  Sign up
+                </Typography>
+                <Box
+                  component="form"
+                  noValidate
+                  onSubmit={handleSubmit}
+                  sx={{ mt: 3 }}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={12}>
+                      <TextField
+                        autoComplete="given-name"
+                        name="user_name"
+                        required
+                        fullWidth
+                        id="user_name"
+                        label="User Name"
+                        autoFocus
+                      />
+                    </Grid>
 
-                  <Grid item xs={12}>
-                    <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">
-                        Register As
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        name="user_role"
-                        label="Register As">
-                        <MenuItem value={"Tourist"}>Tourist</MenuItem>
-                        <MenuItem value={"Advisor"}>Tour Advisor</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <label htmlFor="user_image">Personal Photo</label>
-                    <TextField
-                      required
-                      fullWidth
-                      name="user_image"
-                      type="file"
-                      id="user_image"
-                      onChange={(e) => setSelectedFile(e.target.files[0])}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox value="allowExtraEmails" color="primary" />
-                      }
-                      label="I want to receive inspiration, marketing promotions and updates via email."
-                    />
-                  </Grid>
-                </Grid>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}>
-                  Sign Up
-                </Button>
-                <Grid container justifyContent="flex-end">
-                  <Grid item>
-                    <Link href="/login" variant="body2">
-                      Already have an account? Sign in
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Box>
-            </>
-          )}
-        </Box>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="user_email"
+                        label="Email Address"
+                        name="user_email"
+                        autoComplete="user_email"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="new-password"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        name="password_confirmation"
+                        label="Confirm Password"
+                        type="password"
+                        id="password_confirmation"
+                        autoComplete="new-password"
+                      />
+                    </Grid>
 
-        <Copyright sx={{ mt: 5 }} />
-      </Container>
-    </ThemeProvider>
+                    <Grid item xs={12}>
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                          Register As
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          name="user_role"
+                          label="Register As">
+                          <MenuItem value={"Tourist"}>Tourist</MenuItem>
+                          <MenuItem value={"Advisor"}>Tour Advisor</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <label htmlFor="user_image">Personal Photo</label>
+                      <TextField
+                        required
+                        fullWidth
+                        name="user_image"
+                        type="file"
+                        id="user_image"
+                        onChange={(e) => setSelectedFile(e.target.files[0])}
+                      />
+                    </Grid>
+                  </Grid>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}>
+                    Sign Up
+                  </Button>
+                  <Grid container justifyContent="flex-end">
+                    <Grid item>
+                      <Link href="/login" variant="body2">
+                        Already have an account? Sign in
+                      </Link>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </>
+            )}
+          </Box>
+        </Container>
+      </ThemeProvider>
+    </div>
   );
 }

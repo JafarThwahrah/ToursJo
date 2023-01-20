@@ -67,6 +67,7 @@ function Tourdetails() {
                       style={{
                         width: "45rem",
                         height: "27rem",
+                        objectFit: "cover",
                       }}
                       src={require(`../images/${info.hero_img}`)}
                       alt=""
@@ -76,6 +77,7 @@ function Tourdetails() {
                 <div className="row gallery-item">
                   <div className="col-md-6">
                     <img
+                      style={{ objectFit: "cover" }}
                       className="single-gallery-image"
                       src={require(`../images/${info.img_1}`)}
                       alt=""
@@ -83,6 +85,7 @@ function Tourdetails() {
                   </div>
                   <div className="col-md-6">
                     <img
+                      style={{ objectFit: "cover" }}
                       className="single-gallery-image"
                       src={require(`../images/${info.img_2}`)}
                       alt=""
@@ -90,6 +93,7 @@ function Tourdetails() {
                   </div>
                   <div className="col-md-6">
                     <img
+                      style={{ objectFit: "cover" }}
                       className="single-gallery-image"
                       src={require(`../images/${info.img_4}`)}
                       alt=""
@@ -97,6 +101,7 @@ function Tourdetails() {
                   </div>
                   <div className="col-md-6">
                     <img
+                      style={{ objectFit: "cover" }}
                       className="single-gallery-image"
                       src={require(`../images/${info.img_4}`)}
                       alt=""

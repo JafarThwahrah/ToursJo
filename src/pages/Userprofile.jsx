@@ -62,9 +62,22 @@ function Userprofile() {
   const [userSammary, setUserSammary] = useState(null);
   const [userImage, setUserImage] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [checkUserInfo, setCheckUserInfo] = useState(false);
+  const [userInfoGet, setUserInfoGet] = useState(null);
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    axios
+      .get(`http://localhost:8000/api/getoneuser/${userId}`)
+      .then((response) => {
+        console.log(response);
+
+        setUserInfoGet(response.data[0]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [checkUserInfo]);
+
   const navigate = useNavigate();
   useEffect(() => {
     if (!loginData) {
@@ -114,6 +127,7 @@ function Userprofile() {
       .post(`http://localhost:8000/api/user/${userData[0].id}`, data)
       .then((response) => {
         console.log(response);
+        setCheckUserInfo(!checkUserInfo);
         Swal.fire("Updated!", "Your Profile Updated Successfully.", "success");
       })
       .catch((error) => {
@@ -160,19 +174,15 @@ function Userprofile() {
     setOpen(false);
   };
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     setUserId([loginData?.data.user.id]);
 
-    axios
-      .get(`http://localhost:8000/api/getoneuser/${userId}`)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
     setUserData([loginData?.data.user]);
+
     setTokens(loginData?.data.token);
+    setCheckUserInfo(!checkUserInfo);
+
     axios
       .get("http://localhost:8000/api/destinations")
       .then((res) => {
@@ -183,7 +193,6 @@ function Userprofile() {
         console.log(err);
       });
   }, []);
-  console.log(userId);
 
   useEffect(() => {
     if (userData) {
@@ -197,6 +206,7 @@ function Userprofile() {
         .catch((err) => {
           console.log(err);
         });
+      setCheckUserInfo(!checkUserInfo);
 
       axios
         .get(
@@ -238,8 +248,7 @@ function Userprofile() {
   // console.log(userData[0].id);
   // console.log(price);
   // console.log(number);
-  // console.log(route);
-  console.log(tourJoin);
+  console.log(userInfoGet);
 
   return (
     <div>
@@ -270,11 +279,12 @@ function Userprofile() {
               <>
                 <div class="container-m-nx container-m-ny theme-bg-white mb-4">
                   <div class="media col-md-10 col-lg-8 col-xl-7 py-5 mx-auto">
-                    {data.user_image != null ? (
+                    {userInfoGet ? (
                       <img
-                        src={require(`../images/${data.user_image}`)}
+                        src={require(`../images/${userInfoGet.user_image}`)}
                         alt="img"
                         class="d-block ui-w-100 rounded-circle"
+                        style={{ backgroundSize: "cover" }}
                       />
                     ) : (
                       <img
@@ -287,12 +297,12 @@ function Userprofile() {
                     <div class="media-body ml-5 d-flex flex-column">
                       <div>
                         <h4 class="font-weight-bold mb-4 text-left">
-                          {data.user_name}
+                          {userInfoGet?.user_name}
                         </h4>
 
                         <div class="text-muted mb-4 text-left">
-                          {data.user_sammary ? (
-                            <p>{data.user_sammary}</p>
+                          {userInfoGet ? (
+                            <p>{userInfoGet.user_sammary}</p>
                           ) : (
                             <p>please write sammary about your self</p>
                           )}
@@ -354,6 +364,7 @@ function Userprofile() {
                                           name="user_name"
                                           class="form-control"
                                           id="exampleInputPassword1"
+                                          value={userName}
                                           onChange={(e) =>
                                             setUserName(e.target.value)
                                           }
@@ -367,7 +378,7 @@ function Userprofile() {
                                           Password
                                         </label>
                                         <input
-                                          type="text"
+                                          type="password"
                                           name="password"
                                           class="form-control"
                                           id="exampleInputPassword3"
@@ -397,7 +408,7 @@ function Userprofile() {
                                         <label
                                           for="exampleInputPassword4"
                                           class="form-label">
-                                          Sammary
+                                          Summary
                                         </label>
 
                                         <textarea
@@ -407,6 +418,7 @@ function Userprofile() {
                                           type="text"
                                           name="user_sammary"
                                           id="exampleInputPassword4"
+                                          value={userSammary}
                                           class="form-control"
                                           placeholder=""></textarea>
                                       </div>
@@ -435,12 +447,12 @@ function Userprofile() {
 
                         <div class="row mb-2">
                           <div class="col-md-3 text-muted">User Name:</div>
-                          <div class="col-md-9">{data.user_name}</div>
+                          <div class="col-md-9">{userInfoGet?.user_name}</div>
                         </div>
 
                         <div class="row mb-2">
                           <div class="col-md-3 text-muted">Email:</div>
-                          <div class="col-md-9">{data.user_email}</div>
+                          <div class="col-md-9">{userInfoGet?.user_email}</div>
                         </div>
 
                         <div class="row mb-2">

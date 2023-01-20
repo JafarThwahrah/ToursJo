@@ -3,8 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -20,6 +18,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { googleLogout } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
+import { ErrorSharp } from "@mui/icons-material";
 
 // import "../styles/Login.css";
 
@@ -36,21 +35,66 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const initialValue = { user_email: "", password: "" };
+
   const [loginData, setLoginData] = useState(
     localStorage.getItem("loginData")
       ? JSON.parse(localStorage.getItem("loginData"))
       : null
   );
+  const [formValues, setFormValues] = useState(initialValue);
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [responseErr, setResponseErr] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleChange = (e) => {
+    setFormValues({ ...formValues, [e.target.name]: e.target.value });
+  };
+
+  // console.log(formData);
+
+  const validate = (data) => {
+    const errors = {};
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+
+    if (!data.user_email) {
+      errors.user_email = "Email is required";
+    } else if (!emailRegex.test(data.user_email)) {
+      errors.user_email =
+        "Wrong email format, Your input should look like example@gmail.com";
+    }
+    if (!data.password) {
+      errors.password = "Password is required";
+    } else if (!passwordRegex.test(data.password)) {
+      errors.password =
+        "Password Should contains at least one higher case letter,one number and should be more than 8 characters long";
+    }
+
+    return errors;
+  };
+
+  useEffect(() => {
+    console.log(formErrors);
+
+    if (Object.keys(formErrors).length == 0 && isSubmit) {
+      console.log(formValues);
+    }
+  }, [formErrors]);
   const handleSubmit = (event) => {
     // const data = new FormData(event.currentTarget);
     // let email = data.get("email");
     // let password = data.get("password");
 
     event.preventDefault();
+    setIsSubmit(true);
+
+    setFormErrors(validate(formValues));
+
     const data = new FormData(event.currentTarget);
 
     console.log(data.get("email"));
@@ -67,7 +111,8 @@ export default function SignIn() {
           }, 500);
         })
         .catch((err) => {
-          console.log(err);
+          setResponseErr(err.response.data.message);
+          // console.log(err.response.data.message);
         });
     });
 
@@ -119,12 +164,13 @@ export default function SignIn() {
   return (
     <div
       style={{
-        backgroundImage: "url(https://images2.alphacoders.com/503/503890.jpg)",
+        backgroundImage: `url(https://www.wadirumnightluxury.com/sites/default/files/_MGL2732sss.jpg)`,
         minHeight: "100vh",
       }}>
       <ThemeProvider theme={theme}>
         <Container className="py-5" component="main" maxWidth="xs">
           <CssBaseline />
+
           <Box
             sx={{
               marginTop: 8,
@@ -135,6 +181,7 @@ export default function SignIn() {
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
+
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
@@ -149,7 +196,27 @@ export default function SignIn() {
                 onSubmit={handleSubmit}
                 noValidate
                 sx={{ mt: 1 }}>
+                <p
+                  style={{
+                    color: "red",
+                    fontSize: "16px",
+                    marginTop: "2rem",
+                    marginBottom: "0",
+                  }}>
+                  {responseErr}
+                </p>
+                <p
+                  style={{
+                    color: "red",
+                    fontSize: "16px",
+                    marginTop: "2rem",
+                    marginBottom: "0",
+                  }}>
+                  {formErrors.user_email}
+                </p>
+
                 <TextField
+                  onChange={handleChange}
                   margin="normal"
                   required
                   fullWidth
@@ -159,7 +226,16 @@ export default function SignIn() {
                   autoComplete="email"
                   autoFocus
                 />
+                <p
+                  style={{
+                    color: "red",
+                    fontSize: "16px",
+                    marginBottom: "0",
+                  }}>
+                  {formErrors.password}
+                </p>
                 <TextField
+                  onChange={handleChange}
                   margin="normal"
                   required
                   fullWidth
@@ -177,12 +253,9 @@ export default function SignIn() {
                   sx={{ mt: 3, mb: 2 }}>
                   Sign In
                 </Button>
-                <div className="googlebtncontainer">
+                <div className="googlebtncontainer d-flex justify-content-center m-1">
                   <GoogleOAuthProvider
-                    style={{ margin: "1rem", width: "30rem" }}
-                    clientId={
-                      "557643652967-0toe8dndlbkfvqkd7gkugv397oail9hc.apps.googleusercontent.com"
-                    }
+                    clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                     buttonText="Login with Google"
                     Referrer-Policy={"no-referrer-when-downgrade"}
                     cookiePolicy={"single_host_origin"}>

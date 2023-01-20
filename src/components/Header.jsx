@@ -72,7 +72,6 @@ function Header() {
                   Contact
                 </NavLink>
               </li>
-
               <li className="nav-item">
                 {!loginData ? (
                   <NavLink to="/Login" className="nav-link">
