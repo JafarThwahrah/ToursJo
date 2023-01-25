@@ -63,7 +63,7 @@ function Header() {
               </li>
               <li className="nav-item">
                 <NavLink to="/destination" className="nav-link">
-                  Destination
+                  Destinations
                 </NavLink>
               </li>
 

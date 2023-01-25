@@ -248,7 +248,7 @@ function Userprofile() {
   // console.log(userData[0].id);
   // console.log(price);
   // console.log(number);
-  console.log(userInfoGet);
+  console.log(tourJoin);
 
   return (
     <div>
@@ -544,9 +544,278 @@ function Userprofile() {
                             </div>
                             <div class="price">{tour.tour_price} JOD</div>
                             <div class="review d-flex justify-content-center">
-                              <button class="btn btn-info btn-s">
+                              <Link
+                                type="button"
+                                class="btn btn-info btn-s"
+                                data-bs-toggle="modal"
+                                data-bs-target={`#Modal${tour.id}`}>
                                 <i class="bi bi-pencil"></i>
-                              </button>
+                              </Link>
+                              <div
+                                class="modal fade"
+                                id={`Modal${tour.id}`}
+                                tabindex="-1"
+                                aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <Box
+                                  component="form"
+                                  noValidate
+                                  onSubmit={handleSubmit}
+                                  sx={{ mt: 3 }}>
+                                  <div class="modal-dialog">
+                                    <div class="modal-content p-5">
+                                      <div class="modal-header">
+                                        <h1
+                                          class="modal-title fs-5"
+                                          id="exampleModalLabel">
+                                          Edit Published Your
+                                        </h1>
+                                        <button
+                                          type="button"
+                                          class="btn-close"
+                                          data-bs-dismiss="modal"
+                                          aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <form onSubmit={handleSubmit}>
+                                          <label
+                                            for="select"
+                                            class="form-label">
+                                            Select Desitination
+                                          </label>
+                                          <select
+                                            class="form-select"
+                                            name="destination_id"
+                                            id="destination_id"
+                                            onChange={(e) => {
+                                              setSelectedDestination(
+                                                e.target.value
+                                              );
+                                            }}
+                                            aria-label="Default select example">
+                                            <option
+                                              selected
+                                              value={
+                                                tour.destination_name == "Aqaba"
+                                                  ? 1
+                                                  : tour.destination_name ==
+                                                    "Dead Sea"
+                                                  ? 2
+                                                  : tour.destination_name ==
+                                                    " Petra"
+                                                  ? 3
+                                                  : tour.destination_name ==
+                                                    " Jerash"
+                                                  ? 4
+                                                  : tour.destination_name ==
+                                                    "Nebo Mountain"
+                                                  ? 5
+                                                  : tour.destination_name ==
+                                                    "Amman"
+                                                  ? 6
+                                                  : 10
+                                              }>
+                                              {tour.destination_name}
+                                            </option>
+                                            {destinations?.map((des) => {
+                                              return (
+                                                <option value={des.id}>
+                                                  {des.destination_name}
+                                                </option>
+                                              );
+                                            })}
+                                          </select>
+
+                                          <div class="mb-3">
+                                            <label
+                                              for="exampleInputPassword1"
+                                              class="form-label">
+                                              Date
+                                            </label>
+                                            <input
+                                              type="date"
+                                              name="tour_date"
+                                              class="form-control"
+                                              id="exampleInputPassword1"
+                                              value={tour.tour_date}
+                                              onChange={(e) => {
+                                                setDate(e.target.value);
+                                              }}
+                                            />
+                                          </div>
+
+                                          <div class="mb-3">
+                                            <label
+                                              for="Price"
+                                              class="form-label">
+                                              Price(JOD)
+                                            </label>
+                                            <input
+                                              onChange={(e) => {
+                                                setPrice(e.target.value);
+                                              }}
+                                              type="number"
+                                              name="tour_price"
+                                              class="form-control"
+                                              id="Price"
+                                              value={tour.tour_price}
+                                            />
+                                          </div>
+                                          <div class="mb-3">
+                                            <label
+                                              for="route"
+                                              class="form-label">
+                                              Tour Route(Map Link)
+                                            </label>
+                                            <input
+                                              onChange={(e) => {
+                                                setRoute(e.target.value);
+                                              }}
+                                              type="text"
+                                              name="tour_route"
+                                              class="form-control"
+                                              id="route"
+                                              value={tour.tour_route}
+                                            />
+                                          </div>
+
+                                          <div class="mb-3">
+                                            <label
+                                              for="heroimg"
+                                              class="form-label">
+                                              Contact Number
+                                            </label>
+                                            <input
+                                              onChange={(e) => {
+                                                setNumber(e.target.value);
+                                              }}
+                                              name="advisor_contact_number"
+                                              type="number"
+                                              class="form-control"
+                                              id="heroimg"
+                                              value={
+                                                tour.advisor_contact_number
+                                              }
+                                            />
+                                          </div>
+
+                                          <div class="mb-3">
+                                            <label
+                                              for="heroimg"
+                                              class="form-label">
+                                              Hero image
+                                            </label>
+                                            <input
+                                              onChange={(e) =>
+                                                setHeroImg(e.target.files[0])
+                                              }
+                                              name="hero_img"
+                                              type="file"
+                                              class="form-control"
+                                              id="heroimg"
+                                            />
+                                          </div>
+
+                                          <div class="mb-3">
+                                            <label
+                                              for="img1"
+                                              class="form-label">
+                                              Image 1
+                                            </label>
+                                            <input
+                                              onChange={(e) =>
+                                                setImg1(e.target.files[0])
+                                              }
+                                              type="file"
+                                              name="img_1"
+                                              class="form-control"
+                                              id="img1"
+                                            />
+                                          </div>
+                                          <div class="mb-3">
+                                            <label
+                                              for="img2"
+                                              class="form-label">
+                                              Image 2
+                                            </label>
+                                            <input
+                                              onChange={(e) =>
+                                                setImg2(e.target.files[0])
+                                              }
+                                              type="file"
+                                              name="img_2"
+                                              class="form-control"
+                                              id="img2"
+                                            />
+                                          </div>
+                                          <div class="mb-3">
+                                            <label
+                                              for="img3"
+                                              class="form-label">
+                                              Image 3
+                                            </label>
+                                            <input
+                                              onChange={(e) =>
+                                                setImg3(e.target.files[0])
+                                              }
+                                              type="file"
+                                              name="img_3"
+                                              class="form-control"
+                                              id="img3"
+                                            />
+                                          </div>
+                                          <div class="mb-3">
+                                            <label
+                                              for="img4"
+                                              class="form-label">
+                                              Image 4
+                                            </label>
+                                            <input
+                                              onChange={(e) =>
+                                                setImg4(e.target.files[0])
+                                              }
+                                              type="file"
+                                              name="img_4"
+                                              class="form-control"
+                                              id="img4"
+                                            />
+                                          </div>
+
+                                          <div class="mb-3">
+                                            <label
+                                              for="description"
+                                              class="form-label">
+                                              Description
+                                            </label>
+                                            <textarea
+                                              onChange={(e) =>
+                                                setDescription(e.target.value)
+                                              }
+                                              name="tour_description"
+                                              class="form-control"
+                                              aria-label="description">
+                                              {tour.tour_description}
+                                            </textarea>
+                                          </div>
+                                        </form>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button
+                                          type="button"
+                                          class="btn btn-secondary publishTourBtn"
+                                          data-bs-dismiss="modal">
+                                          Close
+                                        </button>
+                                        <button
+                                          type="submit"
+                                          class="btn btn-primary publishTourBtn">
+                                          Update
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </Box>
+                              </div>
 
                               <button
                                 onClick={(e) => handleDeleteTour(tour.id)}
@@ -562,15 +831,13 @@ function Userprofile() {
                   </div>
                 </div>
                 <div class="d-flex flex-row-reverse mt-3">
-                  <p class="">
-                    <Link
-                      type="button"
-                      class="btn btn-primary px-4 py-3 text-decoration-nsone"
-                      data-bs-toggle="modal"
-                      data-bs-target="#exampleModal">
-                      Publish New Tour
-                    </Link>
-                  </p>
+                  <Link
+                    type="button"
+                    class="btn btn-primary px-4 py-3 text-decoration-nsone"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    Publish New Tour
+                  </Link>
 
                   <div
                     class="modal fade"

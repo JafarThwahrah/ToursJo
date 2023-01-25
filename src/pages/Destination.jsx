@@ -10,12 +10,15 @@ import CircularProgress from "@mui/material/CircularProgress";
 function Destination() {
   const [pageNumber, setPageNumber] = useState(0);
   const [searched, setSearched] = useState();
+  const [dateFilter, setDateFilter] = useState();
   const [selected, setSelected] = useState();
   const [filtered, setFiltered] = useState();
   const [tours, setTours] = useState([]);
   const [tours1, setTours1] = useState([]);
   const [destinations, setDestinations] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  console.log(dateFilter);
 
   useEffect(() => {
     for (let i = 0; i < tours1?.length; i++) {
@@ -56,6 +59,10 @@ function Destination() {
 
   useEffect(() => {
     filterData();
+  }, [dateFilter]);
+
+  useEffect(() => {
+    filterData();
   }, [selected]);
 
   useEffect(() => {
@@ -72,20 +79,26 @@ function Destination() {
 
   function filterData() {
     let filteredData =
-      searched && selected
+      searched && selected && dateFilter
         ? tours.filter((tour) => {
             return (
               (tour.user_name
                 .toLowerCase()
                 .trim()
                 .includes(searched.toLowerCase()) &&
-                tour.destination_id == selected) ||
+                tour.destination_id == selected &&
+                dateFilter == tour.tour_date) ||
               (tour.destination_name
                 .toLowerCase()
                 .trim()
                 .includes(searched.toLowerCase()) &&
-                tour.destination_id == selected)
+                tour.destination_id == selected &&
+                dateFilter == tour.tour_date)
             );
+          })
+        : dateFilter
+        ? tours.filter((tour) => {
+            return tour.tour_date == dateFilter;
           })
         : searched
         ? tours.filter((tour) => {
@@ -116,7 +129,7 @@ function Destination() {
   // for (let i = 0; i < tours1?.length; i++) {
   //   tours[i].id = tours1[i].id;
   // }
-
+  console.log(tours[0]?.tour_date);
   const usersPerPage = 9;
   const pagesVisited = pageNumber * usersPerPage;
   const displayUsers = filtered
@@ -226,6 +239,7 @@ function Destination() {
                                 type="date"
                                 class="form-control checkout_date"
                                 placeholder="Check Out Date"
+                                onChange={(e) => setDateFilter(e.target.value)}
                               />
                             </div>
                           </div>
