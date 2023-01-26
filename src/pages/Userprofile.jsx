@@ -65,6 +65,28 @@ function Userprofile() {
   const [checkUserInfo, setCheckUserInfo] = useState(false);
   const [userInfoGet, setUserInfoGet] = useState(null);
 
+  const initialValue = {
+    destination_id: "",
+    tour_date: "",
+    tour_price: "",
+    tour_route: "",
+    advisor_contact_number: "",
+    hero_img: "",
+    img_1: "",
+    img_2: "",
+    img_3: "",
+    img_4: "",
+    tour_description: "",
+  };
+
+  const [formValues, setFormValues] = useState(initialValue);
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+
+  const handleChangePublishNewTour = (e) => {
+    setFormValues({ ...formValues, [e.target.name]: e.target.value });
+  };
+
   useEffect(() => {
     axios
       .get(`http://localhost:8000/api/getoneuser/${userId}`)
@@ -84,6 +106,18 @@ function Userprofile() {
       navigate(`/login`);
     }
   }, [loginData]);
+
+  useEffect(() => {
+    console.log(formErrors);
+
+    if (Object.keys(formErrors).length == 0 && isSubmit) {
+      console.log(formValues);
+    }
+  }, [formErrors]);
+
+  const handleSubmitEditTour = (e) => {
+    console.log(e.target.value);
+  };
 
   function handleDeleteTour(id) {
     Swal.fire({
@@ -113,6 +147,60 @@ function Userprofile() {
       }
     });
   }
+
+  const validate = (data) => {
+    const errors = {};
+    const advisor_NumberRegex = /^(78|79|77)\d+$/;
+    const tour_priceRegex = /^[0-9]*\.?[0-9]+$/;
+    const tourRouteRegex = /^https:\/\/www\.google\.com\/maps\/.*$/;
+
+    if (!data.advisor_contact_number) {
+      errors.advisor_contact_number =
+        "Advisor Contact Number Field is Required";
+    } else if (!advisor_NumberRegex.test(data.advisor_contact_number)) {
+      errors.advisor_contact_number =
+        "Contact Number Must start with 77, 78 or 79";
+    }
+    if (!data.tour_price) {
+      errors.tour_price = "Tour Price Field is Required";
+    } else if (!tour_priceRegex.test(data.tour_price)) {
+      errors.tour_price = "Tour Price Must be a valid number";
+    }
+
+    if (!data.tour_route) {
+      errors.tour_route = "Tour Route Field is Required";
+    } else if (!tourRouteRegex.test(data.tour_route)) {
+      errors.tour_route = "Please Enter Valid map link from googlemap.com";
+    }
+    if (!data.tour_description) {
+      errors.tour_description = "Tour Description Field is Required";
+    }
+    if (!data.hero_img) {
+      errors.hero_img = "Hero Image Field is Required";
+    }
+    if (!data.img_1) {
+      errors.img_1 = "Image 1 Field is Required";
+    }
+    if (!data.img_2) {
+      errors.img_2 = "Image 2 Field is Required";
+    }
+    if (!data.img_3) {
+      errors.img_3 = "Image 3 Field is Required";
+    }
+    if (!data.img_4) {
+      errors.img_4 = "Image 4 Field is Required";
+    }
+    if (!data.destination_id) {
+      errors.destination_id = "Destination Field is Required";
+    }
+
+    if (!data.tour_date) {
+      errors.tour_date = "Tour Date Field is Required";
+    }
+
+    return errors;
+  };
+
   function handleEditForm(e, id) {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
@@ -137,6 +225,8 @@ function Userprofile() {
   console.log(userData);
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsSubmit(true);
+    setFormErrors(validate(formValues));
     const data = new FormData(event.currentTarget);
     data.append("destination_id", selectedDestination);
     data.append("advisor_id", userData[0].id);
@@ -196,6 +286,8 @@ function Userprofile() {
 
   useEffect(() => {
     if (userData) {
+      setCheckUserInfo(!checkUserInfo);
+
       axios
         .get(`http://localhost:8000/api/gettours/${userData[0].id}`)
         .then((res) => {
@@ -206,7 +298,6 @@ function Userprofile() {
         .catch((err) => {
           console.log(err);
         });
-      setCheckUserInfo(!checkUserInfo);
 
       axios
         .get(
@@ -214,6 +305,7 @@ function Userprofile() {
         )
         .then((res) => {
           setBookedtours(res.data.bookedtours);
+
           console.log(res);
         })
         .catch((err) => {
@@ -560,7 +652,7 @@ function Userprofile() {
                                 <Box
                                   component="form"
                                   noValidate
-                                  onSubmit={handleSubmit}
+                                  onSubmit={handleSubmitEditTour}
                                   sx={{ mt: 3 }}>
                                   <div class="modal-dialog">
                                     <div class="modal-content p-5">
@@ -577,7 +669,7 @@ function Userprofile() {
                                           aria-label="Close"></button>
                                       </div>
                                       <div class="modal-body">
-                                        <form onSubmit={handleSubmit}>
+                                        <form onSubmit={handleSubmitEditTour}>
                                           <label
                                             for="select"
                                             class="form-label">
@@ -867,12 +959,16 @@ function Userprofile() {
                               <label for="select" class="form-label">
                                 Select Desitination
                               </label>
+                              <p style={{ color: "red" }}>
+                                {formErrors?.destination_id}
+                              </p>
                               <select
                                 class="form-select"
                                 name="destination_id"
                                 id="destination_id"
                                 onChange={(e) => {
                                   setSelectedDestination(e.target.value);
+                                  handleChangePublishNewTour(e);
                                 }}
                                 aria-label="Default select example">
                                 <option selected value={null}>
@@ -893,6 +989,9 @@ function Userprofile() {
                                   class="form-label">
                                   Date
                                 </label>
+                                <p style={{ color: "red" }}>
+                                  {formErrors?.tour_date}
+                                </p>
                                 <input
                                   type="date"
                                   name="tour_date"
@@ -900,6 +999,7 @@ function Userprofile() {
                                   id="exampleInputPassword1"
                                   onChange={(e) => {
                                     setDate(e.target.value);
+                                    handleChangePublishNewTour(e);
                                   }}
                                 />
                               </div>
@@ -908,9 +1008,13 @@ function Userprofile() {
                                 <label for="Price" class="form-label">
                                   Price(JOD)
                                 </label>
+                                <p style={{ color: "red" }}>
+                                  {formErrors?.tour_price}
+                                </p>
                                 <input
                                   onChange={(e) => {
                                     setPrice(e.target.value);
+                                    handleChangePublishNewTour(e);
                                   }}
                                   type="number"
                                   name="tour_price"
@@ -922,9 +1026,13 @@ function Userprofile() {
                                 <label for="route" class="form-label">
                                   Tour Route(Map Link)
                                 </label>
+                                <p style={{ color: "red" }}>
+                                  {formErrors?.tour_route}
+                                </p>
                                 <input
                                   onChange={(e) => {
                                     setRoute(e.target.value);
+                                    handleChangePublishNewTour(e);
                                   }}
                                   type="text"
                                   name="tour_route"
@@ -937,9 +1045,13 @@ function Userprofile() {
                                 <label for="heroimg" class="form-label">
                                   Contact Number
                                 </label>
+                                <p style={{ color: "red" }}>
+                                  {formErrors?.advisor_contact_number}
+                                </p>
                                 <input
                                   onChange={(e) => {
                                     setNumber(e.target.value);
+                                    handleChangePublishNewTour(e);
                                   }}
                                   name="advisor_contact_number"
                                   type="number"
@@ -952,10 +1064,14 @@ function Userprofile() {
                                 <label for="heroimg" class="form-label">
                                   Hero image
                                 </label>
+                                <p style={{ color: "red" }}>
+                                  {formErrors?.hero_img}
+                                </p>
                                 <input
-                                  onChange={(e) =>
-                                    setHeroImg(e.target.files[0])
-                                  }
+                                  onChange={(e) => {
+                                    setHeroImg(e.target.files[0]);
+                                    handleChangePublishNewTour(e);
+                                  }}
                                   name="hero_img"
                                   type="file"
                                   class="form-control"
@@ -967,8 +1083,14 @@ function Userprofile() {
                                 <label for="img1" class="form-label">
                                   Image 1
                                 </label>
+                                <p style={{ color: "red" }}>
+                                  {formErrors?.img_1}
+                                </p>
                                 <input
-                                  onChange={(e) => setImg1(e.target.files[0])}
+                                  onChange={(e) => {
+                                    setImg1(e.target.files[0]);
+                                    handleChangePublishNewTour(e);
+                                  }}
                                   type="file"
                                   name="img_1"
                                   class="form-control"
@@ -979,8 +1101,14 @@ function Userprofile() {
                                 <label for="img2" class="form-label">
                                   Image 2
                                 </label>
+                                <p style={{ color: "red" }}>
+                                  {formErrors?.img_2}
+                                </p>
                                 <input
-                                  onChange={(e) => setImg2(e.target.files[0])}
+                                  onChange={(e) => {
+                                    setImg2(e.target.files[0]);
+                                    handleChangePublishNewTour(e);
+                                  }}
                                   type="file"
                                   name="img_2"
                                   class="form-control"
@@ -991,8 +1119,14 @@ function Userprofile() {
                                 <label for="img3" class="form-label">
                                   Image 3
                                 </label>
+                                <p style={{ color: "red" }}>
+                                  {formErrors?.img_3}
+                                </p>
                                 <input
-                                  onChange={(e) => setImg3(e.target.files[0])}
+                                  onChange={(e) => {
+                                    setImg3(e.target.files[0]);
+                                    handleChangePublishNewTour(e);
+                                  }}
                                   type="file"
                                   name="img_3"
                                   class="form-control"
@@ -1003,8 +1137,14 @@ function Userprofile() {
                                 <label for="img4" class="form-label">
                                   Image 4
                                 </label>
+                                <p style={{ color: "red" }}>
+                                  {formErrors?.img_4}
+                                </p>
                                 <input
-                                  onChange={(e) => setImg4(e.target.files[0])}
+                                  onChange={(e) => {
+                                    setImg4(e.target.files[0]);
+                                    handleChangePublishNewTour(e);
+                                  }}
                                   type="file"
                                   name="img_4"
                                   class="form-control"
@@ -1016,10 +1156,14 @@ function Userprofile() {
                                 <label for="description" class="form-label">
                                   Description
                                 </label>
+                                <p style={{ color: "red" }}>
+                                  {formErrors?.tour_description}
+                                </p>
                                 <textarea
-                                  onChange={(e) =>
-                                    setDescription(e.target.value)
-                                  }
+                                  onChange={(e) => {
+                                    setDescription(e.target.value);
+                                    handleChangePublishNewTour(e);
+                                  }}
                                   name="tour_description"
                                   class="form-control"
                                   aria-label="description"></textarea>
