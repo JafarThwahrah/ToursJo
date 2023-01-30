@@ -64,10 +64,6 @@ function Home() {
             data-scrollax-parent="">
             <div className="col-md-7">
               <h1 className="mb-4">Discover Your Favorite Place with Us</h1>
-              {/* <p className="caps">
-                Travel to the any corner of the world, without going around in
-                circles
-              </p> */}
             </div>
           </div>
         </div>

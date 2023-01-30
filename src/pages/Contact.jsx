@@ -10,8 +10,7 @@ function Contact() {
       <section
         class="hero-wrap hero-wrap-2 js-fullheight d-flex align-items-center heroImgHome"
         style={{
-          backgroundImage:
-            "url(https://upload.wikimedia.org/wikipedia/commons/0/0f/Roman_theater_of_Amman_01.jpg)",
+          backgroundImage: "url(https://wallpaperaccess.com/full/5606579.jpg)",
         }}>
         <div class="container">
           <div class="row slider-text js-fullheight align-items-end justify-content-center">

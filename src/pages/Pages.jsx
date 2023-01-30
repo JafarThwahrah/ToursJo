@@ -10,6 +10,7 @@ import Checkout from "./Checkout";
 import Login from "./Login";
 import Register from "./Register";
 import Err from "./Err";
+import Wishlist from "./Wishlist";
 export default function Pages() {
   return (
     <div>
@@ -23,6 +24,7 @@ export default function Pages() {
         <Route path="/checkout/:id" element={<Checkout />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/wishlist/:id" element={<Wishlist />} />
         <Route path="*" element={<Err />} />
       </Routes>
     </div>

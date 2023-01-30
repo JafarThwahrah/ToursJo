@@ -72,6 +72,17 @@ function Header() {
                   Contact
                 </NavLink>
               </li>
+              {loginData?.data.user.user_role === "Tourist" ? (
+                <li className="nav-item">
+                  <NavLink
+                    to={`/wishlist/${loginData.data.user.id}`}
+                    className="nav-link">
+                    Wishlist
+                  </NavLink>
+                </li>
+              ) : (
+                ""
+              )}
               <li className="nav-item">
                 {!loginData ? (
                   <NavLink to="/Login" className="nav-link">

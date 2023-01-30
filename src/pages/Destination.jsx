@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import TourCard from "../components/TourCard";
 import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useRef } from "react";
 
 function Destination() {
   const [pageNumber, setPageNumber] = useState(0);
@@ -17,7 +18,9 @@ function Destination() {
   const [tours1, setTours1] = useState([]);
   const [destinations, setDestinations] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  const firstRef = useRef(null);
+  const secondRef = useRef(null);
+  const lastRef = useRef(null);
   console.log(dateFilter);
 
   useEffect(() => {
@@ -96,6 +99,42 @@ function Destination() {
                 dateFilter == tour.tour_date)
             );
           })
+        : searched && selected
+        ? tours.filter((tour) => {
+            return (
+              (tour.user_name
+                .toLowerCase()
+                .trim()
+                .includes(searched.toLowerCase()) &&
+                tour.destination_id == selected) ||
+              (tour.destination_name
+                .toLowerCase()
+                .trim()
+                .includes(searched.toLowerCase()) &&
+                tour.destination_id == selected)
+            );
+          })
+        : dateFilter && searched
+        ? tours.filter((tour) => {
+            return (
+              (tour.user_name
+                .toLowerCase()
+                .trim()
+                .includes(searched.toLowerCase()) &&
+                dateFilter == tour.tour_date) ||
+              (tour.destination_name
+                .toLowerCase()
+                .trim()
+                .includes(searched.toLowerCase()) &&
+                dateFilter == tour.tour_date)
+            );
+          })
+        : selected && dateFilter
+        ? tours.filter((tour) => {
+            return (
+              tour.destination_id == selected && dateFilter == tour.tour_date
+            );
+          })
         : dateFilter
         ? tours.filter((tour) => {
             return tour.tour_date == dateFilter;
@@ -122,8 +161,13 @@ function Destination() {
     setFiltered(filteredData);
   }
 
-  const freshFilter = () => {
-    window.location.reload(false);
+  const freshFilter = (e) => {
+    setSearched("");
+    setSelected("");
+    setDateFilter("");
+    e.target.reset();
+
+    // window.location.reload(false);
   };
 
   // for (let i = 0; i < tours1?.length; i++) {
@@ -219,6 +263,9 @@ function Destination() {
                                 <span class="fa fa-search"></span>
                               </div>
                               <input
+                                // ref={firstRef}
+                                value={searched}
+                                name="firstRef"
                                 type="text"
                                 class="form-control"
                                 placeholder="Search place"
@@ -236,6 +283,9 @@ function Destination() {
                                 <span class="fa fa-calendar"></span>
                               </div>
                               <input
+                                // ref={secondRef}
+                                name="secondRef"
+                                value={dateFilter}
                                 type="date"
                                 class="form-control checkout_date"
                                 placeholder="Check Out Date"
@@ -253,7 +303,9 @@ function Destination() {
                                   <span class="fa fa-chevron-down"></span>
                                 </div>
                                 <select
-                                  name=""
+                                  // ref={lastRef}
+                                  name="lastRef"
+                                  value={selected}
                                   id=""
                                   class="form-control"
                                   onChange={(e) => setSelected(e.target.value)}>

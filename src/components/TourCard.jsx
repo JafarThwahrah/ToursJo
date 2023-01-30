@@ -15,7 +15,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Link } from "react-router-dom";
 import Rating from "@mui/material/Rating";
-
+import axios from "axios";
+import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 import "../styles/TourCard.css";
 
 const ExpandMore = styled((props) => {
@@ -30,11 +32,102 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function TourCard(props) {
-  const [expanded, setExpanded] = React.useState(false);
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const [tokens, setTokens] = useState(null);
+  const [favorites, setFavorites] = useState([]);
+  const [isAddedFav, setIsAddedFav] = useState(false);
+
+  const [loginData, setLoginData] = useState(
+    localStorage.getItem("loginData")
+      ? JSON.parse(localStorage.getItem("loginData"))
+      : null
+  );
+  const [userId, setUserId] = useState();
+  useEffect(() => {
+    setTokens(loginData?.data.token);
+    setUserId(loginData?.data.user.id);
+  }, []);
+
+  useEffect(() => {
+    favorites.forEach((fav) => {
+      if (fav.tour_id == props.id) {
+        setIsAddedFav(true);
+      }
+    });
+    console.log(isAddedFav);
+  }, [favorites]);
+
+  useEffect(() => {
+    if (userId) {
+      axios
+        .get(`http://localhost:8000/api/getFavorites/${userId}`)
+        .then((res) => {
+          setFavorites(res.data.Wishlist);
+
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      console.log("errrrrr");
+    }
+  }, [userId, isAddedFav]);
+
+  const handleAddFav = (id) => {
+    const axiosAuth = "Bearer " + tokens;
+    const data = {
+      tour_id: id,
+      user_id: userId,
+    };
+
+    axios.defaults.headers.common["Authorization"] = axiosAuth;
+    axios
+      .post("http://localhost:8000/api/addtoWishlist", data)
+      .then((res) => {
+        console.log(res);
+        setIsAddedFav(true);
+        Swal.fire(
+          "Success!",
+          "Tour is added to your wishlist successfully.",
+          "success"
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
+  const handleRemoveFav = (id) => {
+    const axiosAuth = "Bearer " + tokens;
+    const data = {
+      tour_id: id,
+      user_id: userId,
+    };
+
+    axios.defaults.headers.common["Authorization"] = axiosAuth;
+
+    Swal.fire({
+      title: "Are you sure you want to Remove from wishlist?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post("http://localhost:8000/api/removefromFav", data)
+          .then((res) => {
+            console.log(res);
+            setIsAddedFav(false);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        Swal.fire("Removed!", "Removed from wishlist successfully.", "success");
+      }
+    });
+  };
   return (
     <Card sx={{ maxWidth: 345 }}>
       <></>
@@ -76,12 +169,25 @@ export default function TourCard(props) {
           {props.tourDescription}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon className="wishListIcon" />
-        </IconButton>
-        <IconButton aria-label="share"></IconButton>
-      </CardActions>
+      {userId ? (
+        <CardActions disableSpacing>
+          {!isAddedFav ? (
+            <IconButton
+              onClick={(e) => handleAddFav(props.id)}
+              aria-label="add to favorites">
+              <FavoriteIcon className="wishListIcon" />
+            </IconButton>
+          ) : (
+            <IconButton
+              onClick={(e) => handleRemoveFav(props.id)}
+              aria-label="add to favorites">
+              <FavoriteIcon className="wishListIconActive" />
+            </IconButton>
+          )}
+        </CardActions>
+      ) : (
+        ""
+      )}
     </Card>
   );
 }

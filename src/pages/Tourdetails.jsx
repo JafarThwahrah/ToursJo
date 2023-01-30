@@ -8,7 +8,6 @@ function Tourdetails() {
   const [tourDetails, setTourDetails] = useState([]);
   const navigate = useNavigate();
   const params = useParams();
-  console.log(params);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
