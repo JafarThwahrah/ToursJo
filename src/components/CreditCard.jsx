@@ -17,7 +17,6 @@ export default class PaymentForm extends React.Component {
 
   handleInputChange = (e) => {
     const { name, value } = e.target;
-
     this.setState({ [name]: value });
   };
 
@@ -34,6 +33,7 @@ export default class PaymentForm extends React.Component {
         <form>
           <div className="checkOutForm">
             <input
+              required
               className="inputField inputFieldNumber m-4 p-2"
               type="tel"
               name="number"
@@ -43,6 +43,7 @@ export default class PaymentForm extends React.Component {
             />
 
             <input
+              required
               className="inputField m-4 p-2"
               type="tel"
               name="name"
@@ -52,6 +53,7 @@ export default class PaymentForm extends React.Component {
             />
 
             <input
+              required
               className="inputField m-4 p-2"
               type="tel"
               name="expiry"
@@ -59,7 +61,9 @@ export default class PaymentForm extends React.Component {
               onChange={this.handleInputChange}
               onFocus={this.handleInputFocus}
             />
+
             <input
+              required
               className="inputField m-4 p-2"
               type="tel"
               name="cvc"

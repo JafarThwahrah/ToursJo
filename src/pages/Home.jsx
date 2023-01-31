@@ -401,8 +401,8 @@ function Home() {
                         alt=""
                       />
                     </div>
-                    <div class="testimonial mt-4 mb-2"></div>
-                    <div class="name"></div>
+                    <div class="testimonial mt-4 mb-2">Review 1</div>
+                    <div class="name">Ahmad</div>
                   </div>
                 </div>
                 <div class="owl-item">

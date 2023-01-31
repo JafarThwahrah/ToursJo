@@ -78,15 +78,22 @@ function Userprofile() {
     img_4: "",
     tour_description: "",
   };
+  const [editTourformValues, setEditTourformValues] = useState(initialValue);
 
   const [formValues, setFormValues] = useState(initialValue);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
 
+  const handleChangeEditTour = (e) => {
+    setEditTourformValues({
+      ...editTourformValues,
+      [e.target.name]: e.target.value,
+    });
+  };
   const handleChangePublishNewTour = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
   };
-
+  console.log(editTourformValues);
   useEffect(() => {
     axios
       .get(`http://localhost:8000/api/getoneuser/${userId}`)
@@ -115,8 +122,21 @@ function Userprofile() {
     }
   }, [formErrors]);
 
-  const handleSubmitEditTour = (e) => {
-    console.log(e.target.value);
+  const handleSubmitEditTour = (e, id) => {
+    e.preventDefault();
+    console.log(editTourformValues);
+    const data = editTourformValues;
+    const axiosAuth = "Bearer " + tokens;
+    axios.defaults.headers.common["Authorization"] = axiosAuth;
+    axios
+      .post(`http://localhost:8000/api/editpublishedtour/${id}`, data)
+      .then((response) => {
+        console.log(response);
+        Swal.fire("Updated!", "Tour Updated Successfully.", "success");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   function handleDeleteTour(id) {
@@ -652,7 +672,9 @@ function Userprofile() {
                                 <Box
                                   component="form"
                                   noValidate
-                                  onSubmit={handleSubmitEditTour}
+                                  onSubmit={(e) =>
+                                    handleSubmitEditTour(e, tour.id)
+                                  }
                                   sx={{ mt: 3 }}>
                                   <div class="modal-dialog">
                                     <div class="modal-content p-5">
@@ -669,7 +691,10 @@ function Userprofile() {
                                           aria-label="Close"></button>
                                       </div>
                                       <div class="modal-body">
-                                        <form onSubmit={handleSubmitEditTour}>
+                                        <form
+                                          onSubmit={(e) =>
+                                            handleSubmitEditTour(e, tour.id)
+                                          }>
                                           <label
                                             for="select"
                                             class="form-label">
@@ -680,9 +705,7 @@ function Userprofile() {
                                             name="destination_id"
                                             id="destination_id"
                                             onChange={(e) => {
-                                              setSelectedDestination(
-                                                e.target.value
-                                              );
+                                              handleChangeEditTour(e);
                                             }}
                                             aria-label="Default select example">
                                             <option
@@ -705,7 +728,7 @@ function Userprofile() {
                                                   : tour.destination_name ==
                                                     "Amman"
                                                   ? 6
-                                                  : 10
+                                                  : 0
                                               }>
                                               {tour.destination_name}
                                             </option>
@@ -729,9 +752,11 @@ function Userprofile() {
                                               name="tour_date"
                                               class="form-control"
                                               id="exampleInputPassword1"
-                                              value={tour.tour_date}
+                                              value={
+                                                editTourformValues?.tour_date
+                                              }
                                               onChange={(e) => {
-                                                setDate(e.target.value);
+                                                handleChangeEditTour(e);
                                               }}
                                             />
                                           </div>
@@ -744,13 +769,15 @@ function Userprofile() {
                                             </label>
                                             <input
                                               onChange={(e) => {
-                                                setPrice(e.target.value);
+                                                handleChangeEditTour(e);
                                               }}
                                               type="number"
                                               name="tour_price"
                                               class="form-control"
                                               id="Price"
-                                              value={tour.tour_price}
+                                              value={
+                                                editTourformValues?.tour_price
+                                              }
                                             />
                                           </div>
                                           <div class="mb-3">
@@ -761,13 +788,15 @@ function Userprofile() {
                                             </label>
                                             <input
                                               onChange={(e) => {
-                                                setRoute(e.target.value);
+                                                handleChangeEditTour(e);
                                               }}
                                               type="text"
                                               name="tour_route"
                                               class="form-control"
                                               id="route"
-                                              value={tour.tour_route}
+                                              value={
+                                                editTourformValues?.tour_route
+                                              }
                                             />
                                           </div>
 
@@ -779,14 +808,14 @@ function Userprofile() {
                                             </label>
                                             <input
                                               onChange={(e) => {
-                                                setNumber(e.target.value);
+                                                handleChangeEditTour(e);
                                               }}
                                               name="advisor_contact_number"
                                               type="number"
                                               class="form-control"
                                               id="heroimg"
                                               value={
-                                                tour.advisor_contact_number
+                                                editTourformValues?.advisor_contact_number
                                               }
                                             />
                                           </div>
@@ -799,7 +828,7 @@ function Userprofile() {
                                             </label>
                                             <input
                                               onChange={(e) =>
-                                                setHeroImg(e.target.files[0])
+                                                handleChangeEditTour(e)
                                               }
                                               name="hero_img"
                                               type="file"
@@ -816,7 +845,7 @@ function Userprofile() {
                                             </label>
                                             <input
                                               onChange={(e) =>
-                                                setImg1(e.target.files[0])
+                                                handleChangeEditTour(e)
                                               }
                                               type="file"
                                               name="img_1"
@@ -832,7 +861,7 @@ function Userprofile() {
                                             </label>
                                             <input
                                               onChange={(e) =>
-                                                setImg2(e.target.files[0])
+                                                handleChangeEditTour(e)
                                               }
                                               type="file"
                                               name="img_2"
@@ -848,7 +877,7 @@ function Userprofile() {
                                             </label>
                                             <input
                                               onChange={(e) =>
-                                                setImg3(e.target.files[0])
+                                                handleChangeEditTour(e)
                                               }
                                               type="file"
                                               name="img_3"
@@ -864,7 +893,7 @@ function Userprofile() {
                                             </label>
                                             <input
                                               onChange={(e) =>
-                                                setImg4(e.target.files[0])
+                                                handleChangeEditTour(e)
                                               }
                                               type="file"
                                               name="img_4"
@@ -881,7 +910,7 @@ function Userprofile() {
                                             </label>
                                             <textarea
                                               onChange={(e) =>
-                                                setDescription(e.target.value)
+                                                handleChangeEditTour(e)
                                               }
                                               name="tour_description"
                                               class="form-control"
@@ -1216,7 +1245,7 @@ function Userprofile() {
                       <div class="Destination">{booked.destination_name}</div>
                       <div class="touristname">{booked.user_name}</div>
 
-                      <div class="price">{booked.tour_price}</div>
+                      <div class="price">{booked.tour_price} JOD</div>
                       {booked.booked_rating == null ? (
                         <div class="review">
                           <ReviewDialog

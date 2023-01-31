@@ -120,6 +120,7 @@ export default function TourCard(props) {
           .then((res) => {
             console.log(res);
             setIsAddedFav(false);
+            props.setCheckFavorite(!props.checkFavorite);
           })
           .catch((err) => {
             console.log(err);
@@ -169,7 +170,7 @@ export default function TourCard(props) {
           {props.tourDescription}
         </Typography>
       </CardContent>
-      {userId ? (
+      {userId && loginData?.data.user.user_role === "Tourist" ? (
         <CardActions disableSpacing>
           {!isAddedFav ? (
             <IconButton

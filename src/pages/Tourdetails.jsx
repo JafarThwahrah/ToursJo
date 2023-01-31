@@ -115,6 +115,10 @@ function Tourdetails() {
                       <blockquote className="generic-blockquote text-start">
                         <h5 className="text-start">Overview</h5>
                         {info.tour_description}
+                        <hr />
+                        <p style={{ fontWeight: "bold" }}>
+                          Advisor Contact Number: {info.advisor_contact_number}
+                        </p>
                       </blockquote>
                     </div>
                   </div>

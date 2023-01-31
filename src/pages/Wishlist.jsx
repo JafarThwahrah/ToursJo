@@ -9,6 +9,7 @@ import TourCard from "../components/TourCard";
 const Wishlist = () => {
   const params = useParams();
   const [favorites, setFavorites] = useState([]);
+  const [checkFavorite, setCheckFavorite] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -16,33 +17,35 @@ const Wishlist = () => {
         `http://localhost:8000/api/getwishwithtours/${params.id}`
       );
       console.log(response);
-      setFavorites(response.data.Wishlist);
+      setFavorites(response.data.wishlists);
     };
     getData();
-  }, []);
-  console.log(favorites);
-  // const displayUsers = favorites.map((tour) => {
-  //   {
-  //     return (
-  //       <div class="col-md-4">
-  //         <div class="m-2">
-  //           <TourCard
-  //             key={Math.random()}
-  //             id={tour.id}
-  //             userName={tour.user_name}
-  //             destinationName={tour.destination_name}
-  //             userImage={tour.user_image}
-  //             userRating={tour.rating}
-  //             tourDescription={tour.tour_description}
-  //             tourDate={tour.tour_date}
-  //             tourCreationDate={tour.created_at}
-  //             heroImg={tour.hero_img}
-  //           />
-  //         </div>
-  //       </div>
-  //     );
-  //   }
-  // });
+  }, [checkFavorite]);
+
+  const displayUsers = favorites?.map((tour) => {
+    {
+      return (
+        <div class="col-md-4">
+          <div class="m-2">
+            <TourCard
+              key={Math.random()}
+              id={tour.id}
+              setCheckFavorite={setCheckFavorite}
+              checkFavorite={checkFavorite}
+              userName={tour.user_name}
+              destinationName={tour.destination_name}
+              userImage={tour.user_image}
+              userRating={tour.rating}
+              tourDescription={tour.tour_description}
+              tourDate={tour.tour_date}
+              tourCreationDate={tour.created_at}
+              heroImg={tour.hero_img}
+            />
+          </div>
+        </div>
+      );
+    }
+  });
   return (
     <>
       <section
@@ -61,7 +64,7 @@ const Wishlist = () => {
       </section>
       <section className="ftco-section">
         <div className="container">
-          <div className="row">{/* {displayUsers} */}</div>
+          <div className="row">{displayUsers}</div>
         </div>
       </section>
     </>
