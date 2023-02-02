@@ -114,13 +114,13 @@ function Userprofile() {
     }
   }, [loginData]);
 
-  useEffect(() => {
-    console.log(formErrors);
+  // useEffect(() => {
+  //   console.log(formErrors);
 
-    if (Object.keys(formErrors).length == 0 && isSubmit) {
-      console.log(formValues);
-    }
-  }, [formErrors]);
+  //   if (Object.keys(formErrors).length == 0 && isSubmit) {
+  //     console.log(formValues);
+  //   }
+  // }, [formErrors]);
 
   const handleSubmitEditTour = (e, id) => {
     e.preventDefault();
@@ -287,11 +287,8 @@ function Userprofile() {
     window.scrollTo(0, 0);
 
     setUserId([loginData?.data.user.id]);
-
     setUserData([loginData?.data.user]);
-
     setTokens(loginData?.data.token);
-    setCheckUserInfo(!checkUserInfo);
 
     axios
       .get("http://localhost:8000/api/destinations")
@@ -302,6 +299,7 @@ function Userprofile() {
       .catch((err) => {
         console.log(err);
       });
+    setCheckUserInfo(!checkUserInfo);
   }, []);
 
   useEffect(() => {
