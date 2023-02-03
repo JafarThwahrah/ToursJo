@@ -3,6 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import TourCard from "../components/TourCard";
 
@@ -46,6 +47,8 @@ const Wishlist = () => {
       );
     }
   });
+
+  console.log(displayUsers.length);
   return (
     <>
       <section
@@ -56,15 +59,26 @@ const Wishlist = () => {
         }}>
         <div class="container">
           <div class="row slider-text js-fullheight align-items-end justify-content-center">
-            <div class="col-md-9 pb-5 text-center">
-              {/* <h1 class="mb-0 bread">Wishlist</h1> */}
-            </div>
+            <div class="col-md-9 pb-5 text-center"></div>
           </div>
         </div>
       </section>
       <section className="ftco-section">
         <div className="container">
-          <div className="row">{displayUsers}</div>
+          <div className="row">
+            {displayUsers.length == 0 ? (
+              <h2 style={{ color: "#f15d30" }}>
+                You Have No items in your Wishlist
+                <div>
+                  <Link to={`/destination/`} className="btn btn-primary">
+                    Go to Destinations
+                  </Link>
+                </div>
+              </h2>
+            ) : (
+              displayUsers
+            )}
+          </div>
         </div>
       </section>
     </>

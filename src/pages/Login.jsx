@@ -19,6 +19,8 @@ import axios from "axios";
 import { googleLogout } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { ErrorSharp } from "@mui/icons-material";
+import { loginDataContext } from "../App";
+import { useContext } from "react";
 
 // import "../styles/Login.css";
 
@@ -36,6 +38,7 @@ const theme = createTheme();
 
 export default function SignIn() {
   const initialValue = { user_email: "", password: "" };
+  const setUserLoginData = useContext(loginDataContext);
 
   const [loginData, setLoginData] = useState(
     localStorage.getItem("loginData")
@@ -104,6 +107,7 @@ export default function SignIn() {
         .post("http://localhost:8000/api/login", data)
         .then((res) => {
           localStorage.setItem("loginData", JSON.stringify(res));
+          setUserLoginData(res);
           setLoginData(res);
           console.log(res);
           setTimeout(() => {
@@ -203,7 +207,7 @@ export default function SignIn() {
                     marginTop: "2rem",
                     marginBottom: "0",
                   }}>
-                  {responseErr}
+                  {/* {responseErr} */}
                 </p>
                 <p
                   style={{

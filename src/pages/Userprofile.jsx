@@ -82,6 +82,10 @@ function Userprofile() {
 
   const [formValues, setFormValues] = useState(initialValue);
   const [formErrors, setFormErrors] = useState({});
+  const [editUserformValues, setEditUserformValues] = useState(initialValue);
+
+  const [formErrorsEditUserInfo, setFormErrorsEditUserInfo] = useState({});
+
   const [isSubmit, setIsSubmit] = useState(false);
 
   const handleChangeEditTour = (e) => {
@@ -221,9 +225,26 @@ function Userprofile() {
     return errors;
   };
 
+  const validateEditUserInfo = (username, editPassword) => {
+    const errors = {};
+    if (!username) {
+      errors.username = "Please enter a username";
+    }
+
+    if (!editPassword) {
+      errors.editPassword = "Please enter new Password";
+    }
+
+    return errors;
+  };
   function handleEditForm(e, id) {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
+    setFormErrorsEditUserInfo(validateEditUserInfo(userName, editPassword));
+
+    if (!userName || !editPassword) {
+      return;
+    }
     data.append("user_name", userName);
     data.append("user_sammary", userSammary);
     data.append("user_image", userImage);
@@ -354,6 +375,15 @@ function Userprofile() {
   for (let i = 0; i < tours?.length; i++) {
     tourJoin[i].id = tours[i].id;
   }
+
+  const handleChangeEditUser = (e) => {
+    e.preventDefault();
+
+    setEditUserformValues({
+      ...editUserformValues,
+      [e.target.name]: e.target.value,
+    });
+  };
   // console.log(loginData.data.user.user_role);
   // console.log(userData[0].id);
   // console.log(price);
@@ -412,7 +442,13 @@ function Userprofile() {
 
                         <div class="text-muted mb-4 text-left">
                           {userInfoGet ? (
-                            <p>{userInfoGet.user_sammary}</p>
+                            <p>
+                              {userInfoGet.user_sammary ? (
+                                userInfoGet.user_sammary
+                              ) : (
+                                <p>please write sammary about your self</p>
+                              )}
+                            </p>
                           ) : (
                             <p>please write sammary about your self</p>
                           )}
@@ -464,6 +500,9 @@ function Userprofile() {
                                     </div>
                                     <div class="modal-body">
                                       <div class="mb-3">
+                                        <p style={{ color: "red" }}>
+                                          {formErrorsEditUserInfo.username}
+                                        </p>
                                         <label
                                           for="exampleInputPassword1"
                                           class="form-label">
@@ -475,13 +514,17 @@ function Userprofile() {
                                           class="form-control"
                                           id="exampleInputPassword1"
                                           value={userName}
-                                          onChange={(e) =>
-                                            setUserName(e.target.value)
-                                          }
+                                          onChange={(e) => {
+                                            setUserName(e.target.value);
+                                            handleChangeEditUser(e);
+                                          }}
                                         />
                                       </div>
 
                                       <div class="mb-3">
+                                        <p style={{ color: "red" }}>
+                                          {formErrorsEditUserInfo.editPassword}
+                                        </p>
                                         <label
                                           for="exampleInputPassword3"
                                           class="form-label">
@@ -492,9 +535,10 @@ function Userprofile() {
                                           name="password"
                                           class="form-control"
                                           id="exampleInputPassword3"
-                                          onChange={(e) =>
-                                            setEditPassword(e.target.value)
-                                          }
+                                          onChange={(e) => {
+                                            handleChangeEditUser(e);
+                                            setEditPassword(e.target.value);
+                                          }}
                                         />
                                       </div>
                                       <div class="mb-3">
@@ -508,9 +552,11 @@ function Userprofile() {
                                           name="user_image"
                                           class="form-control"
                                           id="exampleInputPassword2"
-                                          onChange={(e) =>
-                                            setUserImage(e.target.value)
-                                          }
+                                          onChange={(e) => {
+                                            handleChangeEditUser(e);
+
+                                            setUserImage(e.target.value);
+                                          }}
                                         />
                                       </div>
 
@@ -522,9 +568,10 @@ function Userprofile() {
                                         </label>
 
                                         <textarea
-                                          onChange={(e) =>
-                                            setUserSammary(e.target.value)
-                                          }
+                                          onChange={(e) => {
+                                            handleChangeEditUser(e);
+                                            setUserSammary(e.target.value);
+                                          }}
                                           type="text"
                                           name="user_sammary"
                                           id="exampleInputPassword4"
@@ -551,8 +598,6 @@ function Userprofile() {
                               </div>
                             </div>
                           </div>
-                          <div class="col-md-3 text-muted">Birthday:</div>
-                          <div class="col-md-9">May 3, 1995</div>
                         </div>
 
                         <div class="row mb-2">

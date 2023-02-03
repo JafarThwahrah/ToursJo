@@ -1,10 +1,86 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useContext } from "react";
+import { loginDataContext } from "../App";
+import Swal from "sweetalert2";
+
 function Contact() {
+  const setUserLoginData = useContext(loginDataContext);
+  const [loginData, setLoginData] = useState(
+    localStorage.getItem("loginData")
+      ? JSON.parse(localStorage.getItem("loginData"))
+      : null
+  );
+  const [tokens, setTokens] = useState(null);
+
+  const initialValue = {
+    user_name: "",
+    user_email: "",
+    subject: "",
+    description: "",
+  };
+  const [formData, setFormData] = useState(initialValue);
+  const [formErrors, setFormErrors] = useState({});
+  const [userId, setUserId] = useState();
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handlesubmit = (e) => {
+    e.preventDefault();
+
+    setFormErrors(validate(formData));
+
+    if (!loginData) {
+      const error = {};
+      error.is_Login = "You must login to send Your message";
+      setFormErrors(error);
+      return;
+    }
+
+    const data = formData;
+    const axiosAuth = "Bearer " + tokens;
+    axios.defaults.headers.common["Authorization"] = axiosAuth;
+    axios
+      .post(`http://localhost:8000/api/contactus/${userId}`, data)
+      .then((res) => {
+        Swal.fire(
+          "Thanks for using our Channel",
+          "We will contact you within48 Hours.",
+          "success"
+        );
+      })
+      .catch((e) => {});
+  };
+
+  const validate = (data) => {
+    const errors = {};
+    if (!data.user_name) {
+      errors.user_name = "username field is required";
+    }
+    if (!data.user_email) {
+      errors.user_email = "email field is required";
+    }
+
+    if (!data.subject) {
+      errors.subject = "subject field is required";
+    }
+
+    if (!data.description) {
+      errors.description = "description field is required";
+    }
+
+    return errors;
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    setTokens(loginData?.data.token);
+    setUserId(loginData?.data.user.id);
   }, []);
+
+  console.log(userId);
   return (
     <div>
       <section
@@ -93,31 +169,43 @@ function Contact() {
         <div class="container">
           <div class="row block-9 justify-content-md-center">
             <div class=" col-12 col-md-6 order-md-last d-flex ">
-              <form action="#" class="bg-light p-5 contact-form">
+              <form onSubmit={handlesubmit} class="bg-light p-5 contact-form">
+                <p style={{ color: "red" }}> {formErrors?.is_Login}</p>
                 <div class="form-group">
+                  <p style={{ color: "red" }}>{formErrors?.user_name}</p>
                   <input
+                    onChange={handleChange}
+                    name="user_name"
                     type="text"
                     class="form-control"
                     placeholder="Your Name"
                   />
                 </div>
                 <div class="form-group">
+                  <p style={{ color: "red" }}>{formErrors?.user_email}</p>
                   <input
+                    onChange={handleChange}
+                    name="user_email"
                     type="text"
                     class="form-control"
                     placeholder="Your Email"
                   />
                 </div>
                 <div class="form-group">
+                  <p style={{ color: "red" }}>{formErrors?.subject}</p>
                   <input
+                    onChange={handleChange}
+                    name="subject"
                     type="text"
                     class="form-control"
                     placeholder="Subject"
                   />
                 </div>
                 <div class="form-group">
+                  <p style={{ color: "red" }}>{formErrors?.description}</p>
                   <textarea
-                    name=""
+                    onChange={handleChange}
+                    name="description"
                     id=""
                     cols="30"
                     rows="7"

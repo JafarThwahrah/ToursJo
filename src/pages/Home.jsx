@@ -7,6 +7,7 @@ import axios from "axios";
 import "../styles/Home.css";
 import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
+import Testimonial from "../components/Testimonials";
 
 function Home() {
   const [advisors, setAdvisors] = useState();
@@ -383,14 +384,18 @@ function Home() {
         <div class="container">
           <div class="row justify-content-center pb-4">
             <div class="col-md-7 text-center heading-section heading-section-white">
-              <span class="subheading" style={{ color: "#f15d30" }}>
+              <span
+                class="subheading"
+                style={{ color: "#f15d30", fontSize: "4rem" }}>
                 Testimonial
               </span>
               <h2 class="mb-4">Tourist Feedback</h2>
             </div>
           </div>
 
-          <div class="row justify-content-center">
+          <Testimonial />
+
+          {/* <div class="row justify-content-center">
             <div class="col-md-12 cards-container">
               <div class="owl-carousel owl-theme mt-5">
                 <div class="owl-item">
@@ -467,11 +472,9 @@ function Home() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
-
-      <section></section>
     </>
   );
 }
