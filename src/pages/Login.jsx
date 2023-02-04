@@ -21,6 +21,7 @@ import jwt_decode from "jwt-decode";
 import { ErrorSharp } from "@mui/icons-material";
 import { loginDataContext } from "../App";
 import { useContext } from "react";
+import FacebookLogin from "react-facebook-login";
 
 // import "../styles/Login.css";
 
@@ -89,10 +90,6 @@ export default function SignIn() {
     }
   }, [formErrors]);
   const handleSubmit = (event) => {
-    // const data = new FormData(event.currentTarget);
-    // let email = data.get("email");
-    // let password = data.get("password");
-
     event.preventDefault();
     setIsSubmit(true);
 
@@ -119,15 +116,13 @@ export default function SignIn() {
           // console.log(err.response.data.message);
         });
     });
-
-    navigate(`/userprofile/${loginData.data.user.id}`);
+    if (loginData) {
+      navigate(`/userprofile/${loginData?.data.user.id}`);
+    }
   };
 
   const handleLogin = (res) => {
-    console.log(res);
     let decoded = jwt_decode(res.credential);
-    console.log(decoded);
-
     axios.get("http://localhost:8000/sanctum/csrf-cookie").then((response) => {
       console.log(response);
       axios
@@ -159,6 +154,22 @@ export default function SignIn() {
     googleLogout();
   };
 
+  const responseFacebook = (response) => {
+    axios
+      .post("http://localhost:8000/api/facebooklogin", response)
+      .then((res) => {
+        localStorage.setItem("loginData", JSON.stringify(res));
+        console.log(res);
+        setTimeout(() => {
+          window.location.reload(false);
+        }, 500);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    navigate(`/userprofile/${loginData.data.user.id}`);
+  };
+
   useEffect(() => {
     if (loginData) {
       navigate(`/userprofile/${loginData?.data.user.id}`);
@@ -186,9 +197,15 @@ export default function SignIn() {
               <LockOutlinedIcon />
             </Avatar>
 
-            <Typography component="h1" variant="h5">
+            <Typography style={{ color: "white" }} component="h1" variant="h5">
               Sign in
             </Typography>
+
+            {responseErr && !loginData ? (
+              <p style={{ color: "red" }}>{responseErr}</p>
+            ) : (
+              ""
+            )}
             {loginData ? (
               <div>
                 <h3>You logged in as {loginData.email}</h3>
@@ -220,6 +237,12 @@ export default function SignIn() {
                 </p>
 
                 <TextField
+                  type="text"
+                  style={{
+                    backgroundColor: "#Dce8ec",
+                    borderRadius: "5px",
+                    opacity: "70%",
+                  }}
                   onChange={handleChange}
                   margin="normal"
                   required
@@ -239,6 +262,11 @@ export default function SignIn() {
                   {formErrors.password}
                 </p>
                 <TextField
+                  style={{
+                    backgroundColor: "#Dce8ec",
+                    borderRadius: "5px",
+                    opacity: "70%",
+                  }}
                   onChange={handleChange}
                   margin="normal"
                   required
@@ -278,6 +306,13 @@ export default function SignIn() {
                       useOneTap
                     />
                   </GoogleOAuthProvider>
+                  <FacebookLogin
+                    appId="1289380955254261"
+                    fields="name,email,picture"
+                    callback={responseFacebook}
+                    textButton="Login with Facebook"
+                    cssClass="my-facebook-button-class"
+                  />
                 </div>
 
                 <Grid container>

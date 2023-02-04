@@ -79,6 +79,7 @@ export default function TourCard(props) {
       tour_id: id,
       user_id: userId,
     };
+    console.log(axiosAuth);
 
     axios.defaults.headers.common["Authorization"] = axiosAuth;
     axios

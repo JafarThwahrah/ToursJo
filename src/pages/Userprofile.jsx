@@ -256,7 +256,7 @@ function Userprofile() {
       .post(`http://localhost:8000/api/user/${userData[0].id}`, data)
       .then((response) => {
         console.log(response);
-        setCheckUserInfo(!checkUserInfo);
+        // setCheckUserInfo(!checkUserInfo);
         Swal.fire("Updated!", "Your Profile Updated Successfully.", "success");
       })
       .catch((error) => {
@@ -332,7 +332,7 @@ function Userprofile() {
         .then((res) => {
           setTours(res.data.toursPerUser);
           setTourJoin(res.data.ToursJoinDes);
-          console.log(res);
+          // console.log(res);
         })
         .catch((err) => {
           console.log(err);
@@ -345,7 +345,7 @@ function Userprofile() {
         .then((res) => {
           setBookedtours(res.data.bookedtours);
 
-          console.log(res);
+          // console.log(res);
         })
         .catch((err) => {
           console.log(err);
@@ -388,7 +388,9 @@ function Userprofile() {
   // console.log(userData[0].id);
   // console.log(price);
   // console.log(number);
-  console.log(tourJoin);
+  console.log(userId);
+  console.log(userInfoGet);
+  // console.log(userInfoGet);
 
   return (
     <div>
@@ -419,9 +421,9 @@ function Userprofile() {
               <>
                 <div class="container-m-nx container-m-ny theme-bg-white mb-4">
                   <div class="media col-md-10 col-lg-8 col-xl-7 py-5 mx-auto">
-                    {userInfoGet ? (
+                    {userInfoGet && userInfoGet.user_image ? (
                       <img
-                        src={require(`../images/${userInfoGet.user_image}`)}
+                        src={require(`../images/${userInfoGet?.user_image}`)}
                         alt="img"
                         class="d-block ui-w-100 rounded-circle"
                         style={{ backgroundSize: "cover" }}
@@ -443,7 +445,7 @@ function Userprofile() {
                         <div class="text-muted mb-4 text-left">
                           {userInfoGet ? (
                             <p>
-                              {userInfoGet.user_sammary ? (
+                              {userInfoGet && userInfoGet.user_sammary ? (
                                 userInfoGet.user_sammary
                               ) : (
                                 <p>please write sammary about your self</p>
