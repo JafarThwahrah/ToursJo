@@ -97,7 +97,26 @@ function Userprofile() {
   const handleChangePublishNewTour = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
   };
-  console.log(editTourformValues);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    setUserId([loginData?.data.user.id]);
+    setUserData([loginData?.data.user]);
+    setTokens(loginData?.data.token);
+
+    axios
+      .get("http://localhost:8000/api/destinations")
+      .then((res) => {
+        setDestinations(res.data.destinations);
+        // console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setCheckUserInfo(!checkUserInfo);
+  }, []);
+
   useEffect(() => {
     axios
       .get(`http://localhost:8000/api/getoneuser/${userId}`)
@@ -111,20 +130,41 @@ function Userprofile() {
       });
   }, [checkUserInfo]);
 
+  useEffect(() => {
+    setCheckUserInfo(!checkUserInfo);
+    if (userData) {
+      axios
+        .get(`http://localhost:8000/api/gettours/${userData[0].id}`)
+        .then((res) => {
+          setTours(res.data.toursPerUser);
+          setTourJoin(res.data.ToursJoinDes);
+          // console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      axios
+        .get(
+          `http://localhost:8000/api/getbookedtour/${userData[0].user_role}/${userData[0].id}`
+        )
+        .then((res) => {
+          setBookedtours(res.data.bookedtours);
+
+          // console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [userData]);
+
   const navigate = useNavigate();
   useEffect(() => {
     if (!loginData) {
       navigate(`/login`);
     }
   }, [loginData]);
-
-  // useEffect(() => {
-  //   console.log(formErrors);
-
-  //   if (Object.keys(formErrors).length == 0 && isSubmit) {
-  //     console.log(formValues);
-  //   }
-  // }, [formErrors]);
 
   const handleSubmitEditTour = (e, id) => {
     e.preventDefault();
@@ -304,54 +344,6 @@ function Userprofile() {
   const handleClose = (event) => {
     setOpen(false);
   };
-  useEffect(() => {
-    window.scrollTo(0, 0);
-
-    setUserId([loginData?.data.user.id]);
-    setUserData([loginData?.data.user]);
-    setTokens(loginData?.data.token);
-
-    axios
-      .get("http://localhost:8000/api/destinations")
-      .then((res) => {
-        setDestinations(res.data.destinations);
-        // console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    setCheckUserInfo(!checkUserInfo);
-  }, []);
-
-  useEffect(() => {
-    if (userData) {
-      setCheckUserInfo(!checkUserInfo);
-
-      axios
-        .get(`http://localhost:8000/api/gettours/${userData[0].id}`)
-        .then((res) => {
-          setTours(res.data.toursPerUser);
-          setTourJoin(res.data.ToursJoinDes);
-          // console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      axios
-        .get(
-          `http://localhost:8000/api/getbookedtour/${userData[0].user_role}/${userData[0].id}`
-        )
-        .then((res) => {
-          setBookedtours(res.data.bookedtours);
-
-          // console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [userData]);
 
   function handleLogout() {
     const axiosAuth = "Bearer " + tokens;
@@ -384,13 +376,6 @@ function Userprofile() {
       [e.target.name]: e.target.value,
     });
   };
-  // console.log(loginData.data.user.user_role);
-  // console.log(userData[0].id);
-  // console.log(price);
-  // console.log(number);
-  console.log(userId);
-  console.log(userInfoGet);
-  // console.log(userInfoGet);
 
   return (
     <div>

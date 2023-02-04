@@ -58,10 +58,62 @@ export default function SignUp() {
       : null
   );
 
+  const initial = {
+    user_name: "",
+    user_email: "",
+    password: "",
+    password_confirmation: "",
+    user_role: "",
+    user_image: "",
+  };
+
+  const [formValues, setFormValues] = useState(initial);
+  const [formErrors, setFormErrors] = useState({});
+
+  const handleChange = (e) => {
+    setFormValues({ ...formValues, [e.target.name]: e.target.value });
+  };
+
   const navigate = useNavigate();
 
+  const validate = (data) => {
+    const errors = {};
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+
+    if (!data.user_name) {
+      errors.user_name = "username field is required";
+    }
+    if (!data.user_email) {
+      errors.user_email = "Email is required";
+    } else if (!emailRegex.test(data.user_email)) {
+      errors.user_email =
+        "Wrong email format, Your input should look like example@gmail.com";
+    }
+    if (!data.password) {
+      errors.password = "Password is required";
+    } else if (!passwordRegex.test(data.password)) {
+      errors.password =
+        "Password Should contains at least one higher case letter,one number and should be more than 8 characters long";
+    }
+
+    if (!data.password_confirmation) {
+      errors.password_confirmation = "password confirmation is required";
+    } else if (data.password_confirmation !== data.password) {
+      errors.password_confirmation =
+        "Conform password field must match password field";
+    }
+
+    if (!data.user_role) {
+      errors.user_role = "role is required";
+    }
+
+    return errors;
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    setFormErrors(validate(formValues));
     const data = new FormData(event.currentTarget);
     data.append("user_image", selectedFile);
 
@@ -130,6 +182,7 @@ export default function SignUp() {
                   sx={{ mt: 3 }}>
                   <Grid container spacing={2}>
                     <Grid item xs={12} sm={12}>
+                      <p style={{ color: "red" }}>{formErrors?.user_name}</p>
                       <TextField
                         style={{
                           backgroundColor: "#Dce8ec",
@@ -143,10 +196,13 @@ export default function SignUp() {
                         id="user_name"
                         label="User Name"
                         autoFocus
+                        onChange={handleChange}
                       />
                     </Grid>
 
                     <Grid item xs={12}>
+                      <p style={{ color: "red" }}>{formErrors?.user_email}</p>
+
                       <TextField
                         required
                         fullWidth
@@ -159,9 +215,12 @@ export default function SignUp() {
                         label="Email Address"
                         name="user_email"
                         autoComplete="user_email"
+                        onChange={handleChange}
                       />
                     </Grid>
                     <Grid item xs={12}>
+                      <p style={{ color: "red" }}>{formErrors?.password}</p>
+
                       <TextField
                         required
                         fullWidth
@@ -175,9 +234,14 @@ export default function SignUp() {
                         type="password"
                         id="password"
                         autoComplete="new-password"
+                        onChange={handleChange}
                       />
                     </Grid>
                     <Grid item xs={12}>
+                      <p style={{ color: "red" }}>
+                        {formErrors?.password_confirmation}
+                      </p>
+
                       <TextField
                         required
                         fullWidth
@@ -191,10 +255,13 @@ export default function SignUp() {
                         type="password"
                         id="password_confirmation"
                         autoComplete="new-password"
+                        onChange={handleChange}
                       />
                     </Grid>
 
                     <Grid item xs={12}>
+                      <p style={{ color: "red" }}>{formErrors?.user_role}</p>
+
                       <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">
                           Register As
@@ -208,6 +275,7 @@ export default function SignUp() {
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           name="user_role"
+                          onChange={handleChange}
                           label="Register As">
                           <MenuItem value={"Tourist"}>Tourist</MenuItem>
                           <MenuItem value={"Advisor"}>Tour Advisor</MenuItem>

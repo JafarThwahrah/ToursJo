@@ -92,7 +92,7 @@ function Header() {
                   <NavLink
                     to={`/userprofile/${loginData?.data.user.id}`}
                     className="nav-link">
-                    Profile
+                    My Profile
                   </NavLink>
                 )}
               </li>
