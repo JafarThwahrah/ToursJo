@@ -295,7 +295,7 @@ export default function SignIn() {
                       style={{
                         backgroundColor: "#4285f4",
                         color: "white",
-                        width: "220px",
+                        // width: "120px",
                         height: "40px",
                         borderRadius: "5px",
                         fontSize: "16px",

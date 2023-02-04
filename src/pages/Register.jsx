@@ -131,6 +131,11 @@ export default function SignUp() {
                   <Grid container spacing={2}>
                     <Grid item xs={12} sm={12}>
                       <TextField
+                        style={{
+                          backgroundColor: "#Dce8ec",
+                          borderRadius: "5px",
+                          opacity: "70%",
+                        }}
                         autoComplete="given-name"
                         name="user_name"
                         required
@@ -145,6 +150,11 @@ export default function SignUp() {
                       <TextField
                         required
                         fullWidth
+                        style={{
+                          backgroundColor: "#Dce8ec",
+                          borderRadius: "5px",
+                          opacity: "70%",
+                        }}
                         id="user_email"
                         label="Email Address"
                         name="user_email"
@@ -155,6 +165,11 @@ export default function SignUp() {
                       <TextField
                         required
                         fullWidth
+                        style={{
+                          backgroundColor: "#Dce8ec",
+                          borderRadius: "5px",
+                          opacity: "70%",
+                        }}
                         name="password"
                         label="Password"
                         type="password"
@@ -166,6 +181,11 @@ export default function SignUp() {
                       <TextField
                         required
                         fullWidth
+                        style={{
+                          backgroundColor: "#Dce8ec",
+                          borderRadius: "5px",
+                          opacity: "70%",
+                        }}
                         name="password_confirmation"
                         label="Confirm Password"
                         type="password"
@@ -180,6 +200,11 @@ export default function SignUp() {
                           Register As
                         </InputLabel>
                         <Select
+                          style={{
+                            backgroundColor: "#Dce8ec",
+                            borderRadius: "5px",
+                            opacity: "70%",
+                          }}
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           name="user_role"
@@ -193,6 +218,11 @@ export default function SignUp() {
                       <label htmlFor="user_image">Personal Photo</label>
                       <TextField
                         required
+                        style={{
+                          backgroundColor: "#Dce8ec",
+                          borderRadius: "5px",
+                          opacity: "70%",
+                        }}
                         fullWidth
                         name="user_image"
                         type="file"
